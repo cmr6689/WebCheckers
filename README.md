@@ -7,7 +7,7 @@ a web micro-framework.
 ## Team
 
 - Cameron Riu
-- MEMBER2
+- Matthew Klein
 - MEMBER3
 - MEMBER4
 
