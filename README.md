@@ -8,7 +8,7 @@ a web micro-framework.
 
 - Cameron Riu
 - Matthew Klein
-- MEMBER3
+- Evan Price
 - MEMBER4
 
 
