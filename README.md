@@ -9,7 +9,7 @@ a web micro-framework.
 - Cameron Riu
 - Matthew Klein
 - Evan Price
-- MEMBER4
+- Ronald Torrelli
 
 
 ## Prerequisites
