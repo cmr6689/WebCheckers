@@ -17,6 +17,14 @@
 
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
+    <p>
+        <label>User ID: </label>
+        <input type = "text"
+            id = "myText"
+            value = "" />
+        <input type="button"
+            value="Submit">
+    </p>
 
 
   </div>
