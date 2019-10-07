@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message WELCOME_MSG = Message.info("Welcome to the sign in page I think");
 
   private final TemplateEngine templateEngine;
 
@@ -29,7 +29,7 @@ public class GetSignInRoute implements Route {
   public GetSignInRoute(final TemplateEngine templateEngine) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
-    LOG.config("GetHomeRoute is initialized.");
+    LOG.config("GetSignInRoute is initialized.");
   }
 
   /**
@@ -45,15 +45,15 @@ public class GetSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.finer("GetHomeRoute is invoked.");
+    LOG.finer("GetSignInRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Welcome!");
+    vm.put("title", "Sign In");
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+    return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
   }
 }
