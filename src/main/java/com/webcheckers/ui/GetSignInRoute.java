@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the sign in page I think");
+  private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
 
   private final TemplateEngine templateEngine;
 

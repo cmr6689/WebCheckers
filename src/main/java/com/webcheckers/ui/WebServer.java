@@ -141,6 +141,7 @@ public class WebServer {
     get(HOME_URL, new GetHomeRoute(templateEngine));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
 
+
     //
     LOG.config("WebServer is initialized.");
   }
