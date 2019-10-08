@@ -49,6 +49,7 @@ public class GetHomeRoute implements Route {
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
     //
+    System.err.println("I was here");
 
     final Session httpSession = request.session();
 
@@ -58,12 +59,19 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
+    final PlayerLobby playerLobby;
     if(httpSession.attribute("playerServices") == null){
-      final PlayerLobby playerLobby = new PlayerLobby();
+      playerLobby = new PlayerLobby();
       httpSession.attribute("playerServices", playerLobby);
+    }else{
+      playerLobby = httpSession.attribute("playerServices");
+      Message message = Message.info(playerLobby.players.toString());
+      //vm.put("message",message);
     }
 
-    // render the View
+    vm.put("playerList", playerLobby.players);
+
+    // render the Vie
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
 }

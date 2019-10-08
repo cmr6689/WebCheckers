@@ -57,6 +57,10 @@ public class PostSignInRoute implements Route {
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
 
+    Session httpSession = request.session();
+    final PlayerLobby playerLobby = httpSession.attribute("playerServices");
+    playerLobby.addPlayer(player);
+
     if(playerLobby.addPlayer(player) == 0){
       vm.put("message", INVALID_NAME);
     }
