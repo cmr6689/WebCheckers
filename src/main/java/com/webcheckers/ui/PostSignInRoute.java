@@ -72,7 +72,13 @@ public class PostSignInRoute implements Route {
     vm.put("message", WELCOME_MSG);
 
     vm.put("currentUser", request.queryParams("id"));
-    if (playerLobby.players.size() > 1) vm.put("playerList", playerLobby.players);
+    if (playerLobby.players.size() > 1) {
+      ArrayList<String> playerNames = new ArrayList<>();
+      for (Player player1 : playerLobby.players) {
+        playerNames.add(player1.getName());
+      }
+      vm.put("playerList", playerNames);
+    }
     
 
     // render the View
