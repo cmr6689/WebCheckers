@@ -67,7 +67,9 @@ public class GetHomeRoute implements Route {
       playerLobby = httpSession.attribute("playerServices");
       Message message = Message.info(playerLobby.players.toString());
       //vm.put("message",message);
+      vm.put("currentUser", playerLobby.getPlayers().get(0));
     }
+
 
     vm.put("playerList", playerLobby.players);
 
