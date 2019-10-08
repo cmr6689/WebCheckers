@@ -24,13 +24,15 @@ public class PostSignInRoute implements Route {
 
   private final TemplateEngine templateEngine;
 
+  public WebServer webServer;
+
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public PostSignInRoute(final TemplateEngine templateEngine) {
+  public PostSignInRoute(final TemplateEngine templateEngine, WebServer webServer) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     LOG.config("PostSignInRoute is initialized.");
@@ -53,16 +55,21 @@ public class PostSignInRoute implements Route {
     System.out.println(request.queryParams("id"));
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
-    PlayerLobby lobby = new PlayerLobby();
-    ArrayList<Player> lobbyList = lobby.getPlayers();
+
+//    PlayerLobby lobby = new PlayerLobby();
+//    ArrayList<Player> lobbyList = lobby.getPlayers();
+
+
     //Check to see if another player has the same name
+
+    /*
     for(Player person : lobbyList){
       if(!player.getName().equals(person.getName())){
         lobbyList.add(player);
       }else{
         vm.put("message",INVALID_NAME);
       }
-    }
+    }*/
 
     LOG.finer("PostSignInRoute is invoked.");
     //
