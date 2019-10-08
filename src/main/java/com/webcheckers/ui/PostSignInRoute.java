@@ -57,22 +57,11 @@ public class PostSignInRoute implements Route {
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
 
-    playerLobby.addPlayer(player);
-
-//    PlayerLobby lobby = new PlayerLobby();
-//    ArrayList<Player> lobbyList = lobby.getPlayers();
-
+    if(playerLobby.addPlayer(player) == 0){
+      vm.put("message", INVALID_NAME);
+    }
 
     //Check to see if another player has the same name
-
-    /*
-    for(Player person : lobbyList){
-      if(!player.getName().equals(person.getName())){
-        lobbyList.add(player);
-      }else{
-        vm.put("message",INVALID_NAME);
-      }
-    }*/
 
     LOG.finer("PostSignInRoute is invoked.");
     //
