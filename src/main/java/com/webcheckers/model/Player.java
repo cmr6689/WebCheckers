@@ -8,10 +8,17 @@ package com.webcheckers.model;
 
 public class Player {
 
+    private enum Color{
+        RED,WHITE;
+    }
+
     private String name;
+    private boolean inGame;
+    private Color playerColor;
 
     public Player(String name){
         this.name = name;
+        this.playerColor = null;
     }
 
     /**
@@ -22,11 +29,33 @@ public class Player {
     }
 
     /**
+     * @return The player's color
+     */
+    public Color getColor(){
+        return playerColor;
+    }
+
+    /**
+     * @return If the player is in a game
+     */
+    public boolean getInGame(){
+        return inGame;
+    }
+
+    /**
      * set a new player's unique name
      * @param name
      */
     public void setName(String name){
         this.name = name;
+    }
+
+    /**
+     * set a player's color once a game is started
+     * @param color
+     */
+    public void setColor(Color color){
+        this.playerColor = color;
     }
 
     /**
