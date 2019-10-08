@@ -13,8 +13,8 @@ import java.util.logging.Logger;
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
-public class GetPostSignInRoute implements Route {
-  private static final Logger LOG = Logger.getLogger(GetPostSignInRoute.class.getName());
+public class PostSignInRoute implements Route {
+  private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
 
@@ -26,7 +26,7 @@ public class GetPostSignInRoute implements Route {
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetPostSignInRoute(final TemplateEngine templateEngine) {
+  public PostSignInRoute(final TemplateEngine templateEngine) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     LOG.config("GetSignInRoute is initialized.");
