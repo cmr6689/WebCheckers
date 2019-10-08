@@ -13,10 +13,10 @@ public class Space {
     //the color of the space
     private static color color;
 
-    public Space(Piece piece, int cellIdx, color color){
+    public Space(Piece piece, int cellIdx){
         this.piece = piece;
         this.cellIdx = cellIdx;
-        this.color = color;
+        ;this.color = color;
     }
 
     /**
