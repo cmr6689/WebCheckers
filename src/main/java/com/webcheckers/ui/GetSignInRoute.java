@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+import static spark.route.HttpMethod.post;
+
 /**
  * The UI Controller to GET the Home page.
  *

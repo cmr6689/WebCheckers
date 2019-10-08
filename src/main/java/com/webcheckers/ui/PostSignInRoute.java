@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -16,7 +17,7 @@ import java.util.logging.Logger;
 public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
+  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
   private final TemplateEngine templateEngine;
 
@@ -29,7 +30,7 @@ public class PostSignInRoute implements Route {
   public PostSignInRoute(final TemplateEngine templateEngine) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
-    LOG.config("GetSignInRoute is initialized.");
+    LOG.config("PostSignInRoute is initialized.");
   }
 
   /**
@@ -45,16 +46,20 @@ public class PostSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.finer("GetSignInRoute is invoked.");
+    System.out.println(request.queryParams("id"));
+    Player player = new Player(request.queryParams("id"));
+    LOG.finer("PostSignInRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
-    vm.put("title", "Sign In");
+    vm.put("title", "Welcome!");
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
+
+    vm.put("currentUser", request.queryParams("id"));
     
 
     // render the View
-    return templateEngine.render(new ModelAndView(vm , "signin.ftl"));
+    return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
 }

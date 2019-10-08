@@ -20,11 +20,13 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
-    <!-- TODO: future content on the Home:
-            to start games,
-            spectating active games,
-            or replay archived games
-    -->
+    <#if currentUser??>
+        <h2>Players Online</h2>
+        <ul>
+            <li>There are no other players online.</li>
+        </ul>
+    </#if>
+
 
   </div>
 

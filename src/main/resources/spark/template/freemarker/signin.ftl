@@ -18,12 +18,10 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
     <p>
-        <label>User ID: </label>
-        <input type = "text"
-            id = "myText"
-            value = "" />
-        <input type="button"
-            value="Submit">
+        <form action="/signin" method="post">
+          User ID: <input type="text" name="id">
+          <input type="submit" value="Submit">
+        </form>
     </p>
 
 
