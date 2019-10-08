@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.application.PlayerLobby;
 import spark.TemplateEngine;
 
 
@@ -44,6 +45,13 @@ import spark.TemplateEngine;
  */
 public class WebServer {
   private static final Logger LOG = Logger.getLogger(WebServer.class.getName());
+
+
+  private PlayerLobby playerLobby = new PlayerLobby();
+
+  public PlayerLobby getPlayerLobby() {
+    return playerLobby;
+  }
 
   //
   // Constants
