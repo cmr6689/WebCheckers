@@ -6,11 +6,9 @@ import java.util.ArrayList;
 
 public class PlayerLobby {
 
-    public ArrayList<Player> players;
+    public ArrayList<Player> players = new ArrayList<>();
 
-    public PlayerLobby(ArrayList<Player> players) {
-        this.players = players;
-    }
+    public PlayerLobby() {}
 
     public int addPlayer(Player newPlayer) {
         for (Player player : players) {
