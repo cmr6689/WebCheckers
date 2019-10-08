@@ -62,7 +62,8 @@ public class PostSignInRoute implements Route {
     playerLobby.addPlayer(player);
 
     if(playerLobby.addPlayer(player) == 0){
-      vm.put("message", INVALID_NAME);
+        response.redirect("signin");
+        vm.put("message", INVALID_NAME);
     }
 
     //Check to see if another player has the same name

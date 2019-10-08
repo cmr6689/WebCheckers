@@ -12,9 +12,7 @@
 
   <h1>Web Checkers Sign In </h1>
 
-
   <div class="body">
-
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
     <p>
