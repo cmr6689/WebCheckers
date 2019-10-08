@@ -20,6 +20,7 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
 
+
     <#if currentUser??>
         <h2>Players Online</h2>
         <#if playerList??>
