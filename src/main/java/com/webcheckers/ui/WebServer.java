@@ -151,7 +151,7 @@ public class WebServer {
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
 
     //
-    LOG.config("WebServer is initialized.");
+    //LOG.config("WebServer is initialized.");
   }
 
 }
