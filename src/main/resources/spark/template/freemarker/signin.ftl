@@ -18,7 +18,7 @@
     <!-- Provide a message to the user, if supplied. -->
     <#include "message.ftl" />
     <p>
-        <form action="/signin" method="post">
+        <form action="/" method="post">
           User ID: <input type="text" name="id">
           <input type="submit" value="Submit">
         </form>
