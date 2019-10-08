@@ -22,9 +22,15 @@
 
     <#if currentUser??>
         <h2>Players Online</h2>
-        <ul>
-            <li>There are no other players online.</li>
-        </ul>
+        <#if playerList??>
+            <#list playerList as player>
+                <tr><td>${player}
+            </#list>
+        <#else>
+            <ul>
+                <li>There are no other players online.</li>
+            </ul>
+        </#if>
     </#if>
 
 
