@@ -19,4 +19,8 @@ public class PlayerLobby {
         players.add(newPlayer);
         return 1;
     }
+
+    public ArrayList<Player> getPlayers(){
+        return this.players;
+    }
 }

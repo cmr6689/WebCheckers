@@ -1,9 +1,11 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -18,6 +20,7 @@ public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  private static final Message INVALID_NAME = Message.info("The name you have chosen is already taken");
 
   private final TemplateEngine templateEngine;
 
@@ -46,11 +49,24 @@ public class PostSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
+    Map<String, Object> vm = new HashMap<>();
     System.out.println(request.queryParams("id"));
+    //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
+    PlayerLobby lobby = new PlayerLobby();
+    ArrayList<Player> lobbyList = lobby.getPlayers();
+    //Check to see if another player has the same name
+    for(Player person : lobbyList){
+      if(!player.getName().equals(person.getName())){
+        lobbyList.add(player);
+      }else{
+        vm.put("message",INVALID_NAME);
+      }
+    }
+
     LOG.finer("PostSignInRoute is invoked.");
     //
-    Map<String, Object> vm = new HashMap<>();
+
     vm.put("title", "Welcome!");
 
     // display a user message in the Home page
