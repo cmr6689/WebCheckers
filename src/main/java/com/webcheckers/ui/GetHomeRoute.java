@@ -1,11 +1,13 @@
 package com.webcheckers.ui;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.*;
 
 import com.webcheckers.util.Message;
@@ -49,7 +51,6 @@ public class GetHomeRoute implements Route {
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
     //
-    System.err.println("I was here");
 
     final Session httpSession = request.session();
 
@@ -65,13 +66,27 @@ public class GetHomeRoute implements Route {
       httpSession.attribute("playerServices", playerLobby);
     }else{
       playerLobby = httpSession.attribute("playerServices");
-      Message message = Message.info(playerLobby.players.toString());
+
+      //Message message = Message.info(playerLobby.players.toString());
       //vm.put("message",message);
-      vm.put("currentUser", playerLobby.getPlayers().get(0));
+
+    }
+
+    if(playerLobby.getPlayers().size() != 0)
+      if(vm.get("currentUser") == null)
+        vm.put("currentUser", playerLobby.getPlayers().get(playerLobby.getPlayers().size() - 1).getName());
+
+    if (playerLobby.players.size() > 1) {
+      ArrayList<String> playerNames = new ArrayList<>();
+      for (Player player1 : playerLobby.players) {
+        playerNames.add(player1.getName());
+      }
+      vm.put("playerList", playerNames);
     }
 
 
-    vm.put("playerList", playerLobby.players);
+
+    //vm.put("playerList", playerLobby.players);
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

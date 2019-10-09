@@ -56,6 +56,7 @@ public class PostSignInRoute implements Route {
     System.out.println(request.queryParams("id"));
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
+
     Session httpSession = request.session();
     final PlayerLobby playerLobby = httpSession.attribute("playerServices");
     playerLobby.addPlayer(player);
@@ -70,6 +71,8 @@ public class PostSignInRoute implements Route {
     //
 
     vm.put("title", "Welcome!");
+
+
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
