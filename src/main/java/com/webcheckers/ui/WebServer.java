@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import spark.TemplateEngine;
 
@@ -49,6 +50,7 @@ public class WebServer {
 
 
   private PlayerLobby playerLobby = new PlayerLobby();
+  private BoardView boardView = new BoardView();
 
   public PlayerLobby getPlayerLobby() {
     return playerLobby;
@@ -150,7 +152,7 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new GetHomeRoute(templateEngine, playerLobby));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
-    post(GAME_URL, new GetGameRoute(templateEngine));
+    post(GAME_URL, new GetGameRoute(templateEngine, boardView));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");

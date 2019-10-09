@@ -21,17 +21,18 @@ public class GetGameRoute implements Route{
     private final TemplateEngine templateEngine;
 
     private PlayerLobby lobby = new PlayerLobby();
-
+    private BoardView boardView;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameRoute(final TemplateEngine templateEngine) {
+    public GetGameRoute(final TemplateEngine templateEngine, BoardView boardView) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         LOG.config("GetGameRoute is initialized.");
+        this.boardView = boardView;
     }
 
     /**
@@ -61,7 +62,7 @@ public class GetGameRoute implements Route{
         vm.put("redPlayer", new Player("Me").getName());
         vm.put("whitePlayer", opponent.getName());
         vm.put("activeColor", "RED");
-        vm.put("board", new BoardView());
+        vm.put("board", boardView);
 
         // render the View
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
