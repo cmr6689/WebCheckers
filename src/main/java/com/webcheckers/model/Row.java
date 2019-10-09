@@ -11,7 +11,7 @@ public class Row {
     public Row(int index){
         this.index = index;
         spacesArray = new Space[8];
-        for(int i = 0; i <= 7; i++){
+        for(int i = 0; i < 8; i++){
             Space space = new Space(null,i);
             spacesArray[i] = space;
         }
