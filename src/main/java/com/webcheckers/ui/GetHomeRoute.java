@@ -68,14 +68,6 @@ public class GetHomeRoute implements Route {
       //Message message = Message.info(playerLobby.players.toString());
       //vm.put("message",message);
 
-    //TODO - this is where it refreshes and makes every user the newest
-    if(playerLobby.getPlayers().size() != 0) {
-      if (vm.get("currentUser.name") == null) {
-        System.out.println("Current username = " + vm.get("currentUser.name"));
-
-      }
-    }
-
     Player player = httpSession.attribute("player");
     if(player != null)
       vm.put("currentUser", player.getName());
