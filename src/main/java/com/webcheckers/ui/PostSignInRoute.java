@@ -57,22 +57,17 @@ public class PostSignInRoute implements Route {
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
 
+    //Check to see if another player has the same name
     Session httpSession = request.session();
-    final PlayerLobby playerLobby = httpSession.attribute("playerServices");
-    if(playerLobby.addPlayer(player) == 0){
+    if(!playerLobby.addPlayer(player)){
       response.redirect("/signin");
     } else {
-      playerLobby.addPlayer(player);
+      httpSession.attribute("player", player);
     }
-
-    //Check to see if another player has the same name
 
     LOG.finer("PostSignInRoute is invoked.");
     //
-
     vm.put("title", "Welcome!");
-
-
 
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
