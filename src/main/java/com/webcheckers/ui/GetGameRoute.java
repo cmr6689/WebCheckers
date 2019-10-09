@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.*;
 
 import com.webcheckers.util.Message;
@@ -51,11 +52,11 @@ public class GetGameRoute implements Route{
 
         //variables for game
         vm.put("gameID", lobby.getPlayers().get(0).getName());
-        vm.put("currentUser.name",lobby.getPlayers().get(0).getName());
+        vm.put("currentUser",lobby.getPlayers().get(0).getName());
         vm.put("viewMode", "TEMP");
         vm.put("modeOptionsAsJSON!", "TEMP");
-        vm.put("redPlayer.name", lobby.getPlayers().get(0).getName());
-        vm.put("whitePlayer.name", lobby.getPlayers().get(0).getName());
+        vm.put("redPlayer", lobby.getPlayers().get(0).getName());
+        vm.put("whitePlayer", lobby.getPlayers().get(0).getName());
         vm.put("activeColor", "TEMP");
 
         // render the View

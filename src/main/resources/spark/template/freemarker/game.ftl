@@ -5,6 +5,9 @@
   <link rel="stylesheet" href="/css/style.css">
   <link rel="stylesheet" href="/css/game.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <#assign currentUser = {"name":currentUser}>
+  <#assign redPlayer = {"name":redPlayer}>
+  <#assign whitePlayer = {"name":whitePlayer}>
   <script>
   window.gameData = {
     "gameID" : ${gameID!'null'},
@@ -21,7 +24,7 @@
   <div class="page">
     <h1>Web Checkers | Game View</h1>
     
-    <#include "nav-bar.ftl" />
+    <#include "nav-bar2.ftl" />
 
     <div class="body">
 
