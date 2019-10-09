@@ -10,14 +10,14 @@ public class PlayerLobby {
 
     public PlayerLobby() {}
 
-    public int addPlayer(Player newPlayer) {
+    public boolean addPlayer(Player newPlayer) {
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
-                return 0;
+                return false;
             }
         }
         players.add(newPlayer);
-        return 1;
+        return true;
     }
 
     public ArrayList<Player> getPlayers(){

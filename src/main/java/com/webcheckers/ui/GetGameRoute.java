@@ -51,13 +51,14 @@ public class GetGameRoute implements Route{
         vm.put("message", GAME_MSG);
 
         //variables for game
-        vm.put("gameID", lobby.getPlayers().get(0).getName());
-        vm.put("currentUser",lobby.getPlayers().get(0).getName());
-        vm.put("viewMode", "TEMP");
-        vm.put("modeOptionsAsJSON!", "TEMP");
-        vm.put("redPlayer", lobby.getPlayers().get(0).getName());
-        vm.put("whitePlayer", lobby.getPlayers().get(0).getName());
-        vm.put("activeColor", "TEMP");
+        vm.put("gameID", "name");
+        vm.put("currentUser", new Player("name"));
+        vm.put("viewMode", "PLAY");
+        vm.put("modeOptionsAsJSON!", null);
+        vm.put("redPlayer", new Player("R"));
+        vm.put("whitePlayer", new Player("White"));
+        vm.put("activeColor", "RED");
+        vm.put("board", null);
 
         // render the View
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
