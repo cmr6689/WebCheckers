@@ -153,6 +153,7 @@ public class WebServer {
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");
+      playerLobby.setInvalidName(false);
       return null;
     });
 

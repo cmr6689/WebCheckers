@@ -65,6 +65,7 @@ public class GetSignInRoute implements Route {
       vm.put("message", WELCOME_MSG);
     } else{
       vm.put("message", INVALID_NAME);
+      playerlobby.setInvalidName(false);
     }
 
     // render the View
