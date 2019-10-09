@@ -6,6 +6,7 @@ import java.util.Objects;
 import java.util.logging.Logger;
 
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -58,7 +59,7 @@ public class GetGameRoute implements Route{
         vm.put("redPlayer", new Player("R"));
         vm.put("whitePlayer", new Player("White"));
         vm.put("activeColor", "RED");
-        vm.put("board", null);
+        vm.put("board", new BoardView());
 
         // render the View
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));

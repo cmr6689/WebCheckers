@@ -17,7 +17,7 @@ public class Space {
     public Space(Piece piece, int cellIdx){
         this.piece = piece;
         this.cellIdx = cellIdx;
-        ;this.color = color;
+        this.color = color;
     }
 
     /**
