@@ -151,7 +151,7 @@ public class WebServer {
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
     get(GAME_URL, new GetGameRoute(templateEngine));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
-    post("/signout", new GetHomeRoute(templateEngine));
+    post("/signout", new PostSignOutRoute(templateEngine));
 
     //
     //LOG.config("WebServer is initialized.");
