@@ -72,13 +72,18 @@ public class GetHomeRoute implements Route {
 
     }
 
-    if(playerLobby.getPlayers().size() != 0)
-      if(vm.get("currentUser") == null)
+    //TODO - this is where it refreshes and makes every user the newest
+    if(playerLobby.getPlayers().size() != 0) {
+      if (vm.get("currentUser.name") == null) {
+        System.out.println("Current username = " + vm.get("currentUser.name"));
         vm.put("currentUser", playerLobby.getPlayers().get(playerLobby.getPlayers().size() - 1).getName());
+      }
+    }
 
-    if (playerLobby.players.size() > 1) {
+
+    if (playerLobby.getPlayers().size() > 1) {
       ArrayList<String> playerNames = new ArrayList<>();
-      for (Player player1 : playerLobby.players) {
+      for (Player player1 : playerLobby.getPlayers()) {
         playerNames.add(player1.getName());
       }
       vm.put("playerList", playerNames);

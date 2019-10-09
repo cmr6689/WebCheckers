@@ -59,10 +59,10 @@ public class PostSignInRoute implements Route {
 
     Session httpSession = request.session();
     final PlayerLobby playerLobby = httpSession.attribute("playerServices");
-    playerLobby.addPlayer(player);
-
-    if(playerLobby.addPlayer(player) == 1){
-        response.redirect("signin");
+    if(playerLobby.addPlayer(player) == 0){
+      response.redirect("/signin");
+    } else {
+      playerLobby.addPlayer(player);
     }
 
     //Check to see if another player has the same name
