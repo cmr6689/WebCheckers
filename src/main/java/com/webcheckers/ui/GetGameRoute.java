@@ -16,7 +16,7 @@ public class GetGameRoute implements Route{
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.GetGameRoute.class.getName());
 
-    private static final Message GAME_MSG = Message.info(String.format("You are playing a game of Webcheckers with %s", "name"));
+    private static final Message GAME_MSG = Message.info(String.format("You are playing a game of Webcheckers with %s", "player"));
 
     private final TemplateEngine templateEngine;
 
@@ -52,7 +52,6 @@ public class GetGameRoute implements Route{
         vm.put("message", GAME_MSG);
 
         //variables for game
-        vm.put("gameID", "name");
         vm.put("currentUser", new Player("name").getName());
         vm.put("viewMode", "PLAY");
         vm.put("modeOptionsAsJSON!", null);
