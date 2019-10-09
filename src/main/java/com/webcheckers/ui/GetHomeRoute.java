@@ -72,7 +72,7 @@ public class GetHomeRoute implements Route {
     if(player != null)
       vm.put("currentUser", player.getName());
 
-    if (playerLobby.getPlayers().size() > 1) {
+    if (playerLobby.getPlayers().size() > 0) {
       ArrayList<String> playerNames = new ArrayList<>();
       for (Player player1 : playerLobby.getPlayers()) {
         playerNames.add(player1.getName());
