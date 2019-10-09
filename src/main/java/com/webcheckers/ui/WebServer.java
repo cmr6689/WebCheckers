@@ -8,6 +8,7 @@ import java.util.logging.Logger;
 import com.google.gson.Gson;
 
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import spark.TemplateEngine;
 
 
@@ -153,6 +154,8 @@ public class WebServer {
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");
+      Player player = new Player(request.queryParams("signout"));
+      playerLobby.getPlayers().remove(player);
       playerLobby.setInvalidName(false);
       return null;
     });
