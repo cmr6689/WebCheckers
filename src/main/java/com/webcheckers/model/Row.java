@@ -10,7 +10,7 @@ public class Row implements Iterable{
     //integer from 0 to 7
     private int index;
 
-    private List<Space> spaces = new ArrayList<Space>();
+    private ArrayList<Space> spaces = new ArrayList<Space>();
 
     public Row(int index){
         this.index = index;
