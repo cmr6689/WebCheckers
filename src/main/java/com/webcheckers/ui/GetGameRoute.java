@@ -43,6 +43,9 @@ public class GetGameRoute implements Route{
      */
     @Override
     public Object handle(Request request, Response response){
+
+        Player opponent = new Player(request.queryParams("opponent"));
+
         LOG.finer("GetGameRoute is invoked.");
         //
         Map<String, Object> vm = new HashMap<>();
@@ -52,11 +55,11 @@ public class GetGameRoute implements Route{
         vm.put("message", GAME_MSG);
 
         //variables for game
-        vm.put("currentUser", new Player("name").getName());
+        vm.put("currentUser", new Player("Me").getName());
         vm.put("viewMode", "PLAY");
         vm.put("modeOptionsAsJSON!", null);
-        vm.put("redPlayer", new Player("Red").getName());
-        vm.put("whitePlayer", new Player("White").getName());
+        vm.put("redPlayer", new Player("Me").getName());
+        vm.put("whitePlayer", opponent.getName());
         vm.put("activeColor", "RED");
         vm.put("board", new BoardView());
 

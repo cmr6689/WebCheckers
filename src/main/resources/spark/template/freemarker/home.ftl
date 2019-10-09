@@ -28,7 +28,7 @@
                 <#list playerList as player>
                     <#if currentUser.name != player>
                         <li><form method="post" action="/game" target="_self">
-                            <input type="submit" value=${player}></form>
+                            <input type="submit" name="opponent" value=${player}></form>
                     </#if>
                 </#list>
             </ul>
