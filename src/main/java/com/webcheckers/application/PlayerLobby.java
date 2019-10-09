@@ -17,12 +17,12 @@ public class PlayerLobby {
     }
 
     public boolean addPlayer(Player newPlayer) {
-        String REGEX = "^[a-zA-Z0-9 ]+$";
+        String REGEX = "\\W";
         Pattern pattern;
         Matcher matcher;
         pattern = Pattern.compile(REGEX);
         matcher = pattern.matcher(newPlayer.getName());
-        if(!matcher.lookingAt()){
+        if(matcher.lookingAt()){
             return false;
         }
         for (Player player : players) {
