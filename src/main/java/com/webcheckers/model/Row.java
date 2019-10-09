@@ -1,20 +1,33 @@
 package com.webcheckers.model;
 
 import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
-public class Row {
+public class Row implements Iterable{
 
     //integer from 0 to 7
     private int index;
-    private Space spacesArray[];
+
+    private List<Space> spaces = new ArrayList<Space>();
 
     public Row(int index){
         this.index = index;
-        spacesArray = new Space[8];
         for(int i = 0; i < 8; i++){
+            //create a new space
             Space space = new Space(null,i);
-            spacesArray[i] = space;
+            //add that space to the ArrayList
+            spaces.add(space);
         }
+    }
+
+    /**
+     * Class needed in order for the iterator to work
+     * @return the iterator of the spaces
+     */
+    public Iterator<Space> iterator() {
+        return this.spaces.iterator();
     }
 
     /**
