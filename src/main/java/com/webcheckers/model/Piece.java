@@ -44,4 +44,12 @@ public class Piece {
     public color getColor(){
         return color;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == this) return true;
+        if (!(obj instanceof Piece)) return false;
+        final Piece that = (Piece) obj;
+        return this.equals(that);
+    }
 }
