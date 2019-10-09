@@ -147,7 +147,7 @@ public class WebServer {
     //// code clean; using small classes.
 
     // Shows the Checkers game Home page.
-    get(HOME_URL, new GetHomeRoute(templateEngine));
+    get(HOME_URL, new GetHomeRoute(templateEngine, playerLobby));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine));
     get(GAME_URL, new GetGameRoute(templateEngine));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));

@@ -24,16 +24,20 @@ public class GetHomeRoute implements Route {
 
   private final TemplateEngine templateEngine;
 
+  private final PlayerLobby playerLobby;
+
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetHomeRoute(final TemplateEngine templateEngine) {
+  public GetHomeRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     LOG.config("GetHomeRoute is initialized.");
+
+    this.playerLobby = playerLobby;
   }
 
   /**
@@ -60,26 +64,18 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
-    final PlayerLobby playerLobby;
-    if(httpSession.attribute("playerServices") == null){
-      playerLobby = new PlayerLobby();
-      httpSession.attribute("playerServices", playerLobby);
-    }else{
-      playerLobby = httpSession.attribute("playerServices");
-
-      //Message message = Message.info(playerLobby.players.toString());
-      //vm.put("message",message);
-
-    }
 
     //TODO - this is where it refreshes and makes every user the newest
     if(playerLobby.getPlayers().size() != 0) {
       if (vm.get("currentUser.name") == null) {
         System.out.println("Current username = " + vm.get("currentUser.name"));
-        vm.put("currentUser", playerLobby.getPlayers().get(playerLobby.getPlayers().size() - 1).getName());
+
       }
     }
 
+    Player player = httpSession.attribute("player");
+    if(player != null)
+      vm.put("currentUser", player.getName());
 
     if (playerLobby.getPlayers().size() > 1) {
       ArrayList<String> playerNames = new ArrayList<>();
