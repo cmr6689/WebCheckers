@@ -3,6 +3,7 @@ package com.webcheckers.application;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PlayerLobby {
@@ -16,7 +17,12 @@ public class PlayerLobby {
     }
 
     public boolean addPlayer(Player newPlayer) {
-        if(!Pattern.matches("[a-zA-Z0-9 ]", newPlayer.getName())){
+        String REGEX = "^[a-zA-Z0-9 ]+$";
+        Pattern pattern;
+        Matcher matcher;
+        pattern = Pattern.compile(REGEX);
+        matcher = pattern.matcher(newPlayer.getName());
+        if(!matcher.lookingAt()){
             return false;
         }
         for (Player player : players) {
