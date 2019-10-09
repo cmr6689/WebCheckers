@@ -17,7 +17,7 @@ public class Space {
     public Space(Piece piece, int cellIdx){
         this.piece = piece;
         this.cellIdx = cellIdx;
-        this.color = color;
+        this.color = Space.color.BLACK;
     }
 
     /**
@@ -33,7 +33,7 @@ public class Space {
      * @return true if the space is a valid location and is Black
      */
     public boolean isValid(){
-        if(this.piece.equals(null) && color.equals(Space.color.BLACK)){
+        if(this.getPiece() == null && color.equals(Space.color.BLACK)){
             return true;
         }
         return false;

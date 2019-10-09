@@ -53,11 +53,11 @@ public class GetGameRoute implements Route{
 
         //variables for game
         vm.put("gameID", "name");
-        vm.put("currentUser", new Player("name"));
+        vm.put("currentUser", new Player("name").getName());
         vm.put("viewMode", "PLAY");
         vm.put("modeOptionsAsJSON!", null);
-        vm.put("redPlayer", new Player("R"));
-        vm.put("whitePlayer", new Player("White"));
+        vm.put("redPlayer", new Player("Red").getName());
+        vm.put("whitePlayer", new Player("White").getName());
         vm.put("activeColor", "RED");
         vm.put("board", new BoardView());
 
