@@ -7,9 +7,10 @@ import java.util.List;
 
 public class Row implements Iterable{
 
-    //integer from 0 to 7
+    //integer from 0 to 7 indicating the space in the row
     private int index;
 
+    //creates an array list to hold all the spaces in this row
     private ArrayList<Space> spaces = new ArrayList<Space>();
 
     public Row(int index){
