@@ -1,5 +1,7 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -23,7 +25,7 @@ public class GetSignInRoute implements Route {
 
   private final TemplateEngine templateEngine;
 
-  private int refreshes = 0;
+  private PlayerLobby playerlobby;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -31,10 +33,13 @@ public class GetSignInRoute implements Route {
    * @param templateEngine
    *   the HTML template rendering engine
    */
-  public GetSignInRoute(final TemplateEngine templateEngine) {
+  public GetSignInRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
     //
     LOG.config("GetSignInRoute is initialized.");
+
+    this.playerlobby = playerLobby;
+    playerLobby.setInvalidName(false);
   }
 
   /**
@@ -56,12 +61,10 @@ public class GetSignInRoute implements Route {
     vm.put("title", "Sign In");
 
     // display a user message in the Home page
-    if (refreshes < 1) {
+    if (!playerlobby.getInvalidName()) {
       vm.put("message", WELCOME_MSG);
-      refreshes++;
     } else{
       vm.put("message", INVALID_NAME);
-      refreshes++;
     }
 
     // render the View

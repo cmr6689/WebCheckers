@@ -6,9 +6,13 @@ import java.util.ArrayList;
 
 public class PlayerLobby {
 
-    public ArrayList<Player> players = new ArrayList<>();
+    private ArrayList<Player> players = new ArrayList<>();
 
-    public PlayerLobby() {}
+    private boolean invalidName;
+
+    public PlayerLobby() {
+        this.invalidName = false;
+    }
 
     public boolean addPlayer(Player newPlayer) {
         for (Player player : players) {
@@ -18,6 +22,14 @@ public class PlayerLobby {
         }
         players.add(newPlayer);
         return true;
+    }
+
+    public void setInvalidName(boolean invalidName){
+        this.invalidName = invalidName;
+    }
+
+    public boolean getInvalidName(){
+        return invalidName;
     }
 
     public ArrayList<Player> getPlayers(){
