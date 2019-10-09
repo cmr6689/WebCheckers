@@ -64,6 +64,17 @@ public class GetHomeRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
 
+    final PlayerLobby playerLobby;
+    if(httpSession.attribute("playerServices") == null){
+      playerLobby = new PlayerLobby();
+      httpSession.attribute("playerServices", playerLobby);
+    }else{
+      playerLobby = httpSession.attribute("playerServices");
+
+      //Message message = Message.info(playerLobby.players.toString());
+      //vm.put("message",message);
+
+    }
 
     //TODO - this is where it refreshes and makes every user the newest
     if(playerLobby.getPlayers().size() != 0) {
