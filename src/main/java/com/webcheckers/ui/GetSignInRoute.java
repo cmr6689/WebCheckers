@@ -19,8 +19,11 @@ public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
+  private static final Message INVALID_NAME = Message.info("The name you have chosen is already taken");
 
   private final TemplateEngine templateEngine;
+
+  private int refreshes = 0;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -53,7 +56,13 @@ public class GetSignInRoute implements Route {
     vm.put("title", "Sign In");
 
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    if (refreshes < 1) {
+      vm.put("message", WELCOME_MSG);
+      refreshes++;
+    } else{
+      vm.put("message", INVALID_NAME);
+      refreshes++;
+    }
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "signin.ftl"));

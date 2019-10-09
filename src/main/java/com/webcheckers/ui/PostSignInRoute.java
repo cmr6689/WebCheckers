@@ -20,7 +20,7 @@ public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
-  private static final Message INVALID_NAME = Message.info("The name you have chosen is already taken");
+
 
   private final TemplateEngine templateEngine;
 
@@ -56,14 +56,12 @@ public class PostSignInRoute implements Route {
     System.out.println(request.queryParams("id"));
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
-
     Session httpSession = request.session();
     final PlayerLobby playerLobby = httpSession.attribute("playerServices");
     playerLobby.addPlayer(player);
 
-    if(playerLobby.addPlayer(player) == 0){
+    if(playerLobby.addPlayer(player) == 1){
         response.redirect("signin");
-        vm.put("message", INVALID_NAME);
     }
 
     //Check to see if another player has the same name

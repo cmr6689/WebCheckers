@@ -73,7 +73,7 @@ public class GetHomeRoute implements Route {
 
     vm.put("playerList", playerLobby.players);
 
-    // render the Vie
+    // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
   }
 }
