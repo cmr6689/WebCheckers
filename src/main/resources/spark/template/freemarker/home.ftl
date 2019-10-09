@@ -40,7 +40,7 @@
     <#else>
         <h2>Players Online</h2>
         <#if playerList??>
-            <ul><li>playerList?size</li></ul>
+            <ul><li>${playerList?size}</li></ul>
         <#else>
             <ul><li>There are no other players online.</li></ul>
         </#if>
