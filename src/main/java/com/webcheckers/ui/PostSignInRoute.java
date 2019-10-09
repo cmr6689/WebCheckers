@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 /**
  * The UI Controller to GET the Home page.
@@ -59,12 +60,14 @@ public class PostSignInRoute implements Route {
 
     //Check to see if another player has the same name
     Session httpSession = request.session();
-    if(!playerLobby.addPlayer(player)){
+    if(!playerLobby.addPlayer(player)) {
       response.redirect("/signin");
       playerLobby.setInvalidName(true);
     } else {
       httpSession.attribute("player", player);
     }
+
+
 
     LOG.finer("PostSignInRoute is invoked.");
     //

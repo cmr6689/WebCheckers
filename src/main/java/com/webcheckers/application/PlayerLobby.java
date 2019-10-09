@@ -3,6 +3,7 @@ package com.webcheckers.application;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
+import java.util.regex.Pattern;
 
 public class PlayerLobby {
 
@@ -15,6 +16,9 @@ public class PlayerLobby {
     }
 
     public boolean addPlayer(Player newPlayer) {
+        if(!Pattern.matches("[a-zA-Z0-9 ]", newPlayer.getName())){
+            return false;
+        }
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
                 return false;

@@ -9,6 +9,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 
 import static spark.route.HttpMethod.post;
 
@@ -21,7 +22,7 @@ public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
   private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
-  private static final Message INVALID_NAME = Message.info("The name you have chosen is already taken");
+  private static final Message INVALID_NAME = Message.info("The name you have chosen is already taken or contains non-alphanumeric");
 
   private final TemplateEngine templateEngine;
 
