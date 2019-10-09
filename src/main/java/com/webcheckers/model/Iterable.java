@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
-public interface Iterable {
+import java.util.Iterator;
 
+public interface Iterable<T> {
+    public Iterator<T> iterator();
 }
