@@ -17,7 +17,7 @@ public class Row implements Iterable{
         this.index = index;
         for(int i = 0; i < 8; i++){
             //create a new space
-            Space space = new Space(null,i);
+            Space space = new Space(i);
             //add that space to the ArrayList
             spaces.add(space);
         }

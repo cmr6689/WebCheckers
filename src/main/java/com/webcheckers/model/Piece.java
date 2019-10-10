@@ -1,48 +1,53 @@
 package com.webcheckers.model;
+import com.webcheckers.model.Space.BOARD_COLOR;
 
 public class Piece {
 
     /**
      * enum to represent the type the piece is (if it's a normal piece or a king)
      */
-    private enum type{
+    public enum TYPE{
         SINGLE,KING;
     }
 
     /**
      * represents the color of the piece
      */
-    private enum color{
+    public enum COLOR{
         RED,WHITE;
     }
 
     //the type of the piece
-    private type type;
+    private TYPE type;
     //the color of the piece
-    private color color;
+    private COLOR color;
 
-    /**
-     *
-     * @param type
-     * @param color
-     */
-    public Piece(type type, color color){
-        this.type = type;
-        this.color = color;
+
+    public Piece(COLOR color, TYPE type){
+        this.type= type;
+        this.color= color;
     }
 
     /**
      * @return The type of this piece
      */
-    public type getType(){
+    public TYPE getType(){
         return type;
     }
 
     /**
      * @return The color of this piece
      */
-    public color getColor(){
+    public COLOR getColor(){
         return color;
+    }
+
+    public void setType(TYPE type){
+        this.type = type;
+    }
+
+    public void setColor(COLOR color){
+        this.color = color;
     }
 
     @Override

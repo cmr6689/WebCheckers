@@ -1,9 +1,11 @@
 package com.webcheckers.model;
+import com.webcheckers.model.Piece.TYPE;
+import com.webcheckers.model.Piece.COLOR;
 
 public class Space {
 
     //enum to represent the color of the space
-    private enum color{
+    public enum BOARD_COLOR{
         BLACK,WHITE;
     }
 
@@ -12,12 +14,18 @@ public class Space {
     //the piece on this space
     private Piece piece;
     //the color of the space
-    private static color color;
+    private BOARD_COLOR color;
 
     public Space(Piece piece, int cellIdx){
         this.piece = piece;
         this.cellIdx = cellIdx;
-        this.color = Space.color.BLACK;
+        this.color = Space.BOARD_COLOR.BLACK;
+    }
+
+    public Space(int cellIdx) {
+        this.piece = new Piece(COLOR.WHITE, TYPE.SINGLE);
+        this.cellIdx = cellIdx;
+        this.color = BOARD_COLOR.BLACK;
     }
 
     /**
@@ -33,7 +41,7 @@ public class Space {
      * @return true if the space is a valid location and is Black
      */
     public boolean isValid(){
-        if(this.getPiece() == null && color.equals(Space.color.BLACK)){
+        if(this.getPiece() != null && color.equals(BOARD_COLOR.BLACK)){
             return true;
         }
         return false;
@@ -43,6 +51,6 @@ public class Space {
      * @return The piece that resides on this space, if any
      */
     public Piece getPiece() {
-        return piece;
+        return this.piece;
     }
 }

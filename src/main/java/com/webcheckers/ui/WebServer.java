@@ -63,9 +63,9 @@ public class WebServer {
   /**
    * The URL pattern to request the Home page.
    */
-  public static final String HOME_URL = "/";
-  public static final String SIGN_IN_URL = "/signin";
-  public static final String GAME_URL = "/game";
+  private static final String HOME_URL = "/";
+  private static final String SIGN_IN_URL = "/signin";
+  private static final String GAME_URL = "/game";
 
   //
   // Attributes
