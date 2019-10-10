@@ -13,7 +13,7 @@ public class Player {
     }
 
     private String name;
-    private boolean inGame;
+    private boolean inGame = false;
     private Color playerColor;
 
     public Player(String name){
@@ -40,6 +40,10 @@ public class Player {
      */
     public boolean getInGame(){
         return inGame;
+    }
+
+    public void setInGame(boolean inGame){
+        this.inGame = inGame;
     }
 
     /**
