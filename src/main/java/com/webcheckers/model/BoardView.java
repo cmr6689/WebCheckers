@@ -1,4 +1,5 @@
 package com.webcheckers.model;
+import com.webcheckers.model.Piece.COLOR;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,13 +9,21 @@ public class BoardView implements Iterable{
     private ArrayList<Row> rows = new ArrayList<Row>();
 
     public BoardView(){
-        for(int i = 0; i < 8; i++){
+        for(int i = 0; i < 8; i++) {
             //create a new space
-            Row row = new Row(i);
+            COLOR color;
+            if(i < 4){
+                color = COLOR.WHITE;
+            }else{
+                color = COLOR.RED;
+            }
+            Row row = new Row(i, color, true);
+            if((i % 2) ==0) {
+                row = new Row(i, color, false);
+            }
             //add that space to the ArrayList
             rows.add(row);
         }
-
     }
 
 
