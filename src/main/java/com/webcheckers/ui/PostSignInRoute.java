@@ -54,7 +54,6 @@ public class PostSignInRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> vm = new HashMap<>();
-    System.out.println(request.queryParams("id"));
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
 
