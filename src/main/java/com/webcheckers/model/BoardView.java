@@ -14,7 +14,9 @@ public class BoardView implements Iterable{
             //add that space to the ArrayList
             rows.add(row);
         }
+
     }
+
 
     /**
      * Class needed in order for the iterator to work
