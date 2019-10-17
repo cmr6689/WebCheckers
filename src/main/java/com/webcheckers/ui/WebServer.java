@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
@@ -49,6 +50,7 @@ public class WebServer {
   private static final Logger LOG = Logger.getLogger(WebServer.class.getName());
 
 
+  private GameCenter gameCenter = new GameCenter();
   private PlayerLobby playerLobby = new PlayerLobby();
   private BoardView boardView = new BoardView();
 
@@ -152,7 +154,7 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new GetHomeRoute(templateEngine, playerLobby));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
-    post(GAME_URL, new GetGameRoute(templateEngine, boardView, playerLobby));
+    post(GAME_URL, new GetGameRoute(templateEngine, gameCenter.getBoardView(), playerLobby));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");
