@@ -7,10 +7,14 @@ public class GameCenter {
     private BoardView boardView;
 
     public GameCenter (){
-        boardView = new BoardView();
+        //boardView = new BoardView();
     }
 
     public BoardView getBoardView() {
         return boardView;
+    }
+
+    public void startGame(){
+        boardView = new BoardView();
     }
 }
