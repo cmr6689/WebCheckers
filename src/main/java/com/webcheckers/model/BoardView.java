@@ -17,9 +17,9 @@ public class BoardView implements Iterable{
             }else{
                 color = COLOR.RED;
             }
-            Row row = new Row(i, color, true);
+            Row row = new Row(i, color);
             if((i % 2) ==0) {
-                row = new Row(i, color, false);
+                row = new Row(i, color);
             }
             //add that space to the ArrayList
             rows.add(row);
