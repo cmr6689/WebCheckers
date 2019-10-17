@@ -22,6 +22,10 @@ public class Space {
         this.color = color;
     }
 
+    public void setPiece(Piece piece){
+        this.piece = piece;
+    }
+
     /**
      * @return The index of the cell
      */
