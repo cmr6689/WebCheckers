@@ -6,6 +6,7 @@ public class Game {
     private Player player2;
     private BoardView boardView1;
     private BoardView boardView2;
+    private Boolean active;
 
     public Game (Player p1, Player p2){
         //boardView = new BoardView();
@@ -29,6 +30,30 @@ public class Game {
 
     public void setPlayer2(Player player2) {
         this.player2 = player2;
+    }
+
+    public Player getPlayer1(){
+        return this.player1;
+    }
+
+    public Player getPlayer2(){
+        return this.player1;
+    }
+
+    public String getPlayer1Name(){
+        return this.player1.getName();
+    }
+
+    public String getPlayer2Name(){
+        return this.player2.getName();
+    }
+
+    public Boolean isActive(){
+        return this.active;
+    }
+
+    public void setIsActive(Boolean bool){
+        active = bool;
     }
 
     public void setPlayer(Player p){

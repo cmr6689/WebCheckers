@@ -38,7 +38,7 @@ public class Row implements Iterable{
 
             Space space = new Space(null, i, this.boardColor);
             //add that space to the ArrayList
-            if ((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index < 2 || index > 5)) {
+            if ((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index < 2   || index > 5)) {
                 space.setPiece(new Piece(color, TYPE.SINGLE));
             }
             spaces.add(space);

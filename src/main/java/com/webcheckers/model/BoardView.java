@@ -9,20 +9,38 @@ public class BoardView implements Iterable{
     private ArrayList<Row> rows = new ArrayList<Row>();
 
     public BoardView(int player){
-        for(int i = 0; i < 8; i++) {
-            //create a new space
-            COLOR color;
-            if(i < 4){
-                color = COLOR.WHITE;
-            }else{
-                color = COLOR.RED;
+        if(player == 1) {
+            for (int i = 0; i < 8; i++) {
+                //create a new space
+                COLOR color;
+                if (i < 4) {
+                    color = COLOR.WHITE;
+                } else {
+                    color = COLOR.RED;
+                }
+                Row row = new Row(i, color);
+                if ((i % 2) == 0) {
+                    row = new Row(i, color);
+                }
+                //add that space to the ArrayList
+                rows.add(row);
             }
-            Row row = new Row(i, color);
-            if((i % 2) ==0) {
-                row = new Row(i, color);
+        }else{
+            for (int i = 0; i < 8; i++) {
+                //create a new space
+                COLOR color;
+                if (i < 4) {
+                    color = COLOR.RED;
+                } else {
+                    color = COLOR.WHITE;
+                }
+                Row row = new Row(i, color);
+                if ((i % 2) == 0) {
+                    row = new Row(i, color);
+                }
+                //add that space to the ArrayList
+                rows.add(row);
             }
-            //add that space to the ArrayList
-            rows.add(row);
         }
     }
 
