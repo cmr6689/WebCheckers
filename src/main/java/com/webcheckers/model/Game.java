@@ -4,26 +4,23 @@ public class Game {
 
     private Player player1;
     private Player player2;
-    private BoardView boardView;
+    private BoardView boardView1;
+    private BoardView boardView2;
 
-    public Game (){
+    public Game (Player p1, Player p2){
         //boardView = new BoardView();
+        boardView1 = new BoardView(1);
+        boardView2 = new BoardView(2);
+        this.player1 = p1;
+        this.player2 = p2;
     }
 
-    public BoardView getBoardView() {
-        return boardView;
+    public BoardView getBoardView1() {
+        return boardView1;
     }
 
-    public void startGame(){
-        boardView = new BoardView();
-    }
-
-    public Player getPlayer1() {
-        return player1;
-    }
-
-    public Player getPlayer2() {
-        return player2;
+    public BoardView getBoardView2() {
+        return boardView2;
     }
 
     public void setPlayer1(Player player1) {
