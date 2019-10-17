@@ -16,16 +16,10 @@ public class Space {
     //the color of the space
     private BOARD_COLOR color;
 
-    public Space(Piece piece, int cellIdx){
+    public Space(Piece piece, int cellIdx, BOARD_COLOR color){
         this.piece = piece;
         this.cellIdx = cellIdx;
-        this.color = Space.BOARD_COLOR.BLACK;
-    }
-
-    public Space(int cellIdx) {
-        this.piece = new Piece(COLOR.WHITE, TYPE.SINGLE);
-        this.cellIdx = cellIdx;
-        this.color = BOARD_COLOR.BLACK;
+        this.color = color;
     }
 
     /**

@@ -22,7 +22,7 @@ public class Row implements Iterable{
 
         for(int i = 0; i < 8; i++){
             //create a new space
-            Space space = new Space(null, i);
+            Space space = new Space(null, i, BOARD_COLOR.BLACK);
             if(((index < 2) || (index > 5)) && black) {
                 space = new Space(new Piece(color, TYPE.SINGLE), i);
                 black = false;
