@@ -7,9 +7,7 @@ import java.util.logging.Logger;
 
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
-import com.webcheckers.model.Space;
 import spark.*;
 
 import com.webcheckers.util.Message;
@@ -22,9 +20,8 @@ public class GetGameRoute implements Route{
 
     private final TemplateEngine templateEngine;
 
+    private PlayerLobby lobby;
     private BoardView boardView;
-
-    private PlayerLobby playerLobby;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -36,8 +33,7 @@ public class GetGameRoute implements Route{
         //
         LOG.config("GetGameRoute is initialized.");
         this.boardView = boardView;
-
-        this.playerLobby = playerLobby;
+        this.lobby = playerLobby;
     }
 
     /**
@@ -50,29 +46,33 @@ public class GetGameRoute implements Route{
     @Override
     public Object handle(Request request, Response response){
 
-        Player opponent = new Player(request.queryParams("opponent"));
-        Player me = new Player("Me");
+        final Player opponent;
+        Player fakeOpp = new Player(request.queryParams("opponent"));
+        for (Player opp : lobby.getPlayers()) {
+            if (opp.equals(fakeOpp)) {
+                opponent = opp;
+                //
+                Map<String, Object> vm = new HashMap<>();
+                vm.put("title", "Webcheckers");
 
-        LOG.finer("GetGameRoute is invoked.");
-        //
-        Map<String, Object> vm = new HashMap<>();
-        vm.put("title", "Webcheckers");
+                // display a user message in the Game page
+                vm.put("message", GAME_MSG);
 
-        // display a user message in the Game page
-        vm.put("message", GAME_MSG);
+                //variables for game
+                vm.put("currentUser", new Player("Me").getName());
+                vm.put("viewMode", "PLAY");
+                vm.put("modeOptionsAsJSON!", null);
+                vm.put("redPlayer", new Player("Me").getName());
+                vm.put("whitePlayer", opponent.getName());
+                vm.put("activeColor", "RED");
+                vm.put("board", boardView);
 
-        //variables for game
-        vm.put("currentUser", me);
-        vm.put("viewMode", "PLAY");
-        vm.put("modeOptionsAsJSON!", null);
-        vm.put("redPlayer", me);
-        vm.put("whitePlayer", opponent.getName());
-        vm.put("activeColor", "RED");
-        vm.put("board", boardView);
-
-
-        // render the View
-        return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+                // render the View
+                return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+            }
+        }
+        response.redirect("/");
+        return null;
     }
 }
 
