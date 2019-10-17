@@ -49,10 +49,7 @@ import spark.TemplateEngine;
 public class WebServer {
   private static final Logger LOG = Logger.getLogger(WebServer.class.getName());
 
-
-  private GameCenter gameCenter = new GameCenter();
   private PlayerLobby playerLobby = new PlayerLobby();
-  private BoardView boardView = new BoardView();
 
   public PlayerLobby getPlayerLobby() {
     return playerLobby;

@@ -22,8 +22,6 @@ public class GetGameRoute implements Route{
     private final TemplateEngine templateEngine;
 
     private PlayerLobby lobby;
-    private BoardView boardView;
-    private Game game = new Game();
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -35,7 +33,6 @@ public class GetGameRoute implements Route{
         //
         LOG.config("GetGameRoute is initialized.");
         this.lobby = playerLobby;
-        this.boardView = game.getBoardView();
     }
 
     /**
@@ -49,6 +46,7 @@ public class GetGameRoute implements Route{
     public Object handle(Request request, Response response){
 
         Session httpSession = request.session();
+
         Player myPlayer = httpSession.attribute("player");
         System.out.println(myPlayer.getName());
 
@@ -57,6 +55,7 @@ public class GetGameRoute implements Route{
         for (Player opp : lobby.getPlayers()) {
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
+                Game game = new Game(myPlayer, opponent);
                 //
                 Map<String, Object> vm = new HashMap<>();
                 //k
@@ -72,7 +71,7 @@ public class GetGameRoute implements Route{
                 vm.put("redPlayer", myPlayer.getName());
                 vm.put("whitePlayer", opponent.getName());
                 vm.put("activeColor", "RED");
-                vm.put("board", boardView);
+                vm.put("board", game.getBoardView1());
 
                 // render the View
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));
