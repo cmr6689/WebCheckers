@@ -56,6 +56,7 @@ public class GetGameRoute implements Route{
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
                 Game game = new Game(myPlayer, opponent);
+                lobby.setGame(game);
                 //
                 Map<String, Object> vm = new HashMap<>();
                 //k

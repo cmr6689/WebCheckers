@@ -12,6 +12,8 @@ import spark.*;
 
 import com.webcheckers.util.Message;
 
+import static spark.Spark.post;
+
 /**
  * The UI Controller to GET the Home page.
  *
@@ -54,7 +56,10 @@ public class GetHomeRoute implements Route {
   @Override
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
-    //
+
+    if (playerLobby.getGame() != null) {
+      response.redirect("/game");
+    }
 
     final Session httpSession = request.session();
 
@@ -79,8 +84,6 @@ public class GetHomeRoute implements Route {
       }
       vm.put("playerList", playerNames);
     }
-
-
 
     //vm.put("playerList", playerLobby.players);
 

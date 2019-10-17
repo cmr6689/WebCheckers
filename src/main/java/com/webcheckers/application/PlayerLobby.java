@@ -1,5 +1,6 @@
 package com.webcheckers.application;
 
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
@@ -11,6 +12,8 @@ public class PlayerLobby {
     private ArrayList<Player> players = new ArrayList<>();
 
     private boolean invalidName;
+
+    private Game game;
 
     public PlayerLobby() {
         this.invalidName = false;
@@ -44,6 +47,14 @@ public class PlayerLobby {
 
     public ArrayList<Player> getPlayers(){
         return this.players;
+    }
+
+    public void setGame(Game game) {
+        this.game = game;
+    }
+
+    public Game getGame() {
+        return this.game;
     }
 
 }
