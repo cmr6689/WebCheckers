@@ -58,11 +58,17 @@ public class GetHomeRoute implements Route {
   public Object handle(Request request, Response response) {
     LOG.finer("GetHomeRoute is invoked.");
 
-    if (playerLobby.getGame() != null) {
-      return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
-    }
-
     final Session httpSession = request.session();
+
+    Player player = httpSession.attribute("player");
+
+    if (playerLobby.getGame() != null) {
+      if (player != null) {
+        if ((player.getName() == playerLobby.getMap().get("redPlayer")) || (player.getName() == playerLobby.getMap().get("whitePlayer"))) {
+          return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
+        }
+      }
+    }
 
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
@@ -74,7 +80,6 @@ public class GetHomeRoute implements Route {
       //Message message = Message.info(playerLobby.players.toString());
       //vm.put("message",message);
 
-    Player player = httpSession.attribute("player");
     if(player != null)
       vm.put("currentUser", player.getName());
 
