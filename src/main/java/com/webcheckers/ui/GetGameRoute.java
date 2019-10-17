@@ -53,7 +53,7 @@ public class GetGameRoute implements Route{
                 opponent = opp;
                 //
                 Map<String, Object> vm = new HashMap<>();
-                //
+                //k
                 vm.put("title", "Webcheckers");
 
                 // display a user message in the Game page
