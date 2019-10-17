@@ -8,7 +8,7 @@ public class BoardView implements Iterable{
     //create a new ArrayList of Rows
     private ArrayList<Row> rows = new ArrayList<Row>();
 
-    public BoardView(Player player){
+    public BoardView(int player){
         for(int i = 0; i < 8; i++) {
             //create a new space
             COLOR color;
