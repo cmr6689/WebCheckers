@@ -17,20 +17,15 @@ public class Row implements Iterable{
     //creates an array list to hold all the spaces in this row
     private ArrayList<Space> spaces = new ArrayList<Space>();
 
-    public Row(int index, COLOR color, boolean black){
+    public Row(int index, COLOR color){
         this.index = index;
 
         for(int i = 0; i < 8; i++){
             //create a new space
-            Space space = new Space(null, i, BOARD_COLOR.BLACK);
-            if(((index < 2) || (index > 5)) && black) {
-                space = new Space(new Piece(color, TYPE.SINGLE), i);
-                black = false;
-            }else{
-                black = true;
-            }
+            Space black = new Space(new Piece(color, TYPE.SINGLE), i, BOARD_COLOR.BLACK);
+            Space white = new Space(new Piece(color, TYPE.SINGLE), i, BOARD_COLOR.WHITE);
             //add that space to the ArrayList
-            spaces.add(space);
+            spaces.add(white);
 
         }
     }
