@@ -36,4 +36,11 @@ public class GameCenter {
     public void setPlayer2(Player player2) {
         this.player2 = player2;
     }
+
+    public void setPlayer(Player p){
+        if(player1 == null)
+            player2 = p;
+        else
+            player1 = p;
+    }
 }
