@@ -13,6 +13,7 @@ import spark.*;
 import com.webcheckers.util.Message;
 
 import static spark.Spark.post;
+import static spark.route.HttpMethod.get;
 
 /**
  * The UI Controller to GET the Home page.
@@ -58,7 +59,7 @@ public class GetHomeRoute implements Route {
     LOG.finer("GetHomeRoute is invoked.");
 
     if (playerLobby.getGame() != null) {
-      response.redirect("/game");
+      return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
     }
 
     final Session httpSession = request.session();

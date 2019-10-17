@@ -4,6 +4,8 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +16,7 @@ public class PlayerLobby {
     private boolean invalidName;
 
     private Game game;
+    private Map<String, Object> vm;
 
     public PlayerLobby() {
         this.invalidName = false;
@@ -55,6 +58,14 @@ public class PlayerLobby {
 
     public Game getGame() {
         return this.game;
+    }
+
+    public void setMap(Map<String, Object> map) {
+        this.vm = map;
+    }
+
+    public Map<String, Object> getMap() {
+        return this.vm;
     }
 
 }
