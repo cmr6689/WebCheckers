@@ -46,6 +46,10 @@ public class GetGameRoute implements Route{
     @Override
     public Object handle(Request request, Response response){
 
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
+        System.out.println(myPlayer.getName());
+
         final Player opponent;
         Player fakeOpp = new Player(request.queryParams("opponent"));
         for (Player opp : lobby.getPlayers()) {
@@ -60,10 +64,10 @@ public class GetGameRoute implements Route{
                 vm.put("message", GAME_MSG);
 
                 //variables for game
-                vm.put("currentUser", new Player("Me").getName());
+                vm.put("currentUser", myPlayer.getName());
                 vm.put("viewMode", "PLAY");
                 vm.put("modeOptionsAsJSON!", null);
-                vm.put("redPlayer", new Player("Me").getName());
+                vm.put("redPlayer", myPlayer.getName());
                 vm.put("whitePlayer", opponent.getName());
                 vm.put("activeColor", "RED");
                 vm.put("board", boardView);
