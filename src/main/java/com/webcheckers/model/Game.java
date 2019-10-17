@@ -41,4 +41,10 @@ public class Game {
             player1 = p;
     }
 
+    public BoardView getGame(Player player) {
+        if (player.equals(player2)) {
+            return boardView;
+        }
+        return null;
+    }
 }

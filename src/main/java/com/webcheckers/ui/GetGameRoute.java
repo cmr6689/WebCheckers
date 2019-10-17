@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import spark.*;
 
@@ -22,18 +23,19 @@ public class GetGameRoute implements Route{
 
     private PlayerLobby lobby;
     private BoardView boardView;
+    private Game game = new Game();
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameRoute(final TemplateEngine templateEngine, BoardView boardView, PlayerLobby playerLobby) {
+    public GetGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         LOG.config("GetGameRoute is initialized.");
-        this.boardView = boardView;
         this.lobby = playerLobby;
+        this.boardView = game.getBoardView();
     }
 
     /**

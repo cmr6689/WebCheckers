@@ -154,7 +154,7 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new GetHomeRoute(templateEngine, playerLobby));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
-    post(GAME_URL, new GetGameRoute(templateEngine, gameCenter.getBoardView(), playerLobby));
+    post(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");
