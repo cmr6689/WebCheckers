@@ -40,8 +40,8 @@ public class Game {
 
     public BoardView getGame(Player player) {
         if (player.equals(player2)) {
-            return boardView;
+            return boardView2;
         }
-        return null;
+        return boardView1;
     }
 }
