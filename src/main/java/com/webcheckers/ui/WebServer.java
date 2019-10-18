@@ -65,6 +65,7 @@ public class WebServer {
   private static final String HOME_URL = "/";
   private static final String SIGN_IN_URL = "/signin";
   private static final String GAME_URL = "/game";
+  private static final String RESIGN_URL = "/resignGame";
 
   //
   // Attributes
@@ -153,6 +154,7 @@ public class WebServer {
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
     post(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
+    post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
     post("/signout", (request, response) -> {
       response.redirect("/signin");
       Player player = new Player(request.queryParams("signout"));
