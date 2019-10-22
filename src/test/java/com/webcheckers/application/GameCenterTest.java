@@ -4,6 +4,7 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 import com.webcheckers.ui.GetGameRoute;
 import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,6 +18,7 @@ public class GameCenterTest {
     /**
      * Test the ability to make a new Game.
      */
+    @Test
     public void test_make_game() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
@@ -32,6 +34,7 @@ public class GameCenterTest {
     /**
      * Test the ability to end a Game.
      */
+    @Test
     public void test_end_game() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
@@ -52,6 +55,7 @@ public class GameCenterTest {
     /**
      * Test the ability to make a new Game.
      */
+    @Test
     public void test_active_games_list() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
