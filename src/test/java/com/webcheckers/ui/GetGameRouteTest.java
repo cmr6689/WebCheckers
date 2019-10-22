@@ -1,4 +1,4 @@
-package com.webcheckers.ui.ui;
+package com.webcheckers.ui;
 
 public class GetGameRouteTest {
 }
