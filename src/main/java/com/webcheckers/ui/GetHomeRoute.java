@@ -13,6 +13,7 @@ import spark.*;
 import com.webcheckers.util.Message;
 
 import static spark.Spark.post;
+import static spark.Spark.redirect;
 import static spark.route.HttpMethod.get;
 
 /**
@@ -67,7 +68,8 @@ public class GetHomeRoute implements Route {
         if (player.getName() == playerLobby.getMap().get("whitePlayer")) {
           playerLobby.getMap().put("currentUser", player.getName());
           playerLobby.getMap().put("board", playerLobby.getGame().getBoardView2());
-          return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
+          response.redirect("/game");
+          //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
         }
       }
     }

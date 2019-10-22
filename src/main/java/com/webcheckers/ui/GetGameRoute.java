@@ -52,6 +52,13 @@ public class GetGameRoute implements Route{
 
         final Player opponent;
         Player fakeOpp = new Player(request.queryParams("opponent"));
+        try {
+            if (!fakeOpp.equals(lobby.getGame().getPlayer1())) {
+                fakeOpp.equals(lobby.getGame().getPlayer2());
+            }
+        } catch (NullPointerException e){
+            System.err.println("RIP");
+        }
         for (Player opp : lobby.getPlayers()) {
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
@@ -79,7 +86,8 @@ public class GetGameRoute implements Route{
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));
             }
         }
-        response.redirect("/");
+        //response.redirect("/");
+        System.err.println("Stop");
         return null;
     }
 }

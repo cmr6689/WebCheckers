@@ -155,6 +155,8 @@ public class WebServer {
     post(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
+    
+    //TODO remove this
     post("/signout", (request, response) -> {
       response.redirect("/signin");
       Player player = new Player(request.queryParams("signout"));
