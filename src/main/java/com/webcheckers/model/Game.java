@@ -7,6 +7,7 @@ public class Game {
     private BoardView boardView1;
     private BoardView boardView2;
     private Boolean active;
+    private Player turnP;
 
     public Game (Player p1, Player p2){
         //boardView = new BoardView();
@@ -14,6 +15,7 @@ public class Game {
         boardView2 = new BoardView(2);
         this.player1 = p1;
         this.player2 = p2;
+        turnP = player1;
     }
 
     public BoardView getBoardView1() {
@@ -69,4 +71,23 @@ public class Game {
         }
         return boardView1;
     }
+
+    public boolean isMoveValid(Player p, int mv){
+        //checks if a move is valid from the given player and the space
+
+        if(p != turnP)
+            return false;
+
+
+
+        return true;
+    }
+
+    public void makeMove(Player p, int mv){
+        //updates both player boards with a valid move
+
+
+
+    }
+
 }
