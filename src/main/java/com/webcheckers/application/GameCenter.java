@@ -63,4 +63,12 @@ public class GameCenter {
         //if the game wasn't in the list return null
         return null;
     }
+
+    /**
+     * returns the current game
+     * @return
+     */
+    public Game getGame() {
+        return game;
+    }
 }

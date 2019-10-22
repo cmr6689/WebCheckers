@@ -13,7 +13,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * The unit test suite for the {@link GetGameRoute} component.
+ * The unit test suite for the {@link GetSignInRoute} component.
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Evan Price</a>
  */
