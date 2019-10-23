@@ -20,12 +20,12 @@ import java.util.regex.Pattern;
 public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
 
-  private final TemplateEngine templateEngine;
+  final TemplateEngine templateEngine;
 
-  private PlayerLobby playerLobby;
+  PlayerLobby playerLobby;
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
