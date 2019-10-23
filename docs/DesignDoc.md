@@ -3,11 +3,6 @@ geometry: margin=1in
 ---
 # PROJECT Design Documentation
 
-> _The following template provides the headings for your Design
-> Documentation.  As you edit each section make sure you remove these
-> commentary 'blockquotes'; the lines that start with a > character
-> and appear in the generated PDF in italics._
-
 ## Team Information
 * Team name: Team E
 * Team members
@@ -23,19 +18,17 @@ who are currently signed-in. The game user interface (UI) will support
 a game experience using drag-and-drop browser capabilities for making moves.
 
 ### Purpose
-> _Provide a very brief statement about the project and the most
-> important user group and user goals._
 
-
+The purpose of the WebCheckers application is to allow a group of users to 
+play a game of checkers with each other online.
 
 ### Glossary and Acronyms
-> _Provide a table of terms and acronyms._
 
 | Term | Definition |
 |------|------------|
 | VO | Value Object |
 | MVP | Minimum Viable Product | 
-
+| UI | User Interface |
 
 ## Requirements
 
@@ -68,12 +61,10 @@ This section describes the features of the application.
 The MVP is the most basic form of the program. Having only the most basic of features for time of release. 
 
 ### MVP Features
-> _Provide a list of top-level Epics and/or Stories of the MVP._
 
 The MVP features are the ability to sign in, select an opponent, start a game, perform basic checkers moves (Move, Single and multi-jump, kinging and winging/losing).  
 
 ### Roadmap of Enhancements
-> _Provide a list of top-level features in the order you plan to consider them._
 
 We plan to include two top-level enhancements to our program, Spectator Mode and Replay Mode. We plan to implement them in that order as well.
 
@@ -119,9 +110,6 @@ This section describes the web interface flow; this is how the user views and in
 with the WebCheckers application.
 
 ![The WebCheckers Web Interface Statechart](web-app-state-chart.jpg)
-
-> _Provide a summary of the application's user interface.  Describe, from
-> the user's perspective, the flow of the pages in the web application._
 
 The user when first navigating to the home page of WebCheckers will see a login button in the navbar and the number of players currently logged in. 
 After clicking on the sign in button the player will be brought to the sign in page where they may enter a valid username. 
