@@ -13,7 +13,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author <a href='mailto:cmr6689@rit.edu'>Cameron Riu</a>
  */
-@Tag("Application tier")
+@Tag("Application-tier")
 public class PlayerLobbyTest {
 
     /**

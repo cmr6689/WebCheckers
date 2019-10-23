@@ -83,9 +83,13 @@ This section describes the application domain.
 
 ![The WebCheckers Domain Model](domainmodel.png)
 
-> _Provide a high-level overview of the domain for this application. You
-> can discuss the more important domain entities and their relationship
-> to each other._
+The application domain of WebCheckers is split up into an application, 
+model, and UI tier to differentiate responsibilities of certain classes.
+The application tier is where we handle the games being played and control
+players in and out of a game. The model tier controls the actual game play
+such as making the board and making moves. The UI tier is responsible for
+the web server itself and each route that a user can play. Each route is 
+dependent on whether the user has signed in or not. 
 
 
 ## Architecture and Design

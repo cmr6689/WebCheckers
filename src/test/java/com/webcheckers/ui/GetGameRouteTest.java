@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
@@ -16,6 +17,7 @@ import static org.mockito.Mockito.when;
  *
  * @author <a href='mailto:cmr6689@rit.edu'>Cameron Riu</a>
  */
+@Tag("UI-tier")
 public class GetGameRouteTest {
 
     private GetGameRoute Cut;
