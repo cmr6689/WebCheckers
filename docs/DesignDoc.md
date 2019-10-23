@@ -39,6 +39,14 @@ This section describes the features of the application.
 > _In this section you do not need to be exhaustive and list every
 > story.  Focus on top-level features from the Vision document and
 > maybe Epics and critical Stories._
+> Signign In
+> Start Game
+> Checker Board
+> Checker Pieces
+> Resignation
+> Game Play
+> Replay
+> Spectator Mode
 
 ### Definition of MVP
 > _Provide a simple description of the Minimum Viable Product._
