@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -59,30 +60,51 @@ public class GetSignInRouteTest {
      * Test a case where the name provided is invalid
      */
     @Test
-    public void invalid_name() {
-        // Arrange the test scenario: The session holds no names.
-        final PlayerLobby lobby1 = new PlayerLobby();
-        Player test1 = new Player("$$$$");
-        lobby1.addPlayer(test1);
-
+    public void invalid_name_alphanumeric() {
+        Player player1 = new Player("$$$$");
+        playerLobby.addPlayer(player1);
+        //Arrange scenario
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        //Add a player to a new empty lobby
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
         // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(CuT.templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
-        // Invoke the test (ignore the output)
+        // Invoke the test
         CuT.handle(request, response);
 
-        // Analyze the content passed into the render method
-        //   * model is a non-null Map
-        testHelper.assertViewModelExists();
-        testHelper.assertViewModelIsaMap();
-
-        when(request.session().attribute("player")).thenReturn(new Player("$$$$"));
-        testHelper.assertViewModelAttributeIsAbsent("$$$$");
+        //Check if names are equal
+        testHelper.assertViewModelAttribute("title", "Sign In");
         testHelper.assertViewModelAttribute("message", GetSignInRoute.INVALID_NAME);
+    }
+
+    /**
+     * Test a case where the name provided is used twice
+     */
+    @Test
+    public void invalid_name_double() {
+        Player player1 = new Player("Test");
+        Player player2 = new Player("Test");
+        playerLobby.addPlayer(player1);
+        playerLobby.addPlayer(player2);
+        //Arrange scenario
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        //Add a player to a new empty lobby
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        when(CuT.templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        //Check if names are equal
+        testHelper.assertViewModelAttribute("title", "Sign In");
+        testHelper.assertViewModelAttribute("message", GetSignInRoute.INVALID_NAME);
+        assertEquals(player1.getName(),player2.getName());
     }
 
     /**
@@ -90,25 +112,24 @@ public class GetSignInRouteTest {
      */
     @Test
     public void valid_name() {
-        // Arrange the test scenario: The session holds no names.
-        final PlayerLobby lobby2 = new PlayerLobby();
-
+        Player player1 = new Player("Test1");
+        Player player2 = new Player("Test2");
+        playerLobby.addPlayer(player1);
+        playerLobby.addPlayer(player2);
+        //Arrange scenario
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        //Add a player to a new empty lobby
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
         // that captures the ModelAndView data passed to the template engine
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        when(CuT.templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
-        // Invoke the test (ignore the output)
+        // Invoke the test
         CuT.handle(request, response);
 
-        // Analyze the content passed into the render method
-        //   * model is a non-null Map
-        testHelper.assertViewModelExists();
-        testHelper.assertViewModelIsaMap();
-        //   * model contains all necessary View-Model data
-        //   * test view name
-        //testHelper.assertViewName(GetSignInRoute.);
+        //Check if names are equal
+        testHelper.assertViewModelAttribute("title", "Sign In");
+        testHelper.assertViewModelAttribute("message", GetSignInRoute.WELCOME_MSG);
     }
 }
