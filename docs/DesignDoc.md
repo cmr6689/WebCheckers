@@ -18,7 +18,9 @@ geometry: margin=1in
 
 ## Executive Summary
 
-This is a summary of the project.
+The application must allow players to play checkers with other players
+who are currently signed-in. The game user interface (UI) will support 
+a game experience using drag-and-drop browser capabilities for making moves.
 
 ### Purpose
 > _Provide a very brief statement about the project and the most
