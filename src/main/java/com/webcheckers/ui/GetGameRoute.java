@@ -17,9 +17,9 @@ public class GetGameRoute implements Route{
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.GetGameRoute.class.getName());
 
-    private static final Message GAME_MSG = Message.info(String.format("You are playing a game of Webcheckers with %s", "an opponent"));
+    static final Message GAME_MSG = Message.info(String.format("You are playing a game of Webcheckers with %s", "an opponent"));
 
-    private final TemplateEngine templateEngine;
+    final TemplateEngine templateEngine;
 
     private PlayerLobby lobby;
 
@@ -48,7 +48,6 @@ public class GetGameRoute implements Route{
         Session httpSession = request.session();
 
         Player myPlayer = httpSession.attribute("player");
-        System.out.println(myPlayer.getName());
 
         final Player opponent;
         Player fakeOpp = new Player(request.queryParams("opponent"));
