@@ -29,10 +29,12 @@ public class PlayerLobby {
         pattern = Pattern.compile(REGEX);
         matcher = pattern.matcher(newPlayer.getName());
         if(matcher.lookingAt()){
+            setInvalidName(true);
             return false;
         }
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
+                setInvalidName(true);
                 return false;
             }
         }
