@@ -79,8 +79,8 @@ public class GetSignInRouteTest {
         //   * model is a non-null Map
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
-        //   * model contains all necessary View-Model data
-        //   * test view name
+
+        testHelper.assertViewModelAttribute("message", GetSignInRoute.INVALID_NAME);
     }
 
     /**
