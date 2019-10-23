@@ -30,13 +30,7 @@ class GameTest {
 
     /**
      * Test setting player2
-     */
-    @Test
-    void setPlayer2() {
-        final Game CuT = new Game(new Player("1"), new Player("2"));
-        CuT.setPlayer2(new Player("3"));
-        assertEquals("3", CuT.getPlayer2().getName());
-    }
+     /
 
     /**
      * Test getting player1
@@ -45,15 +39,6 @@ class GameTest {
     void getPlayer1() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         assertEquals(new Player("1"), CuT.getPlayer1());
-    }
-
-    /**
-     * Test getting player2
-     */
-    @Test
-    void getPlayer2() {
-        final Game CuT = new Game(new Player("1"), new Player("2"));
-        assertEquals(new Player("2"), CuT.getPlayer2());
     }
 
     /**
@@ -91,16 +76,6 @@ class GameTest {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         CuT.setIsActive(false);
         assertEquals(false, CuT.isActive());
-    }
-
-    /**
-     * test setting the player
-     */
-    @Test
-    void setPlayer() {
-        final Game CuT = new Game(new Player("1"), new Player("2"));
-        CuT.setPlayer(new Player("3"));
-        assertEquals(new Player("3"), CuT.getPlayer2());
     }
 
 }
