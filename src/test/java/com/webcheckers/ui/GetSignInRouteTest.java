@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -40,19 +41,28 @@ public class GetSignInRouteTest {
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
+        playerLobby = new PlayerLobby();
 
         // create a unique CuT for each test
         CuT = new GetSignInRoute(engine,playerLobby);
     }
 
     /**
-     * Test that
+     * Make sure engine in non-null
+     */
+    @Test
+    public void nonNullEngine() {
+        assertNotNull(CuT.templateEngine, "Template Engine is Null!");
+    }
+
+    /**
+     * Test a case where the name provided is invalid
      */
     @Test
     public void invalid_name() {
         // Arrange the test scenario: The session holds no names.
         final PlayerLobby lobby1 = new PlayerLobby();
-        Player test1 = new Player("name");
+        Player test1 = new Player("$$$$$$");
         lobby1.addPlayer(test1);
 
         // To analyze what the Route created in the View-Model map you need
@@ -74,7 +84,7 @@ public class GetSignInRouteTest {
     }
 
     /**
-     * Test that
+     * Test that the players name is valid
      */
     @Test
     public void valid_name() {

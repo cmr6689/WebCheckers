@@ -24,7 +24,7 @@ public class GetSignInRoute implements Route {
   private static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
   private static final Message INVALID_NAME = Message.error("The name you have chosen is already taken or contains non-alphanumeric");
 
-  private final TemplateEngine templateEngine;
+  final TemplateEngine templateEngine;
 
   private PlayerLobby playerlobby;
 
