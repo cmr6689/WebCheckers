@@ -15,6 +15,10 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Tag("Aplication-tier")
 public class GameCenterTest {
+
+    private Player test1;
+    private Player test2;
+    private Game game;
     /**
      * Test the ability to make a new Game.
      */
@@ -22,13 +26,20 @@ public class GameCenterTest {
     public void test_make_game() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-        final Game game = CuT.getGame();
-
+        game = CuT.getGame();
         // Analyze the results
         // 1) the returned game is real
-        assertNotNull(game);
-        // 2) the game is Active
-        assertTrue(game.isActive());
+        assertNull(game);
+
+        Player test1 = new Player("Test1");
+        Player test2 = new Player("Test2");
+        CuT.newGame(test1,test2);
+
+        // Analyze the results
+        // 1) the returned game is not real
+        assertNotNull(CuT.getGame());
+        // 2) the game is not Active
+        assertTrue(CuT.getGame().isActive());
     }
 
     /**
@@ -38,18 +49,17 @@ public class GameCenterTest {
     public void test_end_game() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-        final Game game = CuT.getGame();
+        game = CuT.getGame();
         Player test1 = new Player("Test1");
         Player test2 = new Player("Test2");
-        game.setPlayer1(test1);
-        game.setPlayer2(test2);
+        CuT.newGame(test1,test2);
         CuT.endGame(test1,test2);
 
         // Analyze the results
         // 1) the returned game is not real
         assertNull(game);
         // 2) the game is not Active
-        assertFalse(game.isActive());
+        assertFalse(CuT.getGame().isActive());
     }
 
     /**
@@ -59,15 +69,18 @@ public class GameCenterTest {
     public void test_active_games_list() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-        final Game game = CuT.getGame();
+        game = CuT.getGame();
+        test1 = new Player("Test1");
+        test2 = new Player("Test2");
+        CuT.newGame(test1,test2);
 
         // Analyze the results
         // 1) the returned game is real
-        assertNotNull(game);
+        assertNotNull(CuT.getGame());
         // 2) the game is Active
-        assertTrue(game.isActive());
+        assertTrue(CuT.getGame().isActive());
         //3)
-        assertTrue(CuT.gameIsActive(game));
+        assertTrue(CuT.gameIsActive(CuT.getGame()));
     }
 
     /**
@@ -77,18 +90,18 @@ public class GameCenterTest {
     public void test_dormant_games_list() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-        final Game game = CuT.getGame();
-        Player test1 = new Player("Test1");
-        Player test2 = new Player("Test2");
-        game.setPlayer1(test1);
-        game.setPlayer2(test2);
+        game = CuT.getGame();
+        test1 = new Player("Test1");
+        test2 = new Player("Test2");
+        CuT.newGame(test1,test2);
+        assertTrue(CuT.getGame().isActive());
         CuT.endGame(test1,test2);
         // Analyze the results
         // 1) the returned game is real
         assertNull(game);
         // 2) the game is Active
-        assertFalse(game.isActive());
+        assertFalse(CuT.getGame().isActive());
         //3)
-        assertTrue(CuT.gameIsDormant(game));
+        assertTrue(CuT.gameIsDormant(CuT.getGame()));
     }
 }

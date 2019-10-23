@@ -62,7 +62,7 @@ public class GetSignInRouteTest {
     public void invalid_name() {
         // Arrange the test scenario: The session holds no names.
         final PlayerLobby lobby1 = new PlayerLobby();
-        Player test1 = new Player("$$$$$$");
+        Player test1 = new Player("$$$$");
         lobby1.addPlayer(test1);
 
         // To analyze what the Route created in the View-Model map you need
@@ -80,6 +80,8 @@ public class GetSignInRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
 
+        when(request.session().attribute("player")).thenReturn(new Player("$$$$"));
+        testHelper.assertViewModelAttributeIsAbsent("$$$$");
         testHelper.assertViewModelAttribute("message", GetSignInRoute.INVALID_NAME);
     }
 
