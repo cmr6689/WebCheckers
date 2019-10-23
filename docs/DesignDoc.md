@@ -9,12 +9,12 @@ geometry: margin=1in
 > and appear in the generated PDF in italics._
 
 ## Team Information
-* Team name: TEAMNAME
+* Team name: Team E
 * Team members
-  * MEMBER1
-  * MEMBER2
-  * MEMBER3
-  * MEMBER4
+  * Ronald Torrelli
+  * Cameron Riu
+  * Evan Price
+  * Mathew Klein
 
 ## Executive Summary
 
@@ -54,7 +54,7 @@ This section describes the features of the application.
 
 This section describes the application domain.
 
-![The WebCheckers Domain Model](domain-model-placeholder.png)
+![The WebCheckers Domain Model](domainmodel.png)
 
 > _Provide a high-level overview of the domain for this application. You
 > can discuss the more important domain entities and their relationship
@@ -87,7 +87,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-interface-placeholder.png)
+![The WebCheckers Web Interface Statechart](web-app-state-chart.jpg)
 
 > _Provide a summary of the application's user interface.  Describe, from
 > the user's perspective, the flow of the pages in the web application._
