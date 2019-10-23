@@ -61,11 +61,12 @@ public class GetSignInRouteTest {
      */
     @Test
     public void invalid_name_alphanumeric() {
+        //create player with invalid name
         Player player1 = new Player("$$$$");
+        //Add a player to a new empty lobby
         playerLobby.addPlayer(player1);
         //Arrange scenario
         final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -75,7 +76,7 @@ public class GetSignInRouteTest {
         // Invoke the test
         CuT.handle(request, response);
 
-        //Check if names are equal
+        //Check if name is invalid
         testHelper.assertViewModelAttribute("title", "Sign In");
         testHelper.assertViewModelAttribute("message", GetSignInRoute.INVALID_NAME);
     }
@@ -85,13 +86,14 @@ public class GetSignInRouteTest {
      */
     @Test
     public void invalid_name_double() {
+        //create players with the same name
         Player player1 = new Player("Test");
         Player player2 = new Player("Test");
+        //add players to the lobby
         playerLobby.addPlayer(player1);
         playerLobby.addPlayer(player2);
         //Arrange scenario
         final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -112,13 +114,14 @@ public class GetSignInRouteTest {
      */
     @Test
     public void valid_name() {
+        //cretate players with different valid names
         Player player1 = new Player("Test1");
         Player player2 = new Player("Test2");
+        //add players to lobby
         playerLobby.addPlayer(player1);
         playerLobby.addPlayer(player2);
         //Arrange scenario
         final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -128,7 +131,7 @@ public class GetSignInRouteTest {
         // Invoke the test
         CuT.handle(request, response);
 
-        //Check if names are equal
+        //Check if message is right
         testHelper.assertViewModelAttribute("title", "Sign In");
         testHelper.assertViewModelAttribute("message", GetSignInRoute.WELCOME_MSG);
     }
