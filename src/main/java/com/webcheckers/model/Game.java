@@ -84,10 +84,12 @@ public class Game {
     }
 
     public void makeMove(Player p, int mv){
-        //updates both player boards with a valid move
-
-
+        //updates both player boards with a valid mov
 
     }
 
+    @Override
+    public String toString() {
+        return player1.getName() + " vs " + player2.getName();
+    }
 }
