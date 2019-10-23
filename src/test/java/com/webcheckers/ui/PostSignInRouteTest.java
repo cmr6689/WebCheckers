@@ -43,7 +43,6 @@ public class PostSignInRouteTest {
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby();
-
         CuT = new PostSignInRoute(templateEngine, playerLobby);
     }
 

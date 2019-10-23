@@ -19,21 +19,6 @@ class GameTest {
     }
 
     /**
-     * Test getting boardView 1
-     */
-    @Test
-    void getBoardView1() {
-
-    }
-
-    /**
-     * Test getting boardView 2
-     */
-    @Test
-    void getBoardView2() {
-    }
-
-    /**
      * Test setting player1
      */
     @Test
@@ -50,7 +35,7 @@ class GameTest {
     void setPlayer2() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         CuT.setPlayer2(new Player("3"));
-        assertEquals(new Player("3"), CuT.getPlayer2());
+        assertEquals("3", CuT.getPlayer2().getName());
     }
 
     /**
@@ -118,24 +103,4 @@ class GameTest {
         assertEquals(new Player("3"), CuT.getPlayer2());
     }
 
-    /**
-     * test getting the board view
-     */
-    @Test
-    void getGame() {
-    }
-
-    /**
-     * test is move valid
-     */
-    @Test
-    void isMoveValid() {
-    }
-
-    /**
-     * test make move
-     */
-    @Test
-    void makeMove() {
-    }
 }

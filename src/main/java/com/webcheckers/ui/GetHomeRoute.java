@@ -28,6 +28,10 @@ public class GetHomeRoute implements Route {
 
   private final TemplateEngine templateEngine;
 
+  public TemplateEngine getTemplateEngine() {
+    return templateEngine;
+  }
+
   private final PlayerLobby playerLobby;
 
   /**

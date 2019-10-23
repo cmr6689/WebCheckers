@@ -6,7 +6,7 @@ public class Game {
     private Player player2;
     private BoardView boardView1;
     private BoardView boardView2;
-    private Boolean active;
+    private Boolean active = true;
     private Player turnP;
 
     public Game (Player p1, Player p2){
