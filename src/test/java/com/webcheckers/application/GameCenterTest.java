@@ -66,5 +66,29 @@ public class GameCenterTest {
         assertNotNull(game);
         // 2) the game is Active
         assertTrue(game.isActive());
+        //3)
+        assertTrue(CuT.gameIsActive(game));
+    }
+
+    /**
+     * Test the ability to make a new Game.
+     */
+    @Test
+    public void test_dormant_games_list() {
+        final GameCenter CuT = new GameCenter();
+        // Invoke test
+        final Game game = CuT.getGame();
+        Player test1 = new Player("Test1");
+        Player test2 = new Player("Test2");
+        game.setPlayer1(test1);
+        game.setPlayer2(test2);
+        CuT.endGame(test1,test2);
+        // Analyze the results
+        // 1) the returned game is real
+        assertNull(game);
+        // 2) the game is Active
+        assertFalse(game.isActive());
+        //3)
+        assertTrue(CuT.gameIsDormant(game));
     }
 }

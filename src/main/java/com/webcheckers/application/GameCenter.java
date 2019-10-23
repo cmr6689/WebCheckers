@@ -71,4 +71,30 @@ public class GameCenter {
     public Game getGame() {
         return game;
     }
+
+    /**
+     * checks if this game is in the active games arraylist
+     * @return if the game is active
+     */
+    public Boolean gameIsActive(Game name){
+        for(Game game: activeGames){
+            if(game == name){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * checks if this game is in the dormant games arraylist
+     * @return if the game is the dormant games arrayList
+     */
+    public Boolean gameIsDormant(Game name){
+        for(Game game: dormantGames){
+            if(game == name){
+                return true;
+            }
+        }
+        return false;
+    }
 }
