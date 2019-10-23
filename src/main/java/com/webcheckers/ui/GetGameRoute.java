@@ -56,7 +56,7 @@ public class GetGameRoute implements Route{
                 fakeOpp.equals(lobby.getGame().getPlayer2());
             }
         } catch (NullPointerException e){
-            System.err.println("RIP");
+            //System.err.println("RIP");
         }
         for (Player opp : lobby.getPlayers()) {
             if (opp.equals(fakeOpp)) {
