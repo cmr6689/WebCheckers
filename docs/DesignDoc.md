@@ -64,14 +64,18 @@ This section describes the features of the application.
 
 
 ### Definition of MVP
-> _Provide a simple description of the Minimum Viable Product._
+
+The MVP is the most basic form of the program. Having only the most basic of features for time of release. 
 
 ### MVP Features
 > _Provide a list of top-level Epics and/or Stories of the MVP._
 
+The MVP features are the ability to sign in, select an opponent, start a game, perform basic checkers moves (Move, Single and multi-jump, kinging and winging/losing).  
+
 ### Roadmap of Enhancements
 > _Provide a list of top-level features in the order you plan to consider them._
 
+We plan to include two top-level enhancements to our program, Spectator Mode and Replay Mode. We plan to implement them in that order as well.
 
 ## Application Domain
 
@@ -115,6 +119,12 @@ with the WebCheckers application.
 > _Provide a summary of the application's user interface.  Describe, from
 > the user's perspective, the flow of the pages in the web application._
 
+The user when first navigating to the home page of WebCheckers will see a login button in the navbar and the number of players currently logged in. 
+After clicking on the sign in button the player will be brought to the sign in page where they may enter a valid username. 
+A valid username is defined as one that is not already in use and that does not contain more than one or only special characters. 
+After signing in the player will see a list of all currently active players.   
+
+After the player has selected another player to play against both players  
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.
