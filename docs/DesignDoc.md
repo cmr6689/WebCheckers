@@ -128,7 +128,9 @@ After clicking on the sign in button the player will be brought to the sign in p
 A valid username is defined as one that is not already in use and that does not contain more than one or only special characters. 
 After signing in the player will see a list of all currently active players.   
 
-After the player has selected another player to play against both players  
+After the player has selected another player to play against both players are put into the game. After the start of the game the players see the game UI and begin playing. 
+From the there they can resign or keeping playing to the game is over. Once the game is over both players can click the exit button to be brought back to the home page.
+
 
 ### UI Tier
 > _Provide a summary of the Server-side UI tier of your architecture.
