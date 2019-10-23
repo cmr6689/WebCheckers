@@ -7,16 +7,20 @@ import java.util.Iterator;
 public class BoardView implements Iterable{
     //create a new ArrayList of Rows
     private ArrayList<Row> rows = new ArrayList<Row>();
+    COLOR currentColor;
+    int i;
 
     public BoardView(int player){
         if(player == 1) {
-            for (int i = 0; i < 8; i++) {
+            for (i = 0; i < 8; i++) {
                 //create a new space
                 COLOR color;
                 if (i < 4) {
                     color = COLOR.WHITE;
+                    currentColor = color;
                 } else {
                     color = COLOR.RED;
+                    currentColor = color;
                 }
                 Row row = new Row(i, color);
                 if ((i % 2) == 0) {
@@ -26,13 +30,15 @@ public class BoardView implements Iterable{
                 rows.add(row);
             }
         }else{
-            for (int i = 0; i < 8; i++) {
+            for (i = 0; i < 8; i++) {
                 //create a new space
                 COLOR color;
                 if (i < 4) {
                     color = COLOR.RED;
+                    currentColor = color;
                 } else {
                     color = COLOR.WHITE;
+                    currentColor = color;
                 }
                 Row row = new Row(i, color);
                 if ((i % 2) == 0) {
@@ -51,5 +57,9 @@ public class BoardView implements Iterable{
      */
     public Iterator<Row> iterator() {
         return this.rows.iterator();
+    }
+
+    public ArrayList<Row> getRows(){
+        return rows;
     }
 }

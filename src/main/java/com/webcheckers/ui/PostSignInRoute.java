@@ -22,6 +22,7 @@ public class PostSignInRoute implements Route {
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
+  ArrayList<String> playerNames;
 
   final TemplateEngine templateEngine;
 
@@ -77,7 +78,7 @@ public class PostSignInRoute implements Route {
 
     vm.put("currentUser", request.queryParams("id"));
     if (playerLobby.getPlayers().size() > 1) {
-      ArrayList<String> playerNames = new ArrayList<>();
+      playerNames = new ArrayList<>();
       for (Player player1 : playerLobby.getPlayers()) {
         playerNames.add(player1.getName());
       }
