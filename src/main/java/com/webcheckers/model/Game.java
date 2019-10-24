@@ -72,18 +72,19 @@ public class Game {
         return boardView1;
     }
 
-    public boolean isMoveValid(Player p, int mv){
+    public boolean isMoveValid(Player p, Move move){
         //checks if a move is valid from the given player and the space
-
         if(p != turnP)
             return false;
-
-
-
-        return true;
+        else{
+            if(move.isValid()){
+                return true;
+            }
+            return false;
+        }
     }
 
-    public void makeMove(Player p, int mv){
+    public void makeMove(Player p, Move move){
         //updates both player boards with a valid mov
 
     }
