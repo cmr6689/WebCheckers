@@ -60,4 +60,8 @@ public class Row implements Iterable{
     public int getIndex() {
         return index;
     }
+
+    public Space getSpaceAtIndex(int index){
+        return this.spaces.get(index);
+    }
 }

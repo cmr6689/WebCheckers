@@ -62,4 +62,8 @@ public class BoardView implements Iterable{
     public ArrayList<Row> getRows(){
         return rows;
     }
+
+    public Row getRowAtIndex(int index){
+        return this.rows.get(index);
+    }
 }

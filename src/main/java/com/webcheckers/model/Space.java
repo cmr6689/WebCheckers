@@ -39,10 +39,7 @@ public class Space {
      * @return true if the space is a valid location and is Black
      */
     public boolean isValid(){
-        if(this.getPiece() != null && color.equals(BOARD_COLOR.BLACK)){
-            return true;
-        }
-        return false;
+        return this.getPiece() == null && color.equals(BOARD_COLOR.BLACK);
     }
 
     /**
