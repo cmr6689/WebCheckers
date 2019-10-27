@@ -11,6 +11,7 @@ define(function(require){
   // imports
   const BrowserUtils = require('../util/BrowserUtils');
 
+
   /**
    * Constructor function.
    */

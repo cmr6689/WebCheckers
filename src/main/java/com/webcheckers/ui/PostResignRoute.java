@@ -36,6 +36,10 @@ public class PostResignRoute implements Route {
        if(playerLobby.getGame().isActive()){
            playerLobby.getGame().setIsActive(false);
        }
+
+       //Spark.get("/", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "home.ftl")));
+       //response.redirect("/");
+
         // render the View
         return null;
     }
