@@ -29,14 +29,14 @@ public class PostResignRoute implements Route {
 
         LOG.finer("PostResignRoute is invoked.");
 
-        vm.put("title", "Welcome!");
-
-        // display a user message in the Home page
+        request.queryParams("gameID");
         vm.put("message", RESIGN_MSG);
+        response.body("You have resigned from the game");
 
-        vm.put("currentUser", request.queryParams("id"));
-
+       if(playerLobby.getGame().isActive()){
+           playerLobby.getGame().setIsActive(false);
+       }
         // render the View
-        return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+        return null;
     }
 }
