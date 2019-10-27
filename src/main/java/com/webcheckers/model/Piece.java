@@ -50,6 +50,10 @@ public class Piece {
         this.color = color;
     }
 
+    public void kingPiece(){
+        this.type = TYPE.KING;
+    }
+
     @Override
     public boolean equals(Object obj) {
         if (obj == this) return true;
