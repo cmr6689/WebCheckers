@@ -61,6 +61,7 @@ public class GetGameRoute implements Route{
         for (Player opp : lobby.getPlayers()) {
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
+                httpSession.attribute("opponent", opponent);
                 Game game = new Game(myPlayer, opponent);
                 lobby.setGame(game);
                 //
