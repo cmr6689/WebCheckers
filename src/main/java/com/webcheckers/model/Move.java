@@ -39,7 +39,20 @@ public class Move {
      * @return
      */
     public boolean isValid(){
-        return end.isValid() && jumpIsValid();
+        return end.isValid() && jumpIsValid() && moveIsValid();
+    }
+
+    public boolean moveIsValid(){
+        Piece.TYPE type;
+        type = thisPiece.getType();
+        if(Math.abs(start.getRow()-end.getRow()) > 1){
+            return false;
+        }
+        if(type == Piece.TYPE.SINGLE && !((start.getRow() - end.getRow()) > 0)) {
+            //if it's not king it cannot move backwards
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -63,10 +76,10 @@ public class Move {
                 //get the color of the piece at the location
                 color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
                 //get the type of the piece at the location
-                type = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece().getType();
+                type = thisPiece.getType();
                 //if the color is the same as the color being jumped return false
                 if (color != thisPiece.getColor()) {
-                    if(type == Piece.TYPE.SINGLE && !((start.getRow() + end.getRow()) > 0)) {
+                    if(type == Piece.TYPE.SINGLE && !((start.getRow() - end.getRow()) > 0)) {
                         //if it's not king it cannot move backwards
                         return false;
                     }
