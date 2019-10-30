@@ -7,10 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
-import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
 import spark.TemplateEngine;
 
 
@@ -70,6 +67,7 @@ public class WebServer {
   private static final String RESIGN_URL = "/resignGame";
   private static final String SIGN_OUT_URL = "/signout";
   private static final String CHECK_TURN_URL = "/checkTurn";
+  private static final String VALIDATE_MOVE_URL = "/validateMove";
 
   //
   // Attributes
@@ -161,6 +159,7 @@ public class WebServer {
     post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
     post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby, gameData));
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute());
 
     //
     //LOG.config("WebServer is initialized.");
