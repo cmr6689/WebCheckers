@@ -5,12 +5,18 @@ public class Move {
     //attributes for a move
     private Position start;
     private Position end;
+    private int thisRow;
+    private int thisCell;
+    private Piece thisPiece;
     private boolean jumpingPiece;
     private int rowsBeingJumped;
     private BoardView board;
 
     public Move(Position start, Position end, BoardView board){
         this.start = start;
+        this.thisCell = start.getCell();
+        this.thisRow = start.getRow();
+        this.thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         this.end = end;
         this.board = board;
         //if the player is attempting to jump a piece(moving across 2 rows) then set the boolean to be true
@@ -45,9 +51,10 @@ public class Move {
     public boolean jumpIsValid(){
         int tempRowInt;
         int tempCellInt;
+        Piece.TYPE type;
         Piece.COLOR color;
         if(jumpingPiece == true){
-            if(!end.isValid() || (rowsBeingJumped > 2)){
+            if(!(end.isValid()) || (rowsBeingJumped >= 2)){
                 return false;
             }else{
                 //set the row and the cell of the piece being jumped
@@ -55,12 +62,20 @@ public class Move {
                 tempCellInt = ((start.getCell() + end.getCell()) / 2);
                 //get the color of the piece at the location
                 color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
+                //get the type of the piece at the location
+                type = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece().getType();
                 //if the color is the same as the color being jumped return false
-                if(color != board.getRowAtIndex(this.start.getRow()).getSpaceAtIndex(this.start.getCell()).getPiece().getColor()){
+                if (color != thisPiece.getColor()) {
+                    if(type == Piece.TYPE.SINGLE && !((start.getRow() + end.getRow()) > 0)) {
+                        //if it's not king it cannot move backwards
+                        return false;
+                    }
                     return true;
+                }else{
+                    return false;
                 }
-                return false;
             }
+
         }else{
             return true;
         }
