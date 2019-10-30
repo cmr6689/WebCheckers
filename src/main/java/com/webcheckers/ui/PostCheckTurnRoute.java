@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -32,12 +33,21 @@ public class PostCheckTurnRoute implements Route {
     public Object handle(Request request, Response response) {
         LOG.finer("PostCheckTurn is invoked.");
 
-        ResponseMessage message = new ResponseMessage();
-        // to successfully resign, replace message type of ERROR with INFO
-        message.setType(ResponseMessage.MessageType.INFO);
-        message.setText("It is not your turn.");
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
 
-        // render the View
-        return gson.toJson(message);
+        ResponseMessage message = new ResponseMessage();
+
+        if (gameData.getVm().get("currentUser") == myPlayer) {
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("It is your turn.");
+            // render the View
+            return gson.toJson(message);
+        } else {
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("It is not your turn.");
+            // render the View
+            return gson.toJson(message);
+        }
     }
 }
