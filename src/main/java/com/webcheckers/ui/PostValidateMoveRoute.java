@@ -28,6 +28,7 @@ public class PostValidateMoveRoute implements Route {
         LOG.finer("PostValidateMoveRoute is invoked.");
 
         request.queryParams("gameID");
+        request.queryParams("actionData");
         vm.put("title", "Loser");
 
         ResponseMessage message = new ResponseMessage();
