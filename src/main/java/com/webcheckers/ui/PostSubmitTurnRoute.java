@@ -16,17 +16,9 @@ public class PostSubmitTurnRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostResignRoute.class.getName());
 
-    private static final Message SUBMIT_MSG = Message.info("The turn has been submitted.");
-
-    private final TemplateEngine templateEngine;
-
-    private PlayerLobby playerLobby;
-
     private final Gson gson;
 
-    public PostSubmitTurnRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby){
-        this.playerLobby = playerLobby;
-        this.templateEngine = templateEngine;
+    public PostSubmitTurnRoute(){
         this.gson = new Gson();
     }
 
@@ -37,7 +29,6 @@ public class PostSubmitTurnRoute implements Route {
         LOG.finer("PostSubmitTurnRoute is invoked.");
 
         request.queryParams("gameID");
-        vm.put("message", SUBMIT_MSG);
         vm.put("title", "Loser");
 
         ResponseMessage message = new ResponseMessage();
