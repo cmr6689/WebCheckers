@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import com.google.gson.Gson;
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import spark.TemplateEngine;
 
@@ -46,7 +47,8 @@ import spark.TemplateEngine;
 public class WebServer {
   private static final Logger LOG = Logger.getLogger(WebServer.class.getName());
 
-  private PlayerLobby playerLobby = new PlayerLobby();
+  private GameCenter gameCenter = new GameCenter();
+  private PlayerLobby playerLobby = new PlayerLobby(gameCenter);
 
   private GameData gameData = new GameData();
 

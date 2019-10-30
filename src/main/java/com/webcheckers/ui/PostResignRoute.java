@@ -2,9 +2,11 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
 import spark.*;
 
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -42,9 +44,10 @@ public class PostResignRoute implements Route {
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can not resign in the state you are in.");
 
-       if(playerLobby.getGame().isActive()){
-           playerLobby.getGame().setIsActive(false);
-       }
+        final Session httpSession = request.session();
+        Player p1 = httpSession.attribute("player");
+
+        playerLobby.getGameCenter().endGame(p1);
         // render the View
         return gson.toJson(message);
     }

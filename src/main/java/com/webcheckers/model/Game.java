@@ -39,7 +39,7 @@ public class Game {
     }
 
     public Player getPlayer2(){
-        return this.player1;
+        return this.player2;
     }
 
     public String getPlayer1Name(){

@@ -55,8 +55,8 @@ public class GetGameRoute implements Route{
         final Player opponent;
         Player fakeOpp = new Player(request.queryParams("opponent"));
         try {
-            if (!fakeOpp.equals(lobby.getGame().getPlayer1())) {
-                fakeOpp.equals(lobby.getGame().getPlayer2());
+            if (!fakeOpp.equals(lobby.getGame(myPlayer).getPlayer1())) {
+                fakeOpp.equals(lobby.getGame(myPlayer).getPlayer2());
             }
         } catch (NullPointerException e){
             //System.err.println("RIP");
@@ -65,8 +65,7 @@ public class GetGameRoute implements Route{
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
                 httpSession.attribute("opponent", opponent);
-                Game game = new Game(myPlayer, opponent);
-                lobby.setGame(game);
+                lobby.getGameCenter().newGame(myPlayer, opponent);
                 //
                 Map<String, Object> vm = new HashMap<>();
                 //k
@@ -90,12 +89,12 @@ public class GetGameRoute implements Route{
                 gameData.setRedPlayer(myPlayer);
                 gameData.setWhitePlayer(opponent);
                 gameData.setActiveColor("RED");
-                gameData.setBoard(game);
+                gameData.setBoard(lobby.getGame(myPlayer));
                 gameData.dataSetup();
                 vm = gameData.getVm();
                 lobby.setMap(vm);
 
-                if(!lobby.getGame().isActive()){
+                if(!lobby.getGame(myPlayer).isActive()){
                     response.redirect("/home");
                 }
                 // render the View

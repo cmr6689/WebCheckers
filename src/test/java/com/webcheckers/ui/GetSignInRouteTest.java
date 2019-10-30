@@ -1,6 +1,7 @@
 package com.webcheckers.ui;
 
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ public class GetSignInRouteTest {
         when(request.session()).thenReturn(session);
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
-        playerLobby = new PlayerLobby();
+        playerLobby = new PlayerLobby(new GameCenter());
 
         // create a unique CuT for each test
         CuT = new GetSignInRoute(engine,playerLobby);

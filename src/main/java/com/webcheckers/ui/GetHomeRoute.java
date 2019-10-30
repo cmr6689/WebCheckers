@@ -67,15 +67,18 @@ public class GetHomeRoute implements Route {
 
     Player player = httpSession.attribute("player");
 
-    if (playerLobby.getGame() != null) {
-      if (player != null) {
-        if (player.getName() == playerLobby.getMap().get("whitePlayer")) {
-          playerLobby.getMap().put("currentUser", player.getName());
-          playerLobby.getMap().put("board", playerLobby.getGame().getBoardView2());
-          playerLobby.getGame().setIsActive(true);
-          Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
-          response.redirect("/game");
-          //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
+    if(player != null) {
+      if (playerLobby.getGame(player) != null) {
+        if (player != null) {
+          if (player.getName() == playerLobby.getMap().get("whitePlayer")) {
+            playerLobby.getMap().put("currentUser", player.getName());
+            playerLobby.getMap().put("board", playerLobby.getGame(player).getBoardView2());
+            playerLobby.getGame(player).setIsActive(true);
+            System.err.println("Game found!");
+            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
+            response.redirect("/game");
+            //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
+          }
         }
       }
     }

@@ -21,7 +21,7 @@ public class PlayerLobbyTest {
      */
     @Test
     public void testValidAddPlayer() {
-        final PlayerLobby playerLobby = new PlayerLobby();
+        final PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
         Player player = new Player("name");
         assertTrue(playerLobby.addPlayer(player));
     }
@@ -31,7 +31,7 @@ public class PlayerLobbyTest {
      */
     @Test
     public void testInvalidAddPlayer() {
-        final PlayerLobby playerLobby = new PlayerLobby();
+        final PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
         Player player = new Player("name");
         playerLobby.addPlayer(player);
         Player player1 = new Player("name");
@@ -43,7 +43,7 @@ public class PlayerLobbyTest {
      */
     @Test
     public void testSetInvalidName() {
-        final PlayerLobby playerLobby = new PlayerLobby();
+        final PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
         playerLobby.setInvalidName(true);
         assertTrue(playerLobby.getInvalidName());
     }
@@ -53,7 +53,7 @@ public class PlayerLobbyTest {
      */
     @Test
     public void testGetPlayers() {
-        final PlayerLobby playerLobby = new PlayerLobby();
+        final PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
         playerLobby.addPlayer(new Player("name1"));
         playerLobby.addPlayer(new Player("name2"));
         ArrayList<Player> arrayList = new ArrayList<Player>();
