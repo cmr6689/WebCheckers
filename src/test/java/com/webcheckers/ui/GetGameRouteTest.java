@@ -26,6 +26,7 @@ public class GetGameRouteTest {
     private Response response;
     private TemplateEngine engine;
     private PlayerLobby lobby;
+    private GameData gameData;
 
     /**
      * Setting up mock classes to fulfill dependencies throughout the tests
@@ -34,11 +35,12 @@ public class GetGameRouteTest {
     public void setup() {
         this.request = mock(Request.class);
         this.session = mock(Session.class);
+        this.gameData = null;
         when(request.session()).thenReturn(session);
         this.response = mock(Response.class);
         this.engine = mock(TemplateEngine.class);
         this.lobby = new PlayerLobby();
-        this.Cut = new GetGameRoute(engine, lobby);
+        this.Cut = new GetGameRoute(engine, lobby, gameData);
     }
 
     /**

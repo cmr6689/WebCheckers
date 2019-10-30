@@ -51,6 +51,8 @@ public class WebServer {
 
   private PlayerLobby playerLobby = new PlayerLobby();
 
+  private GameData gameData = new GameData();
+
   public PlayerLobby getPlayerLobby() {
     return playerLobby;
   }
@@ -153,7 +155,7 @@ public class WebServer {
     // Shows the Checkers game Home page.
     get(HOME_URL, new GetHomeRoute(templateEngine, playerLobby));
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
-    post(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
+    post(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameData));
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
