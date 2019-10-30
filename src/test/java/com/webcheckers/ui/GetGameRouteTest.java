@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +40,7 @@ public class GetGameRouteTest {
         when(request.session()).thenReturn(session);
         this.response = mock(Response.class);
         this.engine = mock(TemplateEngine.class);
-        this.lobby = new PlayerLobby();
+        this.lobby = new PlayerLobby(new GameCenter());
         this.Cut = new GetGameRoute(engine, lobby, gameData);
     }
 

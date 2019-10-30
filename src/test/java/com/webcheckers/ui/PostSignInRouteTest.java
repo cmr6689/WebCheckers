@@ -5,6 +5,7 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
@@ -42,7 +43,7 @@ public class PostSignInRouteTest {
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
-        playerLobby = new PlayerLobby();
+        playerLobby = new PlayerLobby(new GameCenter());
         CuT = new PostSignInRoute(templateEngine, playerLobby);
     }
 

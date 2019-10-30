@@ -5,23 +5,19 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class GameCenter {
 
-    //array list to hold all the instances of the games that are active
-    private ArrayList<Game> activeGames;
-    //array list to hold all the instances of the games that aren't active
-    private ArrayList<Game> dormantGames;
-    //individual game with the players
-    private Game game;
-    //variable to hold temporary games to check names
-    private Game temp;
-    //player names combined to make the game name
-    private String gameName;
+
+    private HashMap<Player, Game> activeGames;
+
+    private HashMap<Player, Game> dormantGames;
+
 
     public GameCenter(){
-        activeGames = new ArrayList<>();
-        dormantGames = new ArrayList<>();
+        activeGames = new HashMap<>();
+        dormantGames = new HashMap<>();
     }
 
     /**
@@ -32,10 +28,9 @@ public class GameCenter {
      */
     public Game newGame(Player p1, Player p2){
         //gameName = p1.getName()+p2.getName();
-        game = new Game(p1,p2);
-        game.setIsActive(true);
-        activeGames.add(game);
-        return game;
+        activeGames.put(p1, new Game(p1, p2));
+        activeGames.get(p1).setIsActive(true);
+        return activeGames.get(p1);
     }
 
     /**
@@ -43,33 +38,30 @@ public class GameCenter {
      * if the names are the same as the names who's game resigned remove the game
      * adds the removed game to the dormant games ArrayList
      * @param p1: player 1
-     * @param p2: player 2
      * @return: the game if it was there, null if it wasn't
      */
-    public Game endGame(Player p1,Player p2){
-        //iterate through games
-        for(int i = 0; i < activeGames.size(); i++){
-            //get the game at the index
-            temp = activeGames.get(i);
-            //check to see if the names match
-            if(p1.getName().equals(temp.getPlayer1Name()) && p2.getName().equals(temp.getPlayer2Name())){
-                //if they do remove the game from the active list and return it and set it to be dormant
-                activeGames.remove(i);
-                temp.setIsActive(false);
-                dormantGames.add(temp);
-                return temp;
-            }
+    public Game endGame(Player p1){
+        //iterate through
+        if(activeGames.containsValue(p1)) {
+            activeGames.get(p1).setIsActive(false);
+            return activeGames.get(p1);
         }
-        //if the game wasn't in the list return null
-        return null;
+        else
+            return null;
     }
 
     /**
-     * returns the current game
+     * returns the active game with the given player in it
      * @return
      */
-    public Game getGame() {
-        return game;
+    public Game getGame(Player player) {
+        if(activeGames.containsKey(player))
+            return activeGames.get(player);
+        for(Game game : activeGames.values()){
+            if(game.getPlayer2().equals(player))
+                return game;
+        }
+        return null;
     }
 
     /**
@@ -77,24 +69,14 @@ public class GameCenter {
      * @return if the game is active
      */
     public Boolean gameIsActive(Game name){
-        for(Game game: activeGames){
-            if(game == name){
-                return true;
-            }
-        }
-        return false;
+        return activeGames.containsValue(name);
     }
 
     /**
      * checks if this game is in the dormant games arraylist
      * @return if the game is the dormant games arrayList
      */
-    public Boolean gameIsDormant(Game name){
-        for(Game game: dormantGames){
-            if(game == name){
-                return true;
-            }
-        }
-        return false;
+    public Boolean gameIsDormant(Game name) {
+        return dormantGames.containsValue(name);
     }
 }

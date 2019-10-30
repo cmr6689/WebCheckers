@@ -38,7 +38,7 @@ class GetHomeRouteTest {
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
-        playerLobby = new PlayerLobby();
+        playerLobby = new PlayerLobby(null);
 
         CuT = new GetHomeRoute(templateEngine, playerLobby);
     }

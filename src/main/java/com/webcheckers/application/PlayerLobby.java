@@ -16,10 +16,12 @@ public class PlayerLobby {
     private boolean invalidName;
 
     private Game game;
+    private GameCenter gameCenter;
     private Map<String, Object> vm;
 
-    public PlayerLobby() {
+    public PlayerLobby(GameCenter gameCenter) {
         this.invalidName = false;
+        this.gameCenter = gameCenter;
     }
 
     public boolean addPlayer(Player newPlayer) {
@@ -58,8 +60,12 @@ public class PlayerLobby {
         this.game = game;
     }
 
-    public Game getGame() {
-        return this.game;
+    public Game getGame(Player p1) {
+        return gameCenter.getGame(p1);
+    }
+
+    public GameCenter getGameCenter() {
+        return gameCenter;
     }
 
     public void setMap(Map<String, Object> map) {
