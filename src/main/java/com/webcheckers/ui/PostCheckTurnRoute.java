@@ -44,23 +44,23 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        ResponseMessage message = new ResponseMessage();
-
         if (gameData.getVm().get("currentUser") == myPlayer) {
-            /*if (gameData.getVm().get("redPlayer") == myPlayer) {
+            if (gameData.getVm().get("redPlayer") == myPlayer) {
                 gameData.setActiveColor("RED");
-            } else {
+            } else if (gameData.getVm().get("whitePlayer") == myPlayer) {
                 gameData.setActiveColor("WHITE");
-            }*/
-            message.setType(ResponseMessage.MessageType.INFO);
-            message.setText("It is your turn.");
+            }
+            ResponseMessage message1 = new ResponseMessage();
+            message1.setType(ResponseMessage.MessageType.INFO);
+            message1.setText("It is your turn.");
             // render the View
-            return gson.toJson(message);
+            return gson.toJson(message1);
         } else {
-            message.setType(ResponseMessage.MessageType.INFO);
-            message.setText("It is not your turn.");
+            ResponseMessage message2 = new ResponseMessage();
+            message2.setType(ResponseMessage.MessageType.INFO);
+            message2.setText("It is not your turn.");
             // render the View
-            return gson.toJson(message);
+            return gson.toJson(message2);
         }
     }
 }
