@@ -68,6 +68,7 @@ public class WebServer {
   private static final String SIGN_OUT_URL = "/signout";
   private static final String CHECK_TURN_URL = "/checkTurn";
   private static final String VALIDATE_MOVE_URL = "/validateMove";
+  private static final String SUBMIT_TURN_URL = "/submitTurn";
 
   //
   // Attributes
@@ -160,6 +161,7 @@ public class WebServer {
     post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby, gameData));
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute());
+    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
 
     //
     //LOG.config("WebServer is initialized.");
