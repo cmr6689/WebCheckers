@@ -35,6 +35,7 @@ public class GetGameRoute implements Route{
         //
         LOG.config("GetGameRoute is initialized.");
         this.lobby = playerLobby;
+        this.gameData = gameData;
     }
 
     /**
@@ -75,23 +76,23 @@ public class GetGameRoute implements Route{
                 vm.put("message", GAME_MSG);
 
                 //variables for game
-                vm.put("currentUser", myPlayer.getName());
-                vm.put("viewMode", "PLAY");
-                vm.put("modeOptionsAsJSON!", null);
-                vm.put("redPlayer", myPlayer.getName());
-                vm.put("whitePlayer", opponent.getName());
-                vm.put("activeColor", "RED");
-                vm.put("board", game.getGame(myPlayer));
-//                gameData.setVm(vm);
-//                gameData.setCurrentUser(myPlayer);
-//                gameData.setViewMode("PLAY");
-//                gameData.setModeOptionsAsJSON(null);
-//                gameData.setRedPlayer(myPlayer);
-//                gameData.setWhitePlayer(opponent);
-//                gameData.setActiveColor("RED");
-//                gameData.setBoard(game);
-//                gameData.dataSetup();
-//                vm = gameData.getVm();
+//                vm.put("currentUser", myPlayer.getName());
+//                vm.put("viewMode", "PLAY");
+//                vm.put("modeOptionsAsJSON!", null);
+//                vm.put("redPlayer", myPlayer.getName());
+//                vm.put("whitePlayer", opponent.getName());
+//                vm.put("activeColor", "RED");
+//                vm.put("board", game.getGame(myPlayer));
+                gameData.setVm(vm);
+                gameData.setCurrentUser(myPlayer);
+                gameData.setViewMode("PLAY");
+                gameData.setModeOptionsAsJSON(null);
+                gameData.setRedPlayer(myPlayer);
+                gameData.setWhitePlayer(opponent);
+                gameData.setActiveColor("RED");
+                gameData.setBoard(game);
+                gameData.dataSetup();
+                vm = gameData.getVm();
                 lobby.setMap(vm);
 
                 if(!lobby.getGame().isActive()){

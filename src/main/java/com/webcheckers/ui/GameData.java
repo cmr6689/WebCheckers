@@ -19,6 +19,14 @@ public class GameData {
     private Game board;
 
     public GameData(){
+        this.vm = new HashMap<>();
+        this.currentUser = null;
+        this.viewMode = null;
+        this.modeOptionsAsJSON = null;
+        this.redPlayer = null;
+        this.whitePlayer = null;
+        this.activeColor = null;
+        this.board = null;
     }
 
     public Map<String, Object> getVm() {
