@@ -33,6 +33,7 @@ public class Position {
      * @return
      */
     public boolean isValid(){
+        System.err.println(board + " " + row);
         actualRow = board.getRowAtIndex(row);
         actualSpace = actualRow.getSpaceAtIndex(cell);
         if(actualSpace.isValid()){

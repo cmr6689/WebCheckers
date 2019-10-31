@@ -12,7 +12,7 @@ public class Move {
     private int rowsBeingJumped;
     private BoardView board;
 
-    public Move(Position start, Position end, BoardView board){
+    public Move(Position start, Position end){
         this.start = start;
         this.thisCell = start.getCell();
         this.thisRow = start.getRow();
