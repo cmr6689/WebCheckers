@@ -104,6 +104,7 @@ public class GetHomeRoute implements Route {
       vm.put("playerList", playerNames);
     }
 
+
     //vm.put("playerList", playerLobby.players);
 
     // render the View

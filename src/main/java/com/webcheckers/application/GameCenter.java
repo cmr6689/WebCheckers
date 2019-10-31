@@ -10,11 +10,13 @@ import java.util.HashMap;
 public class GameCenter {
 
 
+    //Hashmap of the active games
     private HashMap<Player, Game> activeGames;
-
+    //hashmap of the dormant games
     private HashMap<Player, Game> dormantGames;
 
 
+    //constructor
     public GameCenter(){
         activeGames = new HashMap<>();
         dormantGames = new HashMap<>();
