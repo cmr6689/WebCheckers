@@ -39,10 +39,13 @@ public class GameCenterTest {
 
         // Analyze the results
         // 1) the returned game is real
-        assertNotNull(CuT.getGame(null));
+        assertNotNull(CuT.getGame(test1));
         // 2) the game is Active
-        assertTrue(CuT.getGame(null).isActive());
+        assertTrue(CuT.getGame(test1).isActive());
+
     }
+
+
 
     /**
      * Test the ability to end a Game.
@@ -61,10 +64,8 @@ public class GameCenterTest {
         CuT.endGame(test1);
 
         // Analyze the results
-        // 1) the returned game is not real
-        assertNull(game);
         // 2) the game is not Active
-        assertFalse(CuT.getGame(null).isActive());
+        assertFalse(CuT.getGame(test1).isActive());
     }
 
     /**
@@ -74,7 +75,7 @@ public class GameCenterTest {
     public void test_active_games_list() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-        game = CuT.getGame(null);
+
         //create players to add to the game
         test1 = new Player("Test1");
         test2 = new Player("Test2");
@@ -83,11 +84,11 @@ public class GameCenterTest {
 
         // Analyze the results
         // 1) the returned game is real
-        assertNotNull(CuT.getGame(null));
+        assertNotNull(CuT.getGame(test1));
         // 2) the game is Active
-        assertTrue(CuT.getGame(null).isActive());
+        assertTrue(CuT.getGame(test1).isActive());
         //3) the game is in the arrayList for active games
-        assertTrue(CuT.gameIsActive(CuT.getGame(null)));
+        assertTrue(CuT.gameIsActive(CuT.getGame(test1)));
     }
 
     /**
@@ -104,15 +105,15 @@ public class GameCenterTest {
         //create game
         CuT.newGame(test1,test2);
         //check that the game has started
-        assertTrue(CuT.getGame(null).isActive());
+        assertTrue(CuT.getGame(test1).isActive());
         //end the game
-        CuT.endGame(test1);
+        assertNotNull(CuT.endGame(test1));
         // Analyze the results
         // 1) the returned game is not real
-        assertNull(game);
+        assertNull(CuT.getActiveGame(test1));
         // 2) the game is not Active
-        assertFalse(CuT.getGame(null).isActive());
+        assertFalse(CuT.getGame(test1).isActive());
         //3) the game is in the dormant games arrayList
-        assertTrue(CuT.gameIsDormant(CuT.getGame(null)));
+        assertTrue(CuT.gameIsDormant(CuT.getGame(test1)));
     }
 }

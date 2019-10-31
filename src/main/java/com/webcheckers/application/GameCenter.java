@@ -46,11 +46,13 @@ public class GameCenter {
      */
     public Game endGame(Player p1){
         //iterate through
-        if(activeGames.containsValue(p1)) {
+        if(activeGames.containsKey(p1)) {
             activeGames.get(p1).setIsActive(false);
             activeGames.get(p1).getPlayer2().setInGame(false);
             p1.setInGame(false);
-            return activeGames.get(p1);
+            dormantGames.put(p1, activeGames.get(p1));
+            activeGames.remove(p1);
+            return dormantGames.get(p1);
         }
         else
             return null;
@@ -64,6 +66,32 @@ public class GameCenter {
         if(activeGames.containsKey(player))
             return activeGames.get(player);
         for(Game game : activeGames.values()){
+            if(game.getPlayer2().equals(player))
+                return game;
+        }
+        if(dormantGames.containsKey(player))
+            return dormantGames.get(player);
+        for(Game game : dormantGames.values()){
+            if(game.getPlayer2().equals(player))
+                return game;
+        }
+        return null;
+    }
+
+    public Game getActiveGame(Player player){
+        if(activeGames.containsKey(player))
+            return activeGames.get(player);
+        for(Game game : activeGames.values()){
+            if(game.getPlayer2().equals(player))
+                return game;
+        }
+        return null;
+    }
+
+    public Game getDormantGames(Player player){
+        if(dormantGames.containsKey(player))
+            return dormantGames.get(player);
+        for(Game game : dormantGames.values()){
             if(game.getPlayer2().equals(player))
                 return game;
         }
