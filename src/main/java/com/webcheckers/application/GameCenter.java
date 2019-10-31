@@ -28,6 +28,8 @@ public class GameCenter {
      */
     public Game newGame(Player p1, Player p2){
         //gameName = p1.getName()+p2.getName();
+        p1.setInGame(true);
+        p2.setInGame(true);
         activeGames.put(p1, new Game(p1, p2));
         activeGames.get(p1).setIsActive(true);
         return activeGames.get(p1);
@@ -44,6 +46,8 @@ public class GameCenter {
         //iterate through
         if(activeGames.containsValue(p1)) {
             activeGames.get(p1).setIsActive(false);
+            activeGames.get(p1).getPlayer2().setInGame(false);
+            p1.setInGame(false);
             return activeGames.get(p1);
         }
         else

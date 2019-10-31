@@ -98,7 +98,7 @@ public class GetHomeRoute implements Route {
 
     if (playerLobby.getPlayers().size() > 0) {
       ArrayList<String> playerNames = new ArrayList<>();
-      for (Player player1 : playerLobby.getPlayers()) {
+      for (Player player1 : playerLobby.getAvaPlayers()) {
         playerNames.add(player1.getName());
       }
       vm.put("playerList", playerNames);

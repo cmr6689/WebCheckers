@@ -56,6 +56,17 @@ public class PlayerLobby {
         return this.players;
     }
 
+    public ArrayList<Player> getAvaPlayers() {
+        ArrayList<Player> tmp = new ArrayList<>();
+
+        for(Player player : players){
+            if(!player.getInGame())
+                tmp.add(player);
+        }
+
+        return tmp;
+    }
+
     public void setGame(Game game) {
         this.game = game;
     }
