@@ -6,7 +6,7 @@ import java.util.Iterator;
 
 public class BoardView implements Iterable{
     //create a new ArrayList of Rows
-    private ArrayList<Row> rows = new ArrayList<Row>();
+    private ArrayList<Row> rows = new ArrayList<>();
     COLOR currentColor;
     int i;
 

@@ -9,13 +9,8 @@ public class Position {
     private int row;
     //the int representation of the cell(space)
     private int cell;
-    //the actual row
-    private Row actualRow;
-    //the actual space
-    private Space actualSpace;
 
-    public Position(BoardView boardView, int row, int cell){
-        this.board = boardView;
+    public Position(int row, int cell){
         this.row = row;
         this.cell = cell;
     }
@@ -26,20 +21,6 @@ public class Position {
 
     public int getCell(){
         return this.cell;
-    }
-
-    /**
-     * needs to check the space at that position and look to see if it is a valid space, black and no piece on it
-     * @return
-     */
-    public boolean isValid(){
-        System.err.println(board + " " + row);
-        actualRow = board.getRowAtIndex(row);
-        actualSpace = actualRow.getSpaceAtIndex(cell);
-        if(actualSpace.isValid()){
-            return true;
-        }
-        return false;
     }
 
     @Override
