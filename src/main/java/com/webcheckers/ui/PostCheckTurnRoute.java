@@ -47,9 +47,11 @@ public class PostCheckTurnRoute implements Route {
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
             System.err.println("I am current user: " + myPlayer.getName());
             if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
+                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
                 gameData.setActiveColor("RED");
                 System.err.println("setting red players turn");
-            } else if (gameData.getVm().get("whitePlayer") == myPlayer.getName()) {
+            } else if (gameData.getVm().get("whitePlayer").equals(myPlayer.getName())) {
+                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView2());
                 gameData.setActiveColor("WHITE");
                 System.err.println("setting white players turn");
             }

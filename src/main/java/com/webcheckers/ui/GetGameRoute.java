@@ -103,7 +103,7 @@ public class GetGameRoute implements Route{
                     gameData.setRedPlayer(myPlayer);
                     gameData.setWhitePlayer(opponent);
                     gameData.setActiveColor("RED");
-                    gameData.setBoard(lobby.getGame(myPlayer));
+                    gameData.setBoard(lobby.getGame(myPlayer).getBoardView1());
                     gameData.dataSetup();
                     vm = gameData.getVm();
                 }

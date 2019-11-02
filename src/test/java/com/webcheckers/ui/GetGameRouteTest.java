@@ -36,7 +36,7 @@ public class GetGameRouteTest {
     public void setup() {
         this.request = mock(Request.class);
         this.session = mock(Session.class);
-        this.gameData = null;
+        this.gameData = mock(GameData.class);
         when(request.session()).thenReturn(session);
         this.response = mock(Response.class);
         this.engine = mock(TemplateEngine.class);

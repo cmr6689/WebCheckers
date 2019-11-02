@@ -38,6 +38,7 @@ public class PostSubmitTurnRoute implements Route {
         request.queryParams("gameID");
         vm.put("title", "Loser");
 
+        //Check if valid move first
         ResponseMessage message = new ResponseMessage();
         // to successfully resign, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);

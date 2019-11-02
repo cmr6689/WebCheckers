@@ -16,7 +16,7 @@ public class GameData {
     private Player redPlayer;
     private Player whitePlayer;
     private String activeColor;
-    private Game board;
+    private BoardView board;
 
     public GameData(){
         this.vm = new HashMap<>();
@@ -61,7 +61,7 @@ public class GameData {
         this.activeColor = activeColor;
     }
 
-    public void setBoard(Game board) {
+    public void setBoard(BoardView board) {
         this.board = board;
     }
 
@@ -80,6 +80,6 @@ public class GameData {
         vm.put("redPlayer", redPlayer.getName());
         vm.put("whitePlayer", whitePlayer.getName());
         vm.put("activeColor", activeColor);
-        vm.put("board", board.getGame(currentUser));
+        vm.put("board", board);
     }
 }
