@@ -44,15 +44,28 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
-            System.err.println("I am current user: " + myPlayer.getName());
-            if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
+        if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
+            if(gameData.getVm().get("currentUser").equals(myPlayer.getName()))
                 gameData.setActiveColor("RED");
-                System.err.println("setting red players turn");
+            else
+                gameData.setModeOptionsAsJSON("WHITE");
+        } else if (gameData.getVm().get("whitePlayer").equals(myPlayer.getName())) {
+            if(gameData.getVm().get("currentUser").equals(myPlayer.getName()))
+                gameData.setActiveColor("WHITE");
+            else
+                gameData.setActiveColor("RED");
+        }
+
+        System.err.println(gameData.getVm().get("currentUser"));
+
+        if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
+
+            /*if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
+                gameData.setActiveColor("RED");
             } else if (gameData.getVm().get("whitePlayer") == myPlayer.getName()) {
                 gameData.setActiveColor("WHITE");
-                System.err.println("setting white players turn");
-            }
+            }*/
+
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("It is your turn.");
@@ -67,7 +80,6 @@ public class PostCheckTurnRoute implements Route {
             message2.setText("It is not your turn.");
             // render the View
 
-            System.err.println("postcheck turn, not my turn  : " + myPlayer.getName());
 
             gameData.dataSetup();
             playerLobby.setMap(gameData.getVm());
