@@ -58,6 +58,8 @@ public class GetGameRoute implements Route{
     @Override
     public Object handle(Request request, Response response){
 
+        System.err.println("i was called");
+
         Session httpSession = request.session();
 
         Player myPlayer = httpSession.attribute("player");
@@ -113,6 +115,7 @@ public class GetGameRoute implements Route{
                 turn = !turn;
                 lobby.setTurn(turn);
                 // render the View
+                initial = false;
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));
             }
         }

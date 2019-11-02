@@ -39,15 +39,16 @@ public class PostCheckTurnRoute implements Route {
 
     @Override
     public Object handle(Request request, Response response) {
-        LOG.finer("PostCheckTurn is invoked.");
+         LOG.finer("PostCheckTurn is invoked.");
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        if (gameData.getVm().get("currentUser") == myPlayer) {
-            if (gameData.getVm().get("redPlayer") == myPlayer) {
+
+        if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
+            if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
                 gameData.setActiveColor("RED");
-            } else if (gameData.getVm().get("whitePlayer") == myPlayer) {
+            } else if (gameData.getVm().get("whitePlayer") == myPlayer.getName()) {
                 gameData.setActiveColor("WHITE");
             }
             ResponseMessage message1 = new ResponseMessage();
