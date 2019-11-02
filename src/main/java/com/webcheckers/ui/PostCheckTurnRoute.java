@@ -43,6 +43,7 @@ public class PostCheckTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        gameData.setCurrentUser(myPlayer);
 
 
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
@@ -55,12 +56,19 @@ public class PostCheckTurnRoute implements Route {
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("It is your turn.");
             // render the View
+            gameData.dataSetup();
+            playerLobby.setMap(gameData.getVm());
+
             return gson.toJson(message1);
         } else {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("It is not your turn.");
             // render the View
+
+            gameData.dataSetup();
+            playerLobby.setMap(gameData.getVm());
+
             return gson.toJson(message2);
         }
     }
