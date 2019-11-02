@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 
 public class PostGameOverRoute implements Route {
 
-    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.GetGameRoute.class.getName());
+    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostGameOverRoute.class.getName());
 
     static final Message GAME_MSG = Message.info(String.format("You are playing a game of Webcheckers with %s", "an opponent"));
 

@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 
 public class PostSubmitTurnRoute implements Route {
 
-    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostResignRoute.class.getName());
+    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostSubmitTurnRoute.class.getName());
 
     private final Gson gson;
 

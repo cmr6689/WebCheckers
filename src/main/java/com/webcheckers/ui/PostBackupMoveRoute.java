@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 public class PostBackupMoveRoute implements Route {
-    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostResignRoute.class.getName());
+    private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostBackupMoveRoute.class.getName());
 
     private final Gson gson;
 
