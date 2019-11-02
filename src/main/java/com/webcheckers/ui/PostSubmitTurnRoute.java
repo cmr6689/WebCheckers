@@ -2,11 +2,10 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Game;
+import com.webcheckers.model.Player;
 import com.webcheckers.util.Message;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.TemplateEngine;
+import spark.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,8 +17,14 @@ public class PostSubmitTurnRoute implements Route {
 
     private final Gson gson;
 
-    public PostSubmitTurnRoute(){
+    GameData gameData;
+
+    PlayerLobby playerLobby;
+
+    public PostSubmitTurnRoute(GameData gameData, PlayerLobby playerLobby){
         this.gson = new Gson();
+        this.gameData = gameData;
+        this.playerLobby = playerLobby;
     }
 
     @Override
@@ -27,6 +32,8 @@ public class PostSubmitTurnRoute implements Route {
         Map<String, Object> vm = new HashMap<>();
 
         LOG.finer("PostSubmitTurnRoute is invoked.");
+
+        System.err.println("turn was submitted");
 
         request.queryParams("gameID");
         vm.put("title", "Loser");
@@ -36,7 +43,13 @@ public class PostSubmitTurnRoute implements Route {
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can not submit a turn in the state you are in.");
 
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
 
+        gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+
+        gameData.dataSetup();
+        playerLobby.setMap(gameData.getVm());
 
         // render the View
         return gson.toJson(message);

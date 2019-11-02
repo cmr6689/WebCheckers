@@ -163,8 +163,8 @@ public class WebServer {
     post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
     post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby, gameData));
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
-    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(playerLobby));
-    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute());
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(playerLobby, gameData));
+    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(gameData, playerLobby));
     post(BACKUP_MOVE, new PostBackupMoveRoute());
 
     //

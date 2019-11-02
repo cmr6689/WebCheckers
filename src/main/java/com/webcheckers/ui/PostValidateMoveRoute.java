@@ -17,9 +17,12 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
-    public PostValidateMoveRoute(PlayerLobby playerLobby){
+    private GameData gameData;
+
+    public PostValidateMoveRoute(PlayerLobby playerLobby, GameData gameData){
         this.gson = new Gson();
         this.playerLobby = playerLobby;
+        this.gameData = gameData;
     }
 
     /**

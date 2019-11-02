@@ -43,14 +43,15 @@ public class PostCheckTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-        gameData.setCurrentUser(myPlayer);
-
 
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
+            System.err.println("I am current user: " + myPlayer.getName());
             if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
                 gameData.setActiveColor("RED");
+                System.err.println("setting red players turn");
             } else if (gameData.getVm().get("whitePlayer") == myPlayer.getName()) {
                 gameData.setActiveColor("WHITE");
+                System.err.println("setting white players turn");
             }
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
@@ -65,6 +66,8 @@ public class PostCheckTurnRoute implements Route {
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("It is not your turn.");
             // render the View
+
+            System.err.println("postcheck turn, not my turn  : " + myPlayer.getName());
 
             gameData.dataSetup();
             playerLobby.setMap(gameData.getVm());
