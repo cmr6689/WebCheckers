@@ -25,6 +25,12 @@ public class GetGameRoute implements Route{
 
     private GameData gameData;
 
+    private boolean initial = true;
+
+    private Player opponent;
+
+    private boolean turn = true;
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
@@ -36,6 +42,10 @@ public class GetGameRoute implements Route{
         LOG.config("GetGameRoute is initialized.");
         this.lobby = playerLobby;
         this.gameData = gameData;
+    }
+
+    public Player getOpponent(){
+        return this.opponent;
     }
 
     /**
@@ -64,6 +74,7 @@ public class GetGameRoute implements Route{
         for (Player opp : lobby.getPlayers()) {
             if (opp.equals(fakeOpp)) {
                 opponent = opp;
+                this.opponent = opponent;
                 httpSession.attribute("opponent", opponent);
                 lobby.getGameCenter().newGame(myPlayer, opponent);
                 //
@@ -82,21 +93,25 @@ public class GetGameRoute implements Route{
 //                vm.put("whitePlayer", opponent.getName());
 //                vm.put("activeColor", "RED");
 //                vm.put("board", game.getGame(myPlayer));
-                gameData.setVm(vm);
-                gameData.setCurrentUser(myPlayer);
-                gameData.setViewMode("PLAY");
-                gameData.setModeOptionsAsJSON(null);
-                gameData.setRedPlayer(myPlayer);
-                gameData.setWhitePlayer(opponent);
-                gameData.setActiveColor("RED");
-                gameData.setBoard(lobby.getGame(myPlayer));
-                gameData.dataSetup();
-                vm = gameData.getVm();
+                if(initial) {
+                    gameData.setVm(vm);
+                    gameData.setCurrentUser(myPlayer);
+                    gameData.setViewMode("PLAY");
+                    gameData.setModeOptionsAsJSON(null);
+                    gameData.setRedPlayer(myPlayer);
+                    gameData.setWhitePlayer(opponent);
+                    gameData.setActiveColor("RED");
+                    gameData.setBoard(lobby.getGame(myPlayer));
+                    gameData.dataSetup();
+                    vm = gameData.getVm();
+                }
                 lobby.setMap(vm);
 
                 if(!lobby.getGame(myPlayer).isActive()){
                     response.redirect("/home");
                 }
+                turn = !turn;
+                lobby.setTurn(turn);
                 // render the View
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));
             }

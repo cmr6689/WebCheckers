@@ -66,6 +66,14 @@ public class GameData {
     }
 
     public void dataSetup(){
+        //variables for game
+//                vm.put("currentUser", myPlayer.getName());
+//                vm.put("viewMode", "PLAY");
+//                vm.put("modeOptionsAsJSON!", null);
+//                vm.put("redPlayer", myPlayer.getName());
+//                vm.put("whitePlayer", opponent.getName());
+//                vm.put("activeColor", "RED");
+//                vm.put("board", game.getGame(myPlayer));
         vm.put("currentUser", currentUser.getName());
         vm.put("viewMode", viewMode);
         vm.put("modeOptionsAsJSON!", modeOptionsAsJSON);

@@ -18,6 +18,7 @@ public class PlayerLobby {
     private Game game;
     private GameCenter gameCenter;
     private Map<String, Object> vm;
+    private boolean turn;
 
     public PlayerLobby(GameCenter gameCenter) {
         this.invalidName = false;
@@ -87,4 +88,11 @@ public class PlayerLobby {
         return this.vm;
     }
 
+    public void setTurn(boolean turn){
+        this.turn = turn;
+    }
+
+    public boolean getTurn(){
+        return this.turn;
+    }
 }
