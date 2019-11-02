@@ -27,4 +27,10 @@ public class Move {
         final Move that = (Move) o;
         return ((this.start.equals(that.start)) && (this.end.equals(that.end)));
     }
+
+    @Override
+    public String toString() {
+        return "Starting at position " + getStart().getRow() + ":" + getStart().getCell() +
+                " and trying to move to position " + getEnd().getRow() + ":" + getEnd().getCell();
+    }
 }
