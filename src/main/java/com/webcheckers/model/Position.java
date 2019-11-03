@@ -54,4 +54,9 @@ public class Position {
         final Position that = (Position) o;
         return ((this.cell == that.cell) && (this.row == that.row));
     }
+
+    @Override
+    public String toString(){
+        return "The position of this piece is row " + row + " and cell " + cell;
+    }
 }
