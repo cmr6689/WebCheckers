@@ -7,7 +7,6 @@ import com.webcheckers.model.Space.BOARD_COLOR;
  * @author Team-E
  */
 public class Piece {
-
     /**
      * enum to represent the type the piece is (if it's a normal piece or a king)
      */
@@ -86,6 +85,11 @@ public class Piece {
         if (obj == this) return true;
         if (!(obj instanceof Piece)) return false;
         final Piece that = (Piece) obj;
-        return this.equals(that);
+        return ((this.type.equals(that.type)) && (this.color.equals(that.color)));
+    }
+
+    @Override
+    public String toString(){
+        return "This piece is a " + getType() + " and has color " + getColor();
     }
 }

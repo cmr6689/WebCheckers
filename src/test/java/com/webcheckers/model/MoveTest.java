@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
- * Unit test for Game
+ * Unit test for Move
  * @author Evan Price
  */
 
