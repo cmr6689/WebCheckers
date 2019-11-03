@@ -135,7 +135,9 @@ public class GameData {
         vm.put("viewMode", viewMode);
         vm.put("modeOptionsAsJSON!", modeOptionsAsJSON);
         vm.put("redPlayer", redPlayer.getName());
+        vm.put("redPlayerObj", redPlayer);
         vm.put("whitePlayer", whitePlayer.getName());
+        vm.put("whitePlayerObj", whitePlayer);
         vm.put("activeColor", activeColor);
         vm.put("board", board);
     }
