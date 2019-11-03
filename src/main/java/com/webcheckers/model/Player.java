@@ -17,7 +17,7 @@ public class Player {
     /**
      * The players color can either be red or white
      */
-    private enum Color{
+    enum Color{
         RED,WHITE;
     }
     //the name of the player
@@ -108,4 +108,11 @@ public class Player {
         return this.name.hashCode();
     }
 
+    /**
+     * @return the name and color of the player
+     */
+    @Override
+    public String toString(){
+        return "The name of this player is " + name + " and their color is " + playerColor;
+    }
 }
