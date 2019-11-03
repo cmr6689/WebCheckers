@@ -76,7 +76,8 @@ public class GetGameRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
 
-        testHelper.assertViewModelAttribute("currentUser", new Player("Player").getName());
+        //TODO: Fix for new conditions made
+        testHelper.assertViewModelAttribute("currentUser", request.queryParams("Player"));
         testHelper.assertViewModelAttribute("title", "Webcheckers");
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
         //Can't see own name

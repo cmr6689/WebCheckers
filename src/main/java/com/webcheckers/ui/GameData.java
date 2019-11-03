@@ -27,9 +27,8 @@ public class GameData {
     private Player whitePlayer;
     //the player color that is active and allowed to move
     private String activeColor;
+    //the board
     private BoardView board;
-    //the game
-    private Game board;
 
     /**
      * Constructor for the game data class that sets all the global variables
@@ -110,12 +109,12 @@ public class GameData {
         this.activeColor = activeColor;
     }
 
-    public void setBoard(BoardView board) {
+
     /**
      * Set the game to be used for its functionality
      * @param board the game
      */
-    public void setBoard(Game board) {
+    public void setBoard(BoardView board) {
         this.board = board;
     }
 

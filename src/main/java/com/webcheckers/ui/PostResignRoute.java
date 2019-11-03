@@ -20,9 +20,9 @@ public class PostResignRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostResignRoute.class.getName());
 
-    private static final Message RESIGN_MSG = Message.info("You have resigned from the game");
+    static final Message RESIGN_MSG = Message.info("You have resigned from the game");
 
-    private final TemplateEngine templateEngine;
+    final TemplateEngine templateEngine;
 
     private PlayerLobby playerLobby;
 
