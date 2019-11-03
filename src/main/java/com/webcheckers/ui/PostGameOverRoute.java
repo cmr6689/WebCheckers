@@ -11,6 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * This class handles the modeOptionsAsJSON for when a game is over or a player has resigned
+ *
+ * @author Team-E
+ */
 public class PostGameOverRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostGameOverRoute.class.getName());
@@ -33,6 +38,12 @@ public class PostGameOverRoute implements Route {
         this.lobby = playerLobby;
     }
 
+    /**
+     * Respond to the ajax call with a gson to json message
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json message
+     */
     @Override
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();

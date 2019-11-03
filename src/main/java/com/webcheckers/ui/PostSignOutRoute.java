@@ -10,6 +10,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.logging.Logger;
 
+/**
+ * The UI Controller to POST the Sign Out page.
+ *
+ * @author Team-E
+ */
 public class PostSignOutRoute implements Route {
 
     private PlayerLobby playerlobby;

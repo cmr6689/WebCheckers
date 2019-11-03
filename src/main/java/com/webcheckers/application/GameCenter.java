@@ -7,6 +7,11 @@ import com.webcheckers.model.Player;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * The GameCenter class handles multiple games on the server at once.
+ *
+ * @author Team-E
+ */
 public class GameCenter {
 
 
@@ -16,7 +21,9 @@ public class GameCenter {
     private HashMap<Player, Game> dormantGames;
 
 
-    //constructor
+    /**
+     * GameCenter constructor which sets the hashmaps
+     */
     public GameCenter(){
         activeGames = new HashMap<>();
         dormantGames = new HashMap<>();
@@ -60,7 +67,8 @@ public class GameCenter {
 
     /**
      * returns the active game with the given player in it
-     * @return
+     * @param player a player within the game
+     * @return the game the player is in if it exists
      */
     public Game getGame(Player player) {
         if(activeGames.containsKey(player))
@@ -78,6 +86,11 @@ public class GameCenter {
         return null;
     }
 
+    /**
+     * return the active game given a player
+     * @param player a player within the game
+     * @return the game the player is in if it exists
+     */
     public Game getActiveGame(Player player){
         if(activeGames.containsKey(player))
             return activeGames.get(player);
@@ -88,6 +101,11 @@ public class GameCenter {
         return null;
     }
 
+    /**
+     * return the dormant game given a player
+     * @param player a player within the game
+     * @return the game the player is in if it exists
+     */
     public Game getDormantGames(Player player){
         if(dormantGames.containsKey(player))
             return dormantGames.get(player);
@@ -100,6 +118,7 @@ public class GameCenter {
 
     /**
      * checks if this game is in the active games arraylist
+     * @param name a game
      * @return if the game is active
      */
     public Boolean gameIsActive(Game name){
@@ -108,6 +127,7 @@ public class GameCenter {
 
     /**
      * checks if this game is in the dormant games arraylist
+     * @param name a game
      * @return if the game is the dormant games arrayList
      */
     public Boolean gameIsDormant(Game name) {

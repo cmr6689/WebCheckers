@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
 import static spark.route.HttpMethod.post;
 
 /**
- * The UI Controller to GET the Home page.
+ * The UI Controller to GET the Sign In page.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author Team-E
  */
 public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
@@ -44,7 +44,7 @@ public class GetSignInRoute implements Route {
   }
 
   /**
-   * Render the WebCheckers Home page.
+   * Render the WebCheckers Sign In page.
    *
    * @param request
    *   the HTTP request

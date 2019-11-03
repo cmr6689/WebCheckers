@@ -5,6 +5,8 @@ import com.webcheckers.model.Piece.COLOR;
 /**
  * A row will be made of 8 objects of this class
  * Class used to represent a space on the board(a spot that can hold a piece)
+ *
+ * @author Team-E
  */
 public class Space {
 

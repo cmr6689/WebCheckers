@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 /**
- * The UI Controller to GET the Home page.
+ * The UI Controller to POST the Sign In page.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author Team-E
  */
 public class PostSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
@@ -27,6 +27,7 @@ public class PostSignInRoute implements Route {
   final TemplateEngine templateEngine;
 
   PlayerLobby playerLobby;
+
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
@@ -42,7 +43,7 @@ public class PostSignInRoute implements Route {
   }
 
   /**
-   * Render the WebCheckers Home page.
+   * Render the WebCheckers Sign In page.
    *
    * @param request
    *   the HTTP request

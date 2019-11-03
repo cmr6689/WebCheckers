@@ -9,6 +9,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * The Row class handles the rows of the game board by keeping track
+ * of the spaces in each spot and the color of each space
+ */
 public class Row implements Iterable{
 
     //integer from 0 to 7 indicating the space in the row
@@ -18,6 +22,11 @@ public class Row implements Iterable{
     //creates an array list to hold all the spaces in this row
     private ArrayList<Space> spaces = new ArrayList<Space>();
 
+    /**
+     * The constructor for the row class that creates the rows
+     * @param index the index of the row
+     * @param color the color of the spaces
+     */
     public Row(int index, COLOR color){
         this.index = index;
         for(int i = 0; i < 8; i++){
@@ -55,12 +64,18 @@ public class Row implements Iterable{
     }
 
     /**
+     * Getter method for the row index
      * @return The index of this row within the board
      */
     public int getIndex() {
         return index;
     }
 
+    /**
+     * Getter method for the space at the index
+     * @param index index of the space
+     * @return the space at that index
+     */
     public Space getSpaceAtIndex(int index){
         return this.spaces.get(index);
     }

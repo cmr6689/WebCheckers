@@ -10,6 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * This class handles the ajax call of /validateMove and responds with a json message
+ *
+ * @author Team-E
+ */
 public class PostValidateMoveRoute implements Route {
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostValidateMoveRoute.class.getName());
 
@@ -19,6 +24,12 @@ public class PostValidateMoveRoute implements Route {
 
     private GameData gameData;
 
+    /**
+     * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
+     *
+     * @param gameData the vm map data of the game
+     * @param playerLobby the lobby of all the players
+     */
     public PostValidateMoveRoute(PlayerLobby playerLobby, GameData gameData){
         this.gson = new Gson();
         this.playerLobby = playerLobby;
@@ -39,6 +50,12 @@ public class PostValidateMoveRoute implements Route {
         return false;
     }
 
+    /**
+     * checks whether or not the move is valid
+     * @param move the move being made
+     * @param thisPiece the piece used in the move
+     * @return true if a valid move
+     */
     public boolean moveIsValid(Move move, Piece thisPiece){
         Piece.TYPE type;
         type = thisPiece.getType();
@@ -92,6 +109,12 @@ public class PostValidateMoveRoute implements Route {
         }
     }
 
+    /**
+     * Respond to the ajax call with a gson to json message
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json message
+     */
     @Override
     public Object handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
