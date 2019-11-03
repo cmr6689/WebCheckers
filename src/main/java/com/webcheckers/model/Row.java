@@ -44,7 +44,6 @@ public class Row implements Iterable{
                 }
             }
             //create a new space
-
             Space space = new Space(null, i, this.boardColor);
             //add that space to the ArrayList
             if ((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index < 2   || index > 5)) {
@@ -69,6 +68,14 @@ public class Row implements Iterable{
      */
     public int getIndex() {
         return index;
+    }
+
+    /**
+     * Getter method for the board color index
+     * @return The index of this row within the board
+     */
+    public BOARD_COLOR getBoardColor() {
+        return boardColor;
     }
 
     /**

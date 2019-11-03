@@ -51,6 +51,14 @@ public class Space {
     }
 
     /**
+     * gets this board color of the space
+     * @return The board color of the space
+     */
+    public BOARD_COLOR getBoardColor(){
+        return color;
+    }
+
+    /**
      * This method will return true if the space is a valid location to place a piece;
      * that is, it is a dark square and has no other piece on it.
      * @return true if the space is a valid location and is Black
@@ -65,5 +73,14 @@ public class Space {
      */
     public Piece getPiece() {
         return this.piece;
+    }
+
+    /**
+     *
+     */
+    @Override
+    public String toString(){
+        return "The piece on this space is " + piece + ", the index of this space is " + cellIdx +
+                " and, the color of this space is " + color;
     }
 }
