@@ -16,7 +16,7 @@ public class Game {
 
     //Respective boards veiw for each player
     private BoardView boardView1;
-    private BoardView boardView2;
+    //private BoardView boardView2;
 
     //if the game is active
     private Boolean active = true;
@@ -30,7 +30,7 @@ public class Game {
     public Game (Player p1, Player p2){
         //boardView = new BoardView();
         boardView1 = new BoardView(1);
-        boardView2 = new BoardView(2);
+        //boardView2 = new BoardView(2);
         this.player1 = p1;
         this.player2 = p2;
     }
@@ -48,7 +48,7 @@ public class Game {
      * @return board view 2
      */
     public BoardView getBoardView2() {
-        return boardView2;
+        return boardView1;
     }
 
     /**
@@ -133,7 +133,7 @@ public class Game {
      */
     public BoardView getGame(Player player) {
         if (player.equals(player2)) {
-            return boardView2;
+            return boardView1;
         }
         return boardView1;
     }

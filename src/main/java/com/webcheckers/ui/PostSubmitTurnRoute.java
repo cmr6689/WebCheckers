@@ -64,7 +64,13 @@ public class PostSubmitTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+        if(playerLobby.getGame(myPlayer).getPlayer1().equals(gameData.getVm().get("currentUser"))) {
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+            gameData.setActiveColor("RED");
+        }else{
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
+            gameData.setActiveColor("WHITE");
+        }
 
         gameData.dataSetup();
         playerLobby.setMap(gameData.getVm());

@@ -52,17 +52,18 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
+        System.err.println(gameData.getVm().get("activeColor"));
+
+        if(playerLobby.getGame(myPlayer).getPlayer1().equals(gameData.getVm().get("currentUser"))) {
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+            gameData.setActiveColor("RED");
+        }else{
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
+            gameData.setActiveColor("WHITE");
+        }
+
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
-            System.err.println("I am current user: " + myPlayer.getName());
-            if (gameData.getVm().get("redPlayer").equals(myPlayer.getName())) {
-                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
-                gameData.setActiveColor("RED");
-                System.err.println("setting red players turn");
-            } else if (gameData.getVm().get("whitePlayer").equals(myPlayer.getName())) {
-                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView2());
-                gameData.setActiveColor("WHITE");
-                System.err.println("setting white players turn");
-            }
+
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("It is your turn.");
@@ -77,7 +78,7 @@ public class PostCheckTurnRoute implements Route {
             message2.setText("It is not your turn.");
             // render the View
 
-            System.err.println("postcheck turn, not my turn  : " + myPlayer.getName());
+            //System.err.println("postcheck turn, not my turn  : " + myPlayer.getName());
 
             gameData.dataSetup();
             playerLobby.setMap(gameData.getVm());
