@@ -12,6 +12,8 @@ import java.util.logging.Logger;
 
 /**
  * Route that handles the ajax call of checking whose turn it is while it is currently not your turn.
+ *
+ * @author Team-E
  */
 public class PostCheckTurnRoute implements Route {
 
@@ -37,6 +39,12 @@ public class PostCheckTurnRoute implements Route {
         this.gameData = gameData;
     }
 
+    /**
+     * Respond to the ajax call with a gson to json message
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json message
+     */
     @Override
     public Object handle(Request request, Response response) {
          LOG.finer("PostCheckTurn is invoked.");

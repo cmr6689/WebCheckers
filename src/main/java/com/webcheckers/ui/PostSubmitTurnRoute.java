@@ -11,6 +11,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+/**
+ * This class handles the ajax call of /submitTurn and responds with a json message
+ *
+ * @author Team-E
+ */
 public class PostSubmitTurnRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostSubmitTurnRoute.class.getName());
@@ -21,12 +26,24 @@ public class PostSubmitTurnRoute implements Route {
 
     PlayerLobby playerLobby;
 
+    /**
+     * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
+     *
+     * @param gameData the vm map data of the game
+     * @param playerLobby the lobby of all the players
+     */
     public PostSubmitTurnRoute(GameData gameData, PlayerLobby playerLobby){
         this.gson = new Gson();
         this.gameData = gameData;
         this.playerLobby = playerLobby;
     }
 
+    /**
+     * Respond to the ajax call with a gson to json message
+     * @param request the HTTP request
+     * @param response the HTTP response
+     * @return the json message
+     */
     @Override
     public Object handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();

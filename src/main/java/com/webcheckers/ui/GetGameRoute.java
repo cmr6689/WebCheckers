@@ -13,6 +13,11 @@ import spark.*;
 
 import com.webcheckers.util.Message;
 
+/**
+ * The UI Controller to GET the Game page
+ *
+ * @author Team-E
+ */
 public class GetGameRoute implements Route{
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.GetGameRoute.class.getName());
@@ -49,7 +54,7 @@ public class GetGameRoute implements Route{
     }
 
     /**
-     * Render the WebCheckers Home page.
+     * Render the WebCheckers Game page.
      *
      * @param request  the HTTP request
      * @param response the HTTP response
