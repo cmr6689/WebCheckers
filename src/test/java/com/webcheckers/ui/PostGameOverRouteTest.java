@@ -69,7 +69,6 @@ public class PostGameOverRouteTest {
         when(session.attribute("player")).thenReturn(new Player("Player"));
         when(session.attribute("opponent")).thenReturn(new Player("Opp"));
         Player p1 = httpSession.attribute("player");
-        Player opp = httpSession.attribute("opponent");
 
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", true);
