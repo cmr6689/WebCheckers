@@ -92,15 +92,8 @@ public class GetGameRoute implements Route{
                 // display a user message in the Game page
                 vm.put("message", GAME_MSG);
 
-                //variables for game
-//                vm.put("currentUser", myPlayer.getName());
-//                vm.put("viewMode", "PLAY");
-//                vm.put("modeOptionsAsJSON!", null);
-//                vm.put("redPlayer", myPlayer.getName());
-//                vm.put("whitePlayer", opponent.getName());
-//                vm.put("activeColor", "RED");
-//                vm.put("board", game.getGame(myPlayer));
-                if(initial) {
+                String id = request.queryParams("id");
+                if(id != null) {
                     gameData.setVm(vm);
                     gameData.setCurrentUser(myPlayer);
                     gameData.setViewMode("PLAY");

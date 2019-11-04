@@ -73,12 +73,6 @@ public class PostCheckTurnRoute implements Route {
         //playerLobby.setMap(gameData.getVm());
 
         //System.err.println("It is my turn: " + myPlayer.getName() + " : " + gameData.getVm().get("currentUser"));
-        String temp;
-        if(gameData.getVm().get("activeColor").equals("WHITE")){
-            temp = "whitePlayer";
-        }else{
-            temp = "redPlayer";
-        }
 
         //if(gameData.getVm().get("activeColor"))
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
