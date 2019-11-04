@@ -92,7 +92,7 @@ public class GetGameRoute implements Route{
                 // display a user message in the Game page
                 vm.put("message", GAME_MSG);
 
-                if(initial  ) {
+                if(initial) {
                     gameData.setVm(vm);
                     gameData.setCurrentUser(myPlayer);
                     gameData.setViewMode("PLAY");
@@ -103,6 +103,11 @@ public class GetGameRoute implements Route{
                     gameData.setBoard(lobby.getGame(myPlayer).getBoardView1());
                     gameData.dataSetup();
                     vm = gameData.getVm();
+                    vm.put("title", "Webcheckers");
+                    vm.put("message", GAME_MSG);
+                    vm.put("viewMode", "PLAY");
+                    vm.put("whitePlayer", opponent.getName());
+
                 }
                 lobby.setMap(vm);
 

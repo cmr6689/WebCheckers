@@ -71,7 +71,7 @@ class GetHomeRouteTest {
     }
 
     @Test
-    public void playerDoesNotExsist(){
+    public void playerDoesNotExist(){
         final TemplateEngineTester engineTester = new TemplateEngineTester();
         CuT.handle(request, response);
 

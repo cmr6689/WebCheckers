@@ -60,9 +60,10 @@ public class GetGameRouteTest {
         //Arrange scenario
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
-        when(request.session().attribute("player")).thenReturn(new Player("Player"));
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player fakeOpp = new Player("Opp");
+        lobby.addPlayer(fakeOpp);
         when(request.queryParams("opponent")).thenReturn("Opp");
-        lobby.addPlayer(new Player("Opp"));
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -91,9 +92,11 @@ public class GetGameRouteTest {
     public void playerColor() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
-        when(request.session().attribute("player")).thenReturn(new Player("Player"));
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player fakeOpp = new Player("Opp");
+        lobby.addPlayer(fakeOpp);
+
         when(request.queryParams("opponent")).thenReturn("Opp");
-        lobby.addPlayer(new Player("Opp"));
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -107,8 +110,8 @@ public class GetGameRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
 
-        testHelper.assertViewModelAttribute("redPlayer", new Player("Player").getName());
-        testHelper.assertViewModelAttribute("whitePlayer", new Player("Opp").getName());
+        testHelper.assertViewModelAttribute("redPlayer", request.queryParams("Player"));
+        testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
@@ -121,9 +124,10 @@ public class GetGameRouteTest {
     public void testModes() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
-        when(request.session().attribute("player")).thenReturn(new Player("Player"));
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player fakeOpp = new Player("Opp");
+        lobby.addPlayer(fakeOpp);
         when(request.queryParams("opponent")).thenReturn("Opp");
-        lobby.addPlayer(new Player("Opp"));
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object
@@ -137,12 +141,12 @@ public class GetGameRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
 
-        testHelper.assertViewModelAttribute("currentUser", new Player("Player").getName());
+        testHelper.assertViewModelAttribute("currentUser", request.queryParams("Player"));
         testHelper.assertViewModelAttribute("title", "Webcheckers");
         testHelper.assertViewModelAttribute("viewMode", "PLAY");
         testHelper.assertViewModelAttribute("modeOptionsAsJSON", null);
-        testHelper.assertViewModelAttribute("redPlayer", new Player("Player").getName());
-        testHelper.assertViewModelAttribute("whitePlayer", new Player("Opp").getName());
+        testHelper.assertViewModelAttribute("redPlayer", request.queryParams("Player"));
+        testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
