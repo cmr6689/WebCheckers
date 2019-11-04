@@ -121,39 +121,63 @@ From the there they can resign or keeping playing to the game is over. Once the 
 
 
 ### UI Tier
-> _Provide a summary of the Server-side UI tier of your architecture.
-> Describe the types of components in the tier and describe their
-> responsibilities.  This should be a narrative description, i.e. it has
-> a flow or "story line" that the reader can follow._
 
-> _At appropriate places as part of this narrative provide one or more
-> static models (UML class structure or object diagrams) with some
-> details such as critical attributes and methods._
+![The WebCheckers UI Tier UML Diagram](ui_uml.png)
 
-> _You must also provide any dynamic models, such as statechart and
-> sequence diagrams, as is relevant to a particular aspect of the design
-> that you are describing.  For example, in WebCheckers you might create
-> a sequence diagram of the `POST /validateMove` HTTP request processing
-> or you might show a statechart diagram if the Game component uses a
-> state machine to manage the game._
+The UI tier of the WebCheckers application is responsible for handling all
+of the changes to the view of a player on the server. The GameData class
+stores all of the information in the VM map which is supplied to the game.ftl
+that sets up the checkers board based on the VM information. 
 
-> _If a dynamic model, such as a statechart describes a feature that is
-> not mostly in this tier and cuts across multiple tiers, you can
-> consider placing the narrative description of that feature in a
-> separate section for describing significant features. Place this after
-> you describe the design of the three tiers._
+The server is run on the WebServer class and contains GET and POST route calls, 
+starting with GetHomeRoute which renders the home page. When a player signs in 
+they call GetSignInRoute to allow them to see the sign in page and join the server 
+with a valid name which calls PostSignInRoute that renders the home page
+and shows all other player names that are online instead of just the number 
+of players. Players can sign out as well and that calls PostSignOutRoute.
 
+Once a player is signed in they can click on another players name to call
+GetGameRoute which displays the checkers board. The player that was clicked
+on will automatically call GetGameRoute from the home page after they are
+clicked on and will be displayed a version of the board.
+
+After both players have joined the game the red player can make a move first.
+The white player will call PostCheckTurnRoute which will not allow them to
+make a move until the red player makes a move which calls PostValidateMoveRoute
+that verifies whether the move is allowed to be made, and then submits the move
+which calls PostSubmitMoveRoute and makes the move on the server. 
+
+Once a player has moved a piece they can use the Backup button to call 
+PostBackUpMoveRoute which returns the piece. The player also has the option to
+press the Resign button that calls PostResignRoute and removes the player from
+the game. When the game is over, PostGameOverRoute is called that displays the
+proper messages to each player.
 
 ### Application Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
 
+![The WebCheckers UI Tier UML Diagram](application_uml.png)
+
+The Application tier of the WebCheckers application is responsible for
+handling the games that are being run on the server. We have a GameCenter
+class that acts as the hub for all the games on the server. It contains a 
+list of active and dormant games that can be accessed by providing a player
+in one of those games. The PlayerLobby class is where we store player information
+on the server. Every player that signs into the server will only be successfully
+added to the lobby if they enter a valid name. The instance of GameCenter is
+stored in PlayerLobby in order to access from the UI tier.
 
 ### Model Tier
-> _Provide a summary of the Application tier of your architecture. This
-> section will follow the same instructions that are given for the UI
-> Tier above._
+
+![The WebCheckers UI Tier UML Diagram](model_uml.png)
+
+The Model tier of the WebCheckers application is responsible for the rules and
+moves of a game of checkers. The BoardView class is how the player would view the
+board based on whether they are the red or white player. The Game class allows us
+to access the elements of a game such as the players and board view. The Row class
+sets up the rows of the board with Spaces that contain a piece, an index, and
+the color of the space. The Move class uses Positions both before and after to verify
+specific moves made by the player. The Player class is where we store player
+information such as name and color.
 
 ### Design Improvements
 > _Discuss design improvements that you would make if the project were
