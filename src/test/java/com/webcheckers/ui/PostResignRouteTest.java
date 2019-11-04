@@ -84,4 +84,7 @@ public class PostResignRouteTest {
         assertEquals(playerLobby.getGameCenter().gameIsActive(playerLobby.getGame(p1)),false);
     }
 
+    @Test
+    void handle() {
+    }
 }
