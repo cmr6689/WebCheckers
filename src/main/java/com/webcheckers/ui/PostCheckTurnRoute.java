@@ -19,7 +19,7 @@ public class PostCheckTurnRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostCheckTurnRoute.class.getName());
 
-    private final TemplateEngine templateEngine;
+    public final TemplateEngine templateEngine;
 
     private PlayerLobby playerLobby;
 
