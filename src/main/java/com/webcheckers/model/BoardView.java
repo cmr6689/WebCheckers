@@ -14,6 +14,7 @@ import java.util.Iterator;
 public class BoardView implements Iterable {
     //create a new ArrayList of Rows
     private ArrayList<Row> rows = new ArrayList<>();
+    private ArrayList<Row> otherBoard = new ArrayList<>();
     //the current color
     COLOR currentColor;
     int i;
@@ -52,6 +53,13 @@ public class BoardView implements Iterable {
      */
     public Iterator<Row> iterator() {
         return this.rows.iterator();
+    }
+
+    public Iterator<Row> reverseIterator() {
+        for(int i = 7; i >=0; i--){
+            otherBoard.add(rows.get(i));
+        }
+        return otherBoard.iterator();
     }
 
     /**
