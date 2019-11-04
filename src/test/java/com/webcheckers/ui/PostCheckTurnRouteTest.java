@@ -57,6 +57,9 @@ public class PostCheckTurnRouteTest {
         assertNotNull(CuT.templateEngine, "The Template Engine is Null and should not be");
     }
 
+    /**
+     * Check if it is the players turn
+     */
     @Test
     public void isMyTurn() {
         //Arrange scenario
@@ -85,6 +88,9 @@ public class PostCheckTurnRouteTest {
         assertEquals(gson.toJson(message1), CuT.handle(request, response));
     }
 
+    /**
+     * Check if it is not the players turn
+     */
     @Test
     public void isNotMyTurn() {
         //Arrange scenario
