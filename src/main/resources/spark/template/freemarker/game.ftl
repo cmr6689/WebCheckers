@@ -90,7 +90,7 @@
                 <div class="game-board">
                     <table id="game-board">
                         <tbody>
-                        <#list board.iterator() as row>
+                        <#list board.reverseIterator() as row>
                             <tr data-row="${7 - row.index}">
                                 <#list row.iterator() as space>
                                     <td data-cell="${7 - space.cellIdx}"
