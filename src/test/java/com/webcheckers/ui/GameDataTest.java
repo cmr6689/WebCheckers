@@ -1,23 +1,17 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.application.GameCenter;
-import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import spark.*;
+
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.any;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 
 /**
  * Unit test for GameData
@@ -57,11 +51,11 @@ public class GameDataTest {
     public void testSetup() {
         vm = new HashMap<>();
         currentUser = mock(Player.class);
-        viewMode = mock(String.class);
-        modeOptionsAsJSON = mock(String.class);
+        viewMode = null;
+        modeOptionsAsJSON = null;
         redPlayer = mock(Player.class);
         whitePlayer = mock(Player.class);
-        activeColor = mock(String.class);
+        activeColor = null;
         board = mock(BoardView.class);
         CuT = new GameData();
     }
@@ -71,32 +65,36 @@ public class GameDataTest {
      */
     @Test
     public void ctor(){
-        assertNull(CuT.getVm(), "The Template Engine is Null and should not be");
+        assertNotNull(CuT.getVm(), "The Map is Null and should not be");
     }
 
     /**
-     * Test the Post UI for adding the first player to the game
+     * Test the data setup process for playing a simple game
      */
     @Test
-    public void first_player() {
-        //Arrange scenario
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
+    public void data_play_setup() {
+        //setup
+        currentUser = new Player("Name");
+        vm.put("currentUser", currentUser.getName());
+        viewMode = "PLAY";
+        vm.put("viewMode", viewMode);
+        vm.put("modeOptionsAsJSON!", modeOptionsAsJSON);
+        redPlayer = new Player("Red");
+        vm.put("redPlayer", redPlayer.getName());
+        whitePlayer = new Player("White");
+        vm.put("whitePlayer", whitePlayer.getName());
+        activeColor = "RED";
+        vm.put("activeColor", activeColor);
+        vm.put("board", board);
 
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
+        //test each placement
+        assertEquals(vm.get("currentUser"), "Name");
+        assertEquals(vm.get("viewMode"), "PLAY");
+        assertNull(vm.get("modeOptionsAsJSON!"));
+        assertEquals(vm.get("redPlayer"), "Red");
+        assertEquals(vm.get("whitePlayer"), "White");
+        assertEquals(vm.get("activeColor"), "RED");
+        assertEquals(vm.get("board"), board);
 
-        // Invoke the test
-
-        //Check if UI received all necessary parameters
-        testHelper.assertViewModelExists();
-        testHelper.assertViewModelIsaMap();
-
-        testHelper.assertViewModelAttribute("title", "Welcome!");
-        testHelper.assertViewModelAttribute("message", PostSignInRoute.WELCOME_MSG);
-        //Can't see own name
-        testHelper.assertViewModelAttributeIsAbsent("playerList");
     }
 }
