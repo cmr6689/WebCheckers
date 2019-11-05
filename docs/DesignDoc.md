@@ -34,10 +34,6 @@ play a game of checkers with each other online.
 
 This section describes the features of the application.
 
-> _In this section you do not need to be exhaustive and list every
-> story.  Focus on top-level features from the Vision document and
-> maybe Epics and critical Stories._
-
  Signign In
  
  Start Game
@@ -212,6 +208,8 @@ after the move is submitted.
 
 ####UI Tier Code Coverage
 ![The WebCheckers UI Tier Code Coverage](ui_tier.png)
+(Note that the WebServer's code coverage is 0% because although it is 
+part of the UI tier, testing it was not necessary)
 
 ####Model Tier Code Coverage
 ![The WebCheckers Model Tier Code Coverage](model_tier.png)
