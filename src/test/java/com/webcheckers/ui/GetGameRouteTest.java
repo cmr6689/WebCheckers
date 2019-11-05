@@ -161,6 +161,8 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
 
 
+
+
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
 
