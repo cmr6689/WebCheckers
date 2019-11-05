@@ -23,9 +23,8 @@ public class BoardView implements Iterable {
      * Constructor for the board view that creates the orientation
      * of the board based on the color that the player is
      *
-     * @param player player 1 (red) or player 2 (white)
      */
-    public BoardView(int player) {
+    public BoardView() {
         for (i = 0; i < 8; i++) {
             //create a new space
             COLOR color;
@@ -55,6 +54,12 @@ public class BoardView implements Iterable {
         return this.rows.iterator();
     }
 
+    /**
+     * Class needed in order for the board to have a reversed
+     * version of itself
+     *
+     * @return the reversed version of the iterator of the spaces
+     */
     public Iterator<Row> reverseIterator() {
         for(int i = 7; i >=0; i--){
             otherBoard.add(rows.get(i));
@@ -69,6 +74,21 @@ public class BoardView implements Iterable {
      */
     public ArrayList<Row> getRows() {
         return rows;
+    }
+
+    /**
+     * Sets the rows for test cases
+     * @param rows the new rows
+     */
+    public void setRows(ArrayList<Row> rows){this.rows = rows;}
+
+    /**
+     * getter for the array list of otherBoard created
+     *
+     * @return the list of rows in reverse
+     */
+    public ArrayList<Row> getOtherBoard(){
+        return otherBoard;
     }
 
     /**

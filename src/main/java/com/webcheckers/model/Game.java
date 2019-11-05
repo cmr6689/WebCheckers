@@ -29,7 +29,7 @@ public class Game {
      */
     public Game (Player p1, Player p2){
         //boardView = new BoardView();
-        boardView1 = new BoardView(1);
+        boardView1 = new BoardView();
         //boardView2 = new BoardView(2);
         this.player1 = p1;
         this.player2 = p2;
