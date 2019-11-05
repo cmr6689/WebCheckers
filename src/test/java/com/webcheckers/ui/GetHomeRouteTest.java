@@ -54,19 +54,16 @@ class GetHomeRouteTest {
 
         when(session.attribute("currentUser")).thenReturn(new Player("1"));
 
+        playerLobby.addPlayer(new Player("1"));
+        playerLobby.addPlayer(new Player("2"));
+        ArrayList<String> playerNames = new ArrayList<>();
+        for (Player player1 : playerLobby.getAvaPlayers()) {
+            playerNames.add(player1.getName());
+        }
+
         CuT.handle(request, response);
 
-        ArrayList<String> playerNames = new ArrayList<>();
-        if (playerLobby.getPlayers().size() > 0){
-            for (Player player1 : playerLobby.getPlayers()) {
-                playerNames.add(player1.getName());
-            }
-        }
-        //engineTester.assertViewModelExists();
-        try {
-            engineTester.assertViewModelAttribute("playerList", playerNames);
-        } catch (NullPointerException e){
-        }
+        engineTester.assertViewModelAttribute("playerList", playerNames);
 
     }
 
