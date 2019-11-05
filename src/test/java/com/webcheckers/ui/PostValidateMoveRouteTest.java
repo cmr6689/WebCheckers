@@ -110,7 +110,7 @@ public class PostValidateMoveRouteTest {
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
         Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.KING);
-        assertTrue(CuT.jumpIsValid(false, 1, move, new BoardView(1), piece, 4, 4));
+        assertTrue(CuT.jumpIsValid(false, 1, move, new BoardView(), piece, 4, 4));
     }
 
     /**
@@ -122,7 +122,7 @@ public class PostValidateMoveRouteTest {
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
         Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
-        assertFalse(CuT.jumpIsValid(true, 1, move, new BoardView(1), piece, 4, 4));
+        assertFalse(CuT.jumpIsValid(true, 1, move, new BoardView(), piece, 4, 4));
     }
 
     /**
