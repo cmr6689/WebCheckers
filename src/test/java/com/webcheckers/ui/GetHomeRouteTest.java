@@ -13,11 +13,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for PostSignInRoute
+ * Unit test for GetHomeRoute
  * @author Ronald Torrelli
  */
 
@@ -31,6 +32,9 @@ class GetHomeRouteTest {
     private Request request;
     private Response response;
 
+    /**
+     * Setting up mock classes to fulfill dependencies throughout the tests
+     */
     @BeforeEach
     void setUp() {
         request = mock(Request.class);
@@ -43,30 +47,48 @@ class GetHomeRouteTest {
         CuT = new GetHomeRoute(templateEngine, playerLobby);
     }
 
+    /**
+     * tests the GetGameRoute constructor
+     */
     @Test
     public void ctor(){
         assertNotNull(CuT.getTemplateEngine(), "The Template Engine is Null and should not be");
     }
 
+    /**
+     * tests to see if player is in the list
+     */
     @Test
     public void testPlayerList(){
         final TemplateEngineTester engineTester = new TemplateEngineTester();
-
-        when(session.attribute("currentUser")).thenReturn(new Player("1"));
-
-        playerLobby.addPlayer(new Player("1"));
-        playerLobby.addPlayer(new Player("2"));
-        ArrayList<String> playerNames = new ArrayList<>();
-        for (Player player1 : playerLobby.getAvaPlayers()) {
-            playerNames.add(player1.getName());
-        }
-
+        Player myPlayer = new Player("Name");
+        when(session.attribute("currentUser")).thenReturn(myPlayer);
+        playerLobby.addPlayer(myPlayer);
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(engineTester.makeAnswer());
         CuT.handle(request, response);
 
+        ArrayList<String> playerNames = new ArrayList<>();
+        if (playerLobby.getPlayers().size() > 0){
+            for (Player player1 : playerLobby.getPlayers()) {
+                playerNames.add(player1.getName());
+            }
+        }
+        //Check if UI received all necessary parameters
+        engineTester.assertViewModelExists();
+        engineTester.assertViewModelIsaMap();
+        //engineTester.assertViewModelExists();
+
+        engineTester.assertViewModelAttribute("title", "Welcome!");
+        engineTester.assertViewModelAttribute("message", CuT.WELCOME_MSG);
         engineTester.assertViewModelAttribute("playerList", playerNames);
+
+
 
     }
 
+    /**
+     * checks if a player is Home
+     */
     @Test
     public void playerDoesNotExist(){
         final TemplateEngineTester engineTester = new TemplateEngineTester();
@@ -76,6 +98,9 @@ class GetHomeRouteTest {
 
     }
 
+    /**
+     * checks if player is in the game
+     */
     @Test
     public void playerJoinsGame() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
