@@ -205,7 +205,7 @@ Number of stories with no testing: 5
 
 Some issues to note: The other player's board will revert to the first players board
 after the first player submits their turn.The moves made by a player do not stay on the board 
-after the move is submitted
+after the move is submitted.
 
 
 ### Unit Testing and Code Coverage
@@ -218,4 +218,5 @@ after the move is submitted
 
 ####Application Tier Code Coverage
 ![The WebCheckers Application Tier Code Coverage](Application Tier.jpg)
+
 
