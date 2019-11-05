@@ -75,7 +75,7 @@ public class PostValidateMoveRoute implements Route {
      * false if there is a piece in the end destination
      * @return
      */
-    public boolean jumpIsValid(boolean jumpingPiece, int rowsBeingJumped, Move move,
+    /*public boolean jumpIsValid(boolean jumpingPiece, int rowsBeingJumped, Move move,
                                BoardView board, Piece thisPiece, int row, int cell){
         int tempRowInt;
         int tempCellInt;
@@ -107,7 +107,7 @@ public class PostValidateMoveRoute implements Route {
         }else{
             return true;
         }
-    }
+    }*/
 
     /**
      * Respond to the ajax call with a gson to json message
@@ -142,7 +142,7 @@ public class PostValidateMoveRoute implements Route {
         boolean jumpingPiece = (rowsBeingJumped != 1);
 
         boolean isValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell()) &&
-                jumpIsValid(jumpingPiece, rowsBeingJumped, move, board, thisPiece, move.getEnd().getRow(), move.getEnd().getCell()) &&
+                //jumpIsValid(jumpingPiece, rowsBeingJumped, move, board, thisPiece, move.getEnd().getRow(), move.getEnd().getCell()) &&
                 moveIsValid(move, thisPiece);
 
         if(isValid) {
