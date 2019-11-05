@@ -13,6 +13,9 @@ import static org.junit.jupiter.api.Assertions.*;
 @Tag ("Model-tier")
 class GameTest {
 
+    /**
+     * test the constructor
+     */
     @Test
     void ctor_withArg(){
         final Game CuT = new Game(new Player("1"), new Player("2"));
