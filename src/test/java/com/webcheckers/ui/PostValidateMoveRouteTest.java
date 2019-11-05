@@ -55,6 +55,9 @@ public class PostValidateMoveRouteTest {
         assertNotNull(gameData, "GameData should not be null");
     }
 
+    /**
+     * Test whether or not the position is valid
+     */
     @Test
     public void positionIsValid() {
         BoardView board = new BoardView(1);
@@ -63,6 +66,9 @@ public class PostValidateMoveRouteTest {
         assertTrue(CuT.positionIsValid(board, row, cell));
     }
 
+    /**
+     * Test whether or not the position is invalid
+     */
     @Test
     public void positionIsInvalid() {
         BoardView board = new BoardView(1);
@@ -70,7 +76,9 @@ public class PostValidateMoveRouteTest {
         int cell = 1;
         assertFalse(CuT.positionIsValid(board, row, cell));
     }
-
+    /**
+     * Test whether or not the move is valid
+     */
     @Test
     public void moveIsValid() {
         Position start = new Position(6,1);
@@ -80,6 +88,9 @@ public class PostValidateMoveRouteTest {
         assertTrue(CuT.moveIsValid(move, piece));
     }
 
+    /**
+     * Test whether or not the move is invalid
+     */
     @Test
     public void moveIsInvalid() {
         Position start = new Position(1,1);
@@ -89,6 +100,9 @@ public class PostValidateMoveRouteTest {
         assertFalse(CuT.moveIsValid(move, piece));
     }
 
+    /**
+     * Test whether or not the jump is valid
+     */
     @Test
     public void jumpIsValid() {
         //TODO
@@ -99,6 +113,9 @@ public class PostValidateMoveRouteTest {
         assertTrue(CuT.jumpIsValid(true, 1, move, new BoardView(1), piece, 4, 4));
     }
 
+    /**
+     * Test whether or not the jump is invalid
+     */
     @Test
     public void jumpIsInvalid() {
         Position start = new Position(6,1);
@@ -108,6 +125,9 @@ public class PostValidateMoveRouteTest {
         assertFalse(CuT.jumpIsValid(true, 1, move, new BoardView(1), piece, 4, 4));
     }
 
+    /**
+     * Test the handle method by giving a valid move
+     */
     @Test
     public void testValidation() {
         Position start = new Position(6,1);
