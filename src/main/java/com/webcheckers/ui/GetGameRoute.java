@@ -49,10 +49,6 @@ public class GetGameRoute implements Route{
         this.gameData = gameData;
     }
 
-    public Player getOpponent(){
-        return this.opponent;
-    }
-
     /**
      * Render the WebCheckers Game page.
      *

@@ -159,8 +159,12 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttribute("redPlayer", request.queryParams("Player"));
         testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
+
+
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
+
+        assertNotNull(Cut.handle(request, response));
     }
 
 }
