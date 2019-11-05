@@ -1,16 +1,16 @@
 package com.webcheckers.ui;
 
+import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
-import spark.Request;
-import spark.Response;
-import spark.Session;
-import spark.TemplateEngine;
+import spark.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
@@ -38,7 +38,7 @@ class GetHomeRouteTest {
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
-        playerLobby = new PlayerLobby(null);
+        playerLobby = new PlayerLobby(new GameCenter());
 
         CuT = new GetHomeRoute(templateEngine, playerLobby);
     }
@@ -77,6 +77,19 @@ class GetHomeRouteTest {
 
         assertNull(session.attribute("player"));
 
+    }
+
+    @Test
+    public void playerJoinsGame() {
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        playerLobby.getGameCenter().newGame(new Player("Opp"), new Player("Player"));
+        Map<String, Object> vm = new HashMap<>();
+        vm.put("currentUser", "Opp");
+        vm.put("activeColor", "RED");
+        vm.put("redPlayer", "Opp");
+        vm.put("whitePlayer", "Player");
+        playerLobby.setMap(vm);
+        assertEquals(CuT.handle(request, response), templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
     }
 
 }
