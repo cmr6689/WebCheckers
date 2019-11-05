@@ -124,6 +124,8 @@ public class PostValidateMoveRoute implements Route {
 
         LOG.finer("PostValidateMoveRoute is invoked.");
 
+        System.out.println(request.queryParams("actionData"));
+
         request.queryParams("gameID");
         Move move = gson.fromJson(request.queryParams("actionData"), Move.class);
         vm.put("title", "Loser");
