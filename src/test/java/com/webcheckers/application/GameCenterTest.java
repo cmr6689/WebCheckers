@@ -89,6 +89,9 @@ public class GameCenterTest {
         assertTrue(CuT.getGame(test1).isActive());
         //3) the game is in the arrayList for active games
         assertTrue(CuT.gameIsActive(CuT.getGame(test1)));
+
+        assertEquals(CuT.getGame(test1), CuT.getGame(test2));
+        assertEquals(CuT.getActiveGame(test1), CuT.getActiveGame(test2));
     }
 
     /**
@@ -115,5 +118,8 @@ public class GameCenterTest {
         assertFalse(CuT.getGame(test1).isActive());
         //3) the game is in the dormant games arrayList
         assertTrue(CuT.gameIsDormant(CuT.getGame(test1)));
+
+        assertEquals(CuT.getGame(test1), CuT.getGame(test2));
+        assertEquals(CuT.getDormantGames(test1), CuT.getDormantGames(test2));
     }
 }
