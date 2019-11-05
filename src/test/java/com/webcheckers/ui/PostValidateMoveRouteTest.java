@@ -146,7 +146,6 @@ public class PostValidateMoveRouteTest {
         playerLobby.addPlayer(new Player("Player"));
         playerLobby.addPlayer(new Player("Opp"));
         playerLobby.getGameCenter().newGame(new Player("Player"), new Player("Opp"));
-        playerLobby.setGame(new Game(new Player("Player"), new Player("Opp")));
         assertEquals(gson.toJson(message), CuT.handle(request, response));
 
     }
