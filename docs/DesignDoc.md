@@ -109,7 +109,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](web-app-state-chart.jpg)
+![The WebCheckers Web Interface Statechart](statechart.jpg)
 
 The user when first navigating to the home page of WebCheckers will see a login button in the navbar and the number of players currently logged in. 
 After clicking on the sign in button the player will be brought to the sign in page where they may enter a valid username. 
@@ -201,8 +201,4 @@ information such as name and color.
 > acceptance testing and if there are any concerns._
 
 ### Unit Testing and Code Coverage
-> _Discuss your unit testing strategy. Report on the code coverage
-> achieved from unit testing of the code base. Discuss the team's
-> coverage targets, why you selected those values, and how well your
-> code coverage met your targets. If there are any anomalies, discuss
-> those._
+
