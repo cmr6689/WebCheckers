@@ -133,6 +133,9 @@ public class GetGameRouteTest {
      */
     @Test
     public void testModes() {
+
+        assertNull(Cut.handle(request, response));
+
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
         when(session.attribute("player")).thenReturn(new Player("Player"));
@@ -166,7 +169,6 @@ public class GetGameRouteTest {
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
 
-        assertNotNull(Cut.handle(request, response));
     }
 
 }
