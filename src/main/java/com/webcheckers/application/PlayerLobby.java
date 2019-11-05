@@ -20,8 +20,6 @@ public class PlayerLobby {
     private ArrayList<Player> players = new ArrayList<>();
     //boolean to tell if name is valid
     private boolean invalidName;
-    //current game
-    private Game game;
     //game handler
     private GameCenter gameCenter;
     //map of the vm arguments
@@ -100,14 +98,6 @@ public class PlayerLobby {
         }
 
         return tmp;
-    }
-
-    /**
-     * Game setter
-     * @param game a game
-     */
-    public void setGame(Game game) {
-        this.game = game;
     }
 
     /**
