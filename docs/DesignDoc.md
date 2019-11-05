@@ -211,12 +211,12 @@ after the move is submitted.
 ### Unit Testing and Code Coverage
 
 ####UI Tier Code Coverage
-![The WebCheckers UI Tier Code Coverage](UI Tier.jpg)
+![The WebCheckers UI Tier Code Coverage](UI Tier.png)
 
 ####Model Tier Code Coverage
-![The WebCheckers Model Tier Code Coverage](Model Tier.jpg)
+![The WebCheckers Model Tier Code Coverage](Model Tier.png)
 
 ####Application Tier Code Coverage
-![The WebCheckers Application Tier Code Coverage](Application Tier.jpg)
+![The WebCheckers Application Tier Code Coverage](Application Tier.png)
 
 
