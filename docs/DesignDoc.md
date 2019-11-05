@@ -180,25 +180,42 @@ specific moves made by the player. The Player class is where we store player
 information such as name and color.
 
 ### Design Improvements
-> _Discuss design improvements that you would make if the project were
-> to continue. These improvement should be based on your direct
-> analysis of where there are problems in the code base which could be
-> addressed with design changes, and describe those suggested design
-> improvements. After completion of the Code metrics exercise, you
-> will also discuss the resutling metric measurements.  Indicate the
-> hot spots the metrics identified in your code base, and your
-> suggested design improvements to address those hot spots._
+
+If the project were to continue, we would improve the design of our GameCenter class. 
+As it stands, this class performs most of the game logic for multiple games, however;
+some of that responsibility is also shared with the PlayerLobby class. If we were
+to continue with this project, we would remove some of the game logic within PlayerLobby 
+and put it into GameCenter. The metrics of our code show that the PostValidateMoveRoute contains a 
+heavy amount of logic. This logic could be improved by being placed elsewhere to allow the 
+PostValidateMoveRoute to simply focus on performing after those conditions are met, not checking
+those conditions itself.
 
 ## Testing
-> _This section will provide information about the testing performed
-> and the results of the testing._
+ This section will provide information about the testing performed
+ and the results of the testing.
 
 ### Acceptance Testing
-> _Report on the number of user stories that have passed all their
-> acceptance criteria tests, the number that have some acceptance
-> criteria tests failing, and the number of user stories that
-> have not had any testing yet. Highlight the issues found during
-> acceptance testing and if there are any concerns._
+
+
+Number of stories that passed every acceptance criteria test: 0
+
+Number of stories with some failed acceptance test: 3
+
+Number of stories with no testing: 5
+
+Some issues to note: The other player's board will revert to the first players board
+after the first player submits their turn.The moves made by a player do not stay on the board 
+after the move is submitted
+
 
 ### Unit Testing and Code Coverage
+
+####UI Tier Code Coverage
+![The WebCheckers UI Tier Code Coverage](UI Tier.jpg)
+
+####Model Tier Code Coverage
+![The WebCheckers Model Tier Code Coverage](Model Tier.jpg)
+
+####Application Tier Code Coverage
+![The WebCheckers Application Tier Code Coverage](Application Tier.jpg)
 
