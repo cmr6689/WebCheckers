@@ -46,6 +46,7 @@ public class PostSubmitTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        //TODO Change turn by changing current user and active color
         Map<String, Object> vm = new HashMap<>();
 
         LOG.finer("PostSubmitTurnRoute is invoked.");
@@ -53,7 +54,7 @@ public class PostSubmitTurnRoute implements Route {
         System.err.println("turn was submitted");
 
         request.queryParams("gameID");
-        vm.put("title", "Loser");
+        vm.put("title", "Webcheckers");
 
         //Check if valid move first
         ResponseMessage message = new ResponseMessage();

@@ -25,6 +25,8 @@ public class BoardView implements Iterable {
      *
      */
     public BoardView() {
+        //TODO add parameters for an array of old board view, and the player color
+        //TODO game keeps track of board and makes the array, board view calls it
         for (i = 0; i < 8; i++) {
             //create a new space
             COLOR color;
