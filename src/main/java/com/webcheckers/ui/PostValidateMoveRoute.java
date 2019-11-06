@@ -148,6 +148,7 @@ public class PostValidateMoveRoute implements Route {
         if(isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
+            //ToDo move piece here
         }else{
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("Your move is not valid");
