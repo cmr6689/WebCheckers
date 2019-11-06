@@ -110,8 +110,6 @@ public class GetGameRoute implements Route{
                 if(!lobby.getGame(myPlayer).isActive()){
                     response.redirect("/home");
                 }
-                turn = !turn;
-                lobby.setTurn(turn);
                 // render the View
                 initial = false;
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));

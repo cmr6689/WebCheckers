@@ -8,8 +8,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -88,7 +87,6 @@ public class GetGameRouteTest {
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
 
-        //TODO: Fix for new conditions made
         testHelper.assertViewModelAttribute("currentUser", request.queryParams("Player"));
         testHelper.assertViewModelAttribute("title", "Webcheckers");
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
@@ -128,14 +126,6 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttributeIsAbsent("playerList");
     }
 
-    /**
-     * Make sure the viewMode and modeOptionsAsJSON are valid and correct
-     */
-
-    @Test void exsist(){
-        //assertNotNull(Cut.handle(request, response));
-    }
-
     @Test
     public void testModes() {
 
@@ -168,12 +158,8 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
 
-
-
-
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
 
     }
-
 }

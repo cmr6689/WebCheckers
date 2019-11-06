@@ -24,7 +24,7 @@ import static spark.route.HttpMethod.get;
 public class GetHomeRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
-  private static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
+  static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
   private final TemplateEngine templateEngine;
 
