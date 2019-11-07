@@ -52,6 +52,7 @@ public class BoardView implements Iterable {
                 otherBoard.add(gameBoard.get(i));
             }
             rows = otherBoard;
+            System.out.println("Yeet");
         }
     }
 

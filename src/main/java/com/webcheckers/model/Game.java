@@ -59,7 +59,7 @@ public class Game {
      * @return board view 2
      */
     public BoardView getBoardView2() {
-        return boardView1;
+        return boardView2;
     }
 
     /**
@@ -144,7 +144,7 @@ public class Game {
      */
     public BoardView getGame(Player player) {
         if (player.equals(player2)) {
-            return boardView1;
+            return boardView2;
         }
         return boardView1;
     }
