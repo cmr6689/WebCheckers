@@ -53,6 +53,12 @@ public class Row implements Iterable{
 
         }
     }
+    //for p2
+    public Row(Row row) {
+        for (int i = 7; i >= 0; i--) {
+            spaces.add(row.getSpaceAtIndex(i));
+        }
+    }
 
     /**
      * Class needed in order for the iterator to work
