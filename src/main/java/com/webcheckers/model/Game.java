@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import java.util.ArrayList;
+
 /**
  * The game class responsible for controlling the board views and the players
  * that are playing the game.
@@ -16,10 +18,15 @@ public class Game {
 
     //Respective boards veiw for each player
     private BoardView boardView1;
+    private BoardView boardView2;
     //private BoardView boardView2;
 
     //if the game is active
     private Boolean active = true;
+
+    Piece.COLOR currentColor;
+
+    private ArrayList<Row> rows = new ArrayList<>();
 
     /**
      * Constructor for the game class that sets the board views for each player
@@ -29,10 +36,14 @@ public class Game {
      */
     public Game (Player p1, Player p2){
         //boardView = new BoardView();
-        boardView1 = new BoardView();
         //boardView2 = new BoardView(2);
         this.player1 = p1;
+        p1.setColor(Player.Color.RED);
         this.player2 = p2;
+        p2.setColor(Player.Color.WHITE);
+        boardView1 = new BoardView(rows, p1);
+        boardView2 = new BoardView(boardView1.getRows(), p2);
+
     }
 
     /**

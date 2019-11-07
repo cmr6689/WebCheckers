@@ -45,7 +45,7 @@ class PostSubmitTurnRouteTest {
         gameData.setViewMode(null);
         gameData.setRedPlayer(pl1);
         gameData.setWhitePlayer(pl2);
-        gameData.setBoard(new BoardView());
+        gameData.setBoard(new BoardView(null, null));
         playerLobby.addPlayer(pl1);
         playerLobby.addPlayer(pl2);
         playerLobby.getGameCenter().newGame(pl1, pl2);

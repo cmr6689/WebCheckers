@@ -60,7 +60,6 @@
                 </fieldset>
 
             </div>
-            <#if currentUser.name == redPlayer.name>
             <div class="game-board">
                 <table id="game-board">
                     <tbody>
@@ -85,33 +84,6 @@
                     </#list>
                     </tbody>
                 </table>
-                </#if>
-                <#if currentUser.name == whitePlayer.name>
-                <div class="game-board">
-                    <table id="game-board">
-                        <tbody>
-                        <#list board.reverseIterator() as row>
-                            <tr data-row="${7 - row.index}">
-                                <#list row.iterator() as space>
-                                    <td data-cell="${7 - space.cellIdx}"
-                                            <#if space.isValid() >
-                                                class="Space"
-                                            </#if>
-                                    >
-                                        <#if space.piece??>
-                                            <div class="Piece"
-                                                 id="piece-${row.index}-${space.cellIdx}"
-                                                 data-type="${space.piece.type}"
-                                                 data-color="${space.piece.color}">
-                                            </div>
-                                        </#if>
-                                    </td>
-                                </#list>
-                            </tr>
-                        </#list>
-                        </tbody>
-                    </table>
-                    </#if>
                 </div>
             </div>
 

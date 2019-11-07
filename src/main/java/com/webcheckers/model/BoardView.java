@@ -13,7 +13,7 @@ import java.util.Iterator;
  */
 public class BoardView implements Iterable {
     //create a new ArrayList of Rows
-    private ArrayList<Row> rows = new ArrayList<>();
+    private ArrayList<Row> rows;
     private ArrayList<Row> otherBoard = new ArrayList<>();
     //the current color
     COLOR currentColor;
@@ -24,25 +24,33 @@ public class BoardView implements Iterable {
      * of the board based on the color that the player is
      *
      */
-    public BoardView() {
+    public BoardView(ArrayList<Row> gameBoard, Player player) {
         //TODO add parameters for an array of old board view, and the player color
         //TODO game keeps track of board and makes the array, board view calls it
-        for (i = 0; i < 8; i++) {
-            //create a new space
-            COLOR color;
-            if (i < 4) {
-                color = COLOR.WHITE;
-                currentColor = color;
-            } else {
-                color = COLOR.RED;
-                currentColor = color;
+        if(player.getColor().equals(Player.Color.RED)) {
+            for (int i = 0; i < 8; i++) {
+                this.rows = gameBoard;
+                //create a new space
+                Piece.COLOR color;
+                if (i < 4) {
+                    color = Piece.COLOR.WHITE;
+                    currentColor = color;
+                } else {
+                    color = Piece.COLOR.RED;
+                    currentColor = color;
+                }
+                Row row = new Row(i, color);
+                if ((i % 2) == 0) {
+                    row = new Row(i, color);
+                }
+                //add that space to the ArrayList
+                rows.add(row);
             }
-            Row row = new Row(i, color);
-            if ((i % 2) == 0) {
-                row = new Row(i, color);
+        }else{
+            for(int i = 7; i >=0; i--){
+                otherBoard.add(gameBoard.get(i));
             }
-            //add that space to the ArrayList
-            rows.add(row);
+            rows = otherBoard;
         }
     }
 

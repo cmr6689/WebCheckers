@@ -27,7 +27,7 @@ public class BoardViewTest {
      */
    @Test
    public void ctor_case_1(){
-       CuT = new BoardView();
+       CuT = new BoardView(null, null);
        if(CuT.i < 4) {
            //ensure the correct Piece is in the correct Space
            assertEquals(CuT.currentColor, Piece.COLOR.WHITE);
@@ -39,7 +39,7 @@ public class BoardViewTest {
      */
     @Test
     public void ctor_case_2(){
-        CuT = new BoardView();
+        CuT = new BoardView(null, null);
         if(CuT.i > 4) {
             //ensure the correct Piece is in the correct Space
             assertEquals(CuT.currentColor, Piece.COLOR.RED);
@@ -52,7 +52,7 @@ public class BoardViewTest {
      */
     @Test
     public void iterator(){
-        CuT = new BoardView();
+        CuT = new BoardView(null, null);
         rows = CuT.getRows();
         //Check if the iterable row contains spaces
         assertNotNull(rows, "Their must be rows within the board view to iterate over");
@@ -60,7 +60,7 @@ public class BoardViewTest {
 
     @Test
     public void reverse_iterator(){
-        CuT = new BoardView();
+        CuT = new BoardView(null, null);
         Row one = new Row(0, Piece.COLOR.RED);
         Row two = new Row(1, Piece.COLOR.WHITE);
         Row three = new Row(1, Piece.COLOR.WHITE);
