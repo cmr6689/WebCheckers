@@ -18,6 +18,7 @@ public class BoardView implements Iterable {
     //the current color
     COLOR currentColor;
     int i;
+    int numMovs;
 
     /**
      * Constructor for the board view that creates the orientation
@@ -99,6 +100,22 @@ public class BoardView implements Iterable {
      */
     public ArrayList<Row> getOtherBoard(){
         return otherBoard;
+    }
+
+    /**
+     * get the number of movs this turn
+     * @return
+     */
+    public int getNumMovs(){
+        return this.numMovs;
+    }
+
+    /**
+     * increase the number of movs
+     * @return
+     */
+    public void increaseNumMovs(){
+        this.numMovs++;
     }
 
     /**

@@ -141,9 +141,8 @@ public class PostValidateMoveRoute implements Route {
         int rowsBeingJumped = Math.abs(move.getStart().getRow() - move.getEnd().getRow());
         boolean jumpingPiece = (rowsBeingJumped != 1);
 
-        boolean isValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell()) &&
+        boolean isValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell()) && moveIsValid(move, thisPiece);
                 //jumpIsValid(jumpingPiece, rowsBeingJumped, move, board, thisPiece, move.getEnd().getRow(), move.getEnd().getCell()) &&
-                moveIsValid(move, thisPiece);
 
         if(isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
