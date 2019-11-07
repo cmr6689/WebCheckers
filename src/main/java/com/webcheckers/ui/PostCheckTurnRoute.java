@@ -48,6 +48,7 @@ public class PostCheckTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
          LOG.finer("PostCheckTurn is invoked.");
+         //TODO check if you are the active color other wise refresh
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");

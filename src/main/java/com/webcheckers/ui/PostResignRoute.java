@@ -55,6 +55,7 @@ public class PostResignRoute implements Route {
         vm.put("message", RESIGN_MSG);
         vm.put("title", "Loser");
 
+        //TODO fix resigning (it shouldn't always say you cant resign)
         ResponseMessage message = new ResponseMessage();
         // to successfully resign, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);

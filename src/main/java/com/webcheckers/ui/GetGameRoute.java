@@ -58,6 +58,7 @@ public class GetGameRoute implements Route{
      */
     @Override
     public Object handle(Request request, Response response){
+        //TODO rewrite
 
         System.err.println("i was called");
 
