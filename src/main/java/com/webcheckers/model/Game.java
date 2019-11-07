@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import com.webcheckers.ui.GameData;
+
 /**
  * The game class responsible for controlling the board views and the players
  * that are playing the game.
@@ -21,6 +23,8 @@ public class Game {
     //if the game is active
     private Boolean active = true;
 
+    private GameData gameData;
+
     /**
      * Constructor for the game class that sets the board views for each player
      * and sets the players as their respective color
@@ -33,6 +37,7 @@ public class Game {
         //boardView2 = new BoardView(2);
         this.player1 = p1;
         this.player2 = p2;
+        gameData = new GameData();
     }
 
     /**
