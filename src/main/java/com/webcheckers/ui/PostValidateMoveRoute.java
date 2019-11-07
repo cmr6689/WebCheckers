@@ -44,6 +44,11 @@ public class PostValidateMoveRoute implements Route {
         System.err.println(board + " " + row);
         Row actualRow = board.getRowAtIndex(row);
         Space actualSpace = actualRow.getSpaceAtIndex(cell);
+        //check to see if the piece has already been moved once
+        if(board.getNumMovs() > 0){
+            return false;
+        }
+        //if the space is a valid spot to move to
         if(actualSpace.isValid()){
             return true;
         }
@@ -152,6 +157,8 @@ public class PostValidateMoveRoute implements Route {
             thisRow = move.getEnd().getRow();
             thisCell = move.getEnd().getCell();
             board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
+            //increase the number of movs this turn
+            board.increaseNumMovs();
         }else{
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("Your move is not valid");
