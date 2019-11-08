@@ -32,8 +32,6 @@ public class GetGameRoute implements Route{
 
     private boolean initial = true;
 
-    private Player opponent;
-
     private boolean turn = true;
 
     /**
@@ -65,27 +63,20 @@ public class GetGameRoute implements Route{
         Session httpSession = request.session();
 
         Player myPlayer = httpSession.attribute("player");
-
         final Player opponent;
-        Player fakeOpp = new Player(request.queryParams("opponent"));
-        try {
-            if (!fakeOpp.equals(lobby.getGame(myPlayer).getPlayer1())) {
-                fakeOpp.equals(lobby.getGame(myPlayer).getPlayer2());
-            }
-        } catch (NullPointerException e){
-            //System.err.println("RIP");
-        }
+        //loop through active players
         for (Player opp : lobby.getPlayers()) {
-            if (opp.equals(fakeOpp)) {
+            //if clicked on opponent is real
+            if (opp.equals(new Player(request.queryParams("opponent")))) {
+                //set the opponent
                 opponent = opp;
-                this.opponent = opponent;
+                //set the opponent in the session
                 httpSession.attribute("opponent", opponent);
+                //create game
                 lobby.getGameCenter().newGame(myPlayer, opponent);
-                //
-                Map<String, Object> vm = new HashMap<>();
-                //k
-                vm.put("title", "Webcheckers");
 
+                Map<String, Object> vm = new HashMap<>();
+                vm.put("title", "Webcheckers");
                 // display a user message in the Game page
                 vm.put("message", GAME_MSG);
 
