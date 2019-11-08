@@ -69,17 +69,18 @@ public class GetHomeRoute implements Route {
 
     if(player != null) {
       if (playerLobby.getGame(player) != null) {
-        if (player != null) {
-          if (player.getName() == playerLobby.getMap().get("whitePlayer")) {
-            playerLobby.getMap().put("currentUser", player.getName());
-            playerLobby.getMap().put("board", playerLobby.getGame(player).getBoardView2());
-            playerLobby.getGame(player).setIsActive(true);
+          if (player == playerLobby.getGameCenter().getGame(player).getPlayer2()) {
+            //playerLobby.getMap().put("currentUser", playerLobby.getGame(player).getPlayer1());
+            //playerLobby.getMap().put("board", playerLobby.getGame(player).getBoardView2());
+            //playerLobby.getGame(player).setIsActive(true);
+            playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("currentUser", playerLobby.getGameCenter().getGame(player).getPlayer1());
+            playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("board", playerLobby.getGameCenter().getGame(player).getBoardView2());
+            playerLobby.getGameCenter().getGame(player).setIsActive(true);
             System.err.println("Game found!");
-            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
+            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(player).getGameData().getVm(), "game.ftl")));
             response.redirect("/game");
             //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
           }
-        }
       }
     }
 

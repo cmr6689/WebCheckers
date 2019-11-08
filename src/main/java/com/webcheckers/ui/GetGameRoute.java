@@ -88,7 +88,7 @@ public class GetGameRoute implements Route{
                     gameData.setRedPlayer(myPlayer);
                     gameData.setWhitePlayer(opponent);
                     gameData.setActiveColor("RED");
-                    gameData.setBoard(lobby.getGame(myPlayer).getBoardView1());
+                    gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
                     gameData.dataSetup();
                     vm = gameData.getVm();
                     vm.put("title", "Webcheckers");
@@ -97,7 +97,7 @@ public class GetGameRoute implements Route{
                     vm.put("whitePlayer", opponent.getName());
 
                 }
-                lobby.setMap(vm);
+                lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
 
                 if(!lobby.getGame(myPlayer).isActive()){
                     response.redirect("/home");
