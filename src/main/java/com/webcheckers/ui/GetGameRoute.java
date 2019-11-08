@@ -18,7 +18,7 @@ import com.webcheckers.util.Message;
  *
  * @author Team-E
  */
-public class GetGameRoute implements Route{
+public class GetGameRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.GetGameRoute.class.getName());
 
@@ -29,10 +29,6 @@ public class GetGameRoute implements Route{
     private PlayerLobby lobby;
 
     private GameData gameData;
-
-    private boolean initial = true;
-
-    private boolean turn = true;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -55,7 +51,7 @@ public class GetGameRoute implements Route{
      * @return the rendered HTML for the Home page
      */
     @Override
-    public Object handle(Request request, Response response){
+    public Object handle(Request request, Response response) {
         //TODO rewrite
 
         System.err.println("i was called");
@@ -80,30 +76,23 @@ public class GetGameRoute implements Route{
                 // display a user message in the Game page
                 vm.put("message", GAME_MSG);
 
-                if(initial) {
-                    gameData.setVm(vm);
-                    gameData.setCurrentUser(myPlayer);
-                    gameData.setViewMode("PLAY");
-                    gameData.setModeOptionsAsJSON(null);
-                    gameData.setRedPlayer(myPlayer);
-                    gameData.setWhitePlayer(opponent);
-                    gameData.setActiveColor("RED");
-                    gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
-                    gameData.dataSetup();
-                    vm = gameData.getVm();
-                    vm.put("title", "Webcheckers");
-                    vm.put("message", GAME_MSG);
-                    vm.put("viewMode", "PLAY");
-                    vm.put("whitePlayer", opponent.getName());
+                gameData.setVm(vm);
+                gameData.setCurrentUser(myPlayer);
+                gameData.setViewMode("PLAY");
+                gameData.setModeOptionsAsJSON(null);
+                gameData.setRedPlayer(myPlayer);
+                gameData.setWhitePlayer(opponent);
+                gameData.setActiveColor("RED");
+                gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+                gameData.dataSetup();
+                vm = gameData.getVm();
+                vm.put("title", "Webcheckers");
+                vm.put("message", GAME_MSG);
+                vm.put("viewMode", "PLAY");
+                vm.put("whitePlayer", opponent.getName());
 
-                }
                 lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
 
-                if(!lobby.getGame(myPlayer).isActive()){
-                    response.redirect("/home");
-                }
-                // render the View
-                initial = false;
                 return templateEngine.render(new ModelAndView(vm, "game.ftl"));
             }
         }

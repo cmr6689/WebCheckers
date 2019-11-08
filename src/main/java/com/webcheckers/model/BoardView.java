@@ -26,8 +26,6 @@ public class BoardView implements Iterable {
      *
      */
     public BoardView(ArrayList<Row> gameBoard, Player player) {
-        //TODO add parameters for an array of old board view, and the player color
-        //TODO game keeps track of board and makes the array, board view calls it
         if(player.getColor().equals(Player.Color.RED)) {
             for (int i = 0; i < 8; i++) {
                 this.rows = gameBoard;

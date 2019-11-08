@@ -66,10 +66,10 @@ public class PostSubmitTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
 
         if(gameData.getVm().get("activeColor").equals("WHITE")) {
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
             gameData.setActiveColor("RED");
         }else{
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
+            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
             gameData.setActiveColor("WHITE");
         }
 
