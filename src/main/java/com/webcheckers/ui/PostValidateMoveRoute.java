@@ -64,7 +64,8 @@ public class PostValidateMoveRoute implements Route {
     public boolean moveIsValid(BoardView board, Move move, Piece thisPiece){
         Piece.TYPE type;
         type = thisPiece.getType();
-        if(board.getNumMovs() > 1){
+        //last was jump needs to be implemented so that a player can multiple jump
+        if(board.getNumMovs() > 1 /*&& !lastWasJump*/){
             return false;
         }
         if(move.getStart().getCell() == move.getEnd().getCell()){
