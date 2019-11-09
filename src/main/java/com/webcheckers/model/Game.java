@@ -3,6 +3,7 @@ package com.webcheckers.model;
 import com.webcheckers.ui.GameData;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 /**
  * The game class responsible for controlling the board views and the players
@@ -26,7 +27,7 @@ public class Game {
     //if the game is active
     private Boolean active = true;
 
-    private GameData gameData;
+    private Map<String, Object> map;
 
     Piece.COLOR currentColor;
 
@@ -47,15 +48,19 @@ public class Game {
         p2.setColor(Player.Color.WHITE);
         boardView1 = new BoardView(rows, p1);
         boardView2 = new BoardView(boardView1.getRows(), p2);
-        this.gameData = new GameData();
+        this.map = new HashMap<>();
     }
 
-    public GameData getGameData() {
-        return gameData;
+    public Map<String, Object> getMap() {
+        return this.map;
     }
 
-    public void setGameData() {
-        this.gameData = gameData;
+    public String getActivePlayer(){
+        if(this.map.get("activeColor").equals(Piece.COLOR.RED)){
+            return (String) this.map.get("redPlayer");
+        }else{
+            return (String) this.map.get("whitePlayer");
+        }
     }
 
     /**

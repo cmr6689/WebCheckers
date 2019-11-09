@@ -41,7 +41,7 @@ public class GetGameRouteTest {
         this.response = mock(Response.class);
         this.engine = mock(TemplateEngine.class);
         this.lobby = new PlayerLobby(new GameCenter());
-        this.Cut = new GetGameRoute(engine, lobby, gameData);
+        this.Cut = new GetGameRoute(engine, lobby);
     }
 
     /**

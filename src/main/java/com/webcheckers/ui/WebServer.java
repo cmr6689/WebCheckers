@@ -164,7 +164,7 @@ public class WebServer {
     // Shows the Sign In page
     get(SIGN_IN_URL, new GetSignInRoute(templateEngine, playerLobby));
     // Shows the Game page
-    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby, gameData));
+    get(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     // Returns the player back to the home page after they sign in
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
     // Returns the user to the home page if they resign from a game

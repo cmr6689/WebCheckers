@@ -57,7 +57,7 @@ public class PostCheckTurnRoute implements Route {
 
 
 
-        if (gameData.getActivePlayer().equals(myPlayer)) {
+        if (playerLobby.getGameCenter().getGame(myPlayer).getActivePlayer().equals(myPlayer.getName())) {
 
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
@@ -66,12 +66,12 @@ public class PostCheckTurnRoute implements Route {
             //playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("activeColor", myPlayer.getName());
 
             if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
-                playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView1());
+                playerLobby.getGameCenter().getGame(myPlayer).getMap().put("board", playerLobby.getGame(myPlayer).getBoardView1());
             else
-                playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView2());
+                playerLobby.getGameCenter().getGame(myPlayer).getMap().put("board", playerLobby.getGame(myPlayer).getBoardView2());
 
             playerLobby.getGame(myPlayer).setIsActive(true);
-            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl")));
+            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl")));
 
             return gson.toJson(message1);
         } else {

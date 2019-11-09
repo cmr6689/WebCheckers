@@ -65,15 +65,16 @@ public class PostSubmitTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
         Move move = httpSession.attribute("move");
 
+        //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
 
-        if(gameData.getVm().get("activeColor").equals("WHITE")) {
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
+        if(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE")) {
+            //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
             //gameData.setBoard(playerLobby.getGameCenter().getGame(myPlayer).getBoardView1());
-            gameData.setActiveColor("RED");
+            playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
         }else{
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
+            //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
             //gameData.setBoard(playerLobby.getGameCenter().getGame(myPlayer).getBoardView2());
-            gameData.setActiveColor("WHITE");
+            playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "WHITE");
         }
 
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
@@ -86,9 +87,6 @@ public class PostSubmitTurnRoute implements Route {
         thisCell = move.getEnd().getCell();
         board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
         board.resetMovs();
-
-        gameData.dataSetup();
-        playerLobby.getGameCenter().getGame(myPlayer).getGameData().setVm(gameData.getVm());
 
         // render the View
         return gson.toJson(message);

@@ -28,8 +28,6 @@ public class GetGameRoute implements Route {
 
     private PlayerLobby lobby;
 
-    private GameData gameData;
-
     private boolean initial = true;
 
     private Player opponent;
@@ -41,12 +39,11 @@ public class GetGameRoute implements Route {
      *
      * @param templateEngine the HTML template rendering engine
      */
-    public GetGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby, GameData gameData) {
+    public GetGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
         //
         LOG.config("GetGameRoute is initialized.");
         this.lobby = playerLobby;
-        this.gameData = gameData;
     }
 
     /**
@@ -79,30 +76,26 @@ public class GetGameRoute implements Route {
                     //create game
                     lobby.getGameCenter().newGame(myPlayer, opponent);
 
-                    gameData.setCurrentUser(myPlayer);
-                    gameData.setViewMode("PLAY");
-                    gameData.setModeOptionsAsJSON(null);
-                    gameData.setRedPlayer(myPlayer);
-                    gameData.setWhitePlayer(opponent);
-                    gameData.setActiveColor("RED");
-                    gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
-                    gameData.dataSetup();
-                    gameData.getVm().put("title", "Webcheckers");
-                    // display a user message in the Game page
-                    gameData.getVm().put("message", GAME_MSG);
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("viewMode", "PLAY");
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("modeOptions", null);
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("redPlayer", myPlayer.getName());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("whitePlayer", opponent.getName());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", myPlayer.getName());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("title", "WebCheckers");
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("message", GAME_MSG);
 
-                    lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(gameData.getVm());
-
-                    return templateEngine.render(new ModelAndView(gameData.getVm(), "game.ftl"));
+                    return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
                 }
             }
         }
         //player 2 part
         else {
-            lobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer1().getName());
-            lobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer2().getName());
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
             lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
-            return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl"));
+            return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
         }
         //response.redirect("/");
         System.err.println("Stop");
