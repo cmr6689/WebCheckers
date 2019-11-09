@@ -2,6 +2,7 @@ package com.webcheckers.ui;
 
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Game;
+import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 
 import java.util.HashMap;
@@ -122,6 +123,16 @@ public class GameData {
      * Given that all the vm values have been filled in this method will
      * set the vm or provide updates to specific attributes in the vm.
      */
+
+    public Player getActivePlayer(){
+        if(vm.get("activeColor").equals(Piece.COLOR.RED)){
+            return (Player) vm.get("redPlayerObj");
+        }else{
+            return (Player) vm.get("whitePlayerObj");
+        }
+    }
+
+
     public void dataSetup(){
         //variables for game
 //                vm.put("currentUser", myPlayer.getName());

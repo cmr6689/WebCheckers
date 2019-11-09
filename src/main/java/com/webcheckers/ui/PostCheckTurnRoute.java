@@ -57,17 +57,19 @@ public class PostCheckTurnRoute implements Route {
 
 
 
-        if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
+        if (gameData.getVm().get("activeColor").equals(myPlayer.getName())) {
 
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
 
-            playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("currentUser", myPlayer.getName());
+            //playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("activeColor", myPlayer.getName());
+
             if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
                 playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView1());
             else
                 playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView2());
+
             playerLobby.getGame(myPlayer).setIsActive(true);
             Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl")));
 
