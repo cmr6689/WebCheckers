@@ -101,6 +101,7 @@ public class PostCheckTurnRouteTest {
         Player fakeOpp = new Player("Opp");
         when(request.queryParams("opponent")).thenReturn("Opp");
 
+
         gameData.setCurrentUser(new Player("Player"));
         gameData.setActiveColor("RED");
         gameData.setRedPlayer(new Player("Player"));

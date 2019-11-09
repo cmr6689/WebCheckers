@@ -37,7 +37,7 @@ public class PostBackupMoveRouteTest {
         response = mock(Response.class);
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
-        CuT = new PostBackupMoveRoute();
+        //CuT = new PostBackupMoveRoute();
     }
 
     /**
