@@ -57,7 +57,7 @@ public class PostCheckTurnRoute implements Route {
 
 
 
-        if (gameData.getVm().get("activeColor").equals(myPlayer.getName())) {
+        if (gameData.getActivePlayer().equals(myPlayer)) {
 
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
