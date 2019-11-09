@@ -21,19 +21,15 @@ public class PostSubmitTurnRoute implements Route {
 
     private final Gson gson;
 
-    GameData gameData;
-
     PlayerLobby playerLobby;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
-     * @param gameData the vm map data of the game
      * @param playerLobby the lobby of all the players
      */
-    public PostSubmitTurnRoute(GameData gameData, PlayerLobby playerLobby){
+    public PostSubmitTurnRoute(PlayerLobby playerLobby){
         this.gson = new Gson();
-        this.gameData = gameData;
         this.playerLobby = playerLobby;
     }
 

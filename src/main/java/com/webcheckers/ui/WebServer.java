@@ -50,8 +50,6 @@ public class WebServer {
   private GameCenter gameCenter = new GameCenter();
   private PlayerLobby playerLobby = new PlayerLobby(gameCenter);
 
-  private GameData gameData = new GameData();
-
   /**
    * Getter for the player lobby
    * @return the player lobby
@@ -170,13 +168,13 @@ public class WebServer {
     // Returns the user to the home page if they resign from a game
     post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
     // Ajax call that checks to see if the player is allowed to make a move
-    post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby, gameData));
+    post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby));
     // Returns the user to the sign in page after they sign out
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
     //Ajax call that checks to see if the move made is a valid move
-    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(playerLobby, gameData));
+    post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(playerLobby));
     // Ajax call that submits a move a player has made
-    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(gameData, playerLobby));
+    post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(playerLobby));
     // Ajax call that returns a moved piece back to its starting position if invoked
     post(BACKUP_MOVE, new PostBackupMoveRoute(playerLobby));
 

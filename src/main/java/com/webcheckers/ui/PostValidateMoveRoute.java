@@ -22,18 +22,15 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
-    private GameData gameData;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
-     * @param gameData the vm map data of the game
      * @param playerLobby the lobby of all the players
      */
-    public PostValidateMoveRoute(PlayerLobby playerLobby, GameData gameData){
+    public PostValidateMoveRoute(PlayerLobby playerLobby){
         this.gson = new Gson();
         this.playerLobby = playerLobby;
-        this.gameData = gameData;
     }
 
     /**

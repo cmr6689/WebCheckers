@@ -46,7 +46,7 @@ public class PostCheckTurnRouteTest {
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
         gameData = new GameData();
-        CuT = new PostCheckTurnRoute(templateEngine, playerLobby, gameData);
+        CuT = new PostCheckTurnRoute(templateEngine, playerLobby);
     }
 
     /**

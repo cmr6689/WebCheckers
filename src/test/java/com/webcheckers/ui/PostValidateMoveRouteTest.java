@@ -43,7 +43,7 @@ public class PostValidateMoveRouteTest {
         when(request.session()).thenReturn(session);
         playerLobby = new PlayerLobby(new GameCenter());
         gameData = new GameData();
-        CuT = new PostValidateMoveRoute(playerLobby, gameData);
+        CuT = new PostValidateMoveRoute(playerLobby);
     }
 
     /**

@@ -25,18 +25,14 @@ public class PostCheckTurnRoute implements Route {
 
     private final Gson gson;
 
-    private GameData gameData;
-
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
-     * @param gameData the vm map data of the game
      */
-    public PostCheckTurnRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby, GameData gameData) {
+    public PostCheckTurnRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
         this.templateEngine = templateEngine;
         this.gson = new Gson();
-        this.gameData = gameData;
     }
 
     /**
@@ -53,7 +49,7 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        System.err.println(gameData.getVm().get("activeColor"));
+        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
 
 
 

@@ -39,7 +39,7 @@ class PostSubmitTurnRouteTest {
         when(request.session()).thenReturn(session);
         playerLobby = new PlayerLobby(new GameCenter());
         gameData = new GameData();
-        CuT = new PostSubmitTurnRoute(gameData, playerLobby);
+        CuT = new PostSubmitTurnRoute(playerLobby);
 
         gameData.setCurrentUser(pl1);
         gameData.setViewMode(null);
@@ -58,7 +58,6 @@ class PostSubmitTurnRouteTest {
 
     @Test
     public void ctor(){
-        assertNotNull(CuT.gameData);
         assertNotNull(CuT.playerLobby);
         assertNotNull(CuT);
     }
