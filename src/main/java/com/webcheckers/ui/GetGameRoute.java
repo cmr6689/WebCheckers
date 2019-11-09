@@ -89,12 +89,14 @@ public class GetGameRoute implements Route {
                     return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
                 }
             }
-        }
-        //player 2 part
-        else {
+        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())) {
             lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer2().getName());
             lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
             lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
+            return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
+        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1())) {
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer1().getName());
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
         }
         //response.redirect("/");
