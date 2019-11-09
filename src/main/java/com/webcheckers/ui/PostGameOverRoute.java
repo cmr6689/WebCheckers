@@ -73,7 +73,7 @@ public class PostGameOverRoute implements Route {
         vm.put("whitePlayer", opponent.getName());
         vm.put("activeColor", "RED");
         vm.put("board", lobby.getGame(myPlayer));
-        lobby.setMap(vm);
+        lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
 
         return templateEngine.render(new ModelAndView(vm, "game.ftl"));
     }

@@ -22,10 +22,6 @@ public class PlayerLobby {
     private boolean invalidName;
     //game handler
     private GameCenter gameCenter;
-    //map of the vm arguments
-    private Map<String, Object> vm;
-    //check the turn
-    private boolean turn;
 
     /**
      * PlayerLobby constructor the sets the invalid name boolean and the gamecenter class
@@ -117,35 +113,4 @@ public class PlayerLobby {
         return gameCenter;
     }
 
-    /**
-     * A setter for the vm map
-     * @param map the vm map
-     */
-    public void setMap(Map<String, Object> map) {
-        this.vm = map;
-    }
-
-    /**
-     * Vm map getter
-     * @return the vm map
-     */
-    public Map<String, Object> getMap() {
-        return this.vm;
-    }
-
-    /**
-     * A setter for the turn boolean
-     * @param turn turn boolean
-     */
-    public void setTurn(boolean turn){
-        this.turn = turn;
-    }
-
-    /**
-     * Getter for the turn boolean
-     * @return true or false
-     */
-    public boolean getTurn(){
-        return this.turn;
-    }
 }

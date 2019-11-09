@@ -104,6 +104,9 @@ public class GetGameRoute implements Route {
         }
         //player 2 part
         else {
+            lobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer1());
+            lobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
+            lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl"));
         }
         //response.redirect("/");

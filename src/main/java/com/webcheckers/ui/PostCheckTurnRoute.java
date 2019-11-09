@@ -63,13 +63,13 @@ public class PostCheckTurnRoute implements Route {
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
 
-            playerLobby.getMap().put("currentUser", myPlayer.getName());
+            playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("currentUser", myPlayer.getName());
             if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
-                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
+                playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView1());
             else
-                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
+                playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("board", playerLobby.getGame(myPlayer).getBoardView2());
             playerLobby.getGame(myPlayer).setIsActive(true);
-            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
+            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl")));
 
             return gson.toJson(message1);
         } else {

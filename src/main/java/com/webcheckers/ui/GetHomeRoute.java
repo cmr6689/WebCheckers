@@ -70,17 +70,8 @@ public class GetHomeRoute implements Route {
     if(player != null) {
       if (playerLobby.getGame(player) != null) {
           if (player == playerLobby.getGameCenter().getGame(player).getPlayer2()) {
-            //playerLobby.getMap().put("currentUser", playerLobby.getGame(player).getPlayer1());
-            //playerLobby.getMap().put("board", playerLobby.getGame(player).getBoardView2());
-            //playerLobby.getGame(player).setIsActive(true);
-            playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("currentUser", playerLobby.getGameCenter().getGame(player).getPlayer1());
-            playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("board", playerLobby.getGameCenter().getGame(player).getBoardView2());
-            playerLobby.getGameCenter().getGame(player).setIsActive(true);
-            playerLobby.getGameCenter().getGame(player).getGameData().dataSetup();
             System.err.println("Game found!");
             response.redirect("/game");
-            //return null;
-            //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));
           }
       }
     }

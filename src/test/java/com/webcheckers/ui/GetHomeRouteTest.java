@@ -110,8 +110,8 @@ class GetHomeRouteTest {
         vm.put("activeColor", "RED");
         vm.put("redPlayer", "Opp");
         vm.put("whitePlayer", "Player");
-        playerLobby.setMap(vm);
-        assertEquals(CuT.handle(request, response), templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
+        playerLobby.getGameCenter().getGame(session.attribute("player"));
+        assertEquals(CuT.handle(request, response), templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(session.attribute("player")), "game.ftl")));
     }
 
 }

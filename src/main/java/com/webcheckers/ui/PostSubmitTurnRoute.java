@@ -88,7 +88,7 @@ public class PostSubmitTurnRoute implements Route {
         board.resetMovs();
 
         gameData.dataSetup();
-        playerLobby.setMap(gameData.getVm());
+        playerLobby.getGameCenter().getGame(myPlayer).getGameData().setVm(gameData.getVm());
 
         // render the View
         return gson.toJson(message);
