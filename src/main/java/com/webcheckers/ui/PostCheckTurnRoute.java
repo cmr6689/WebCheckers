@@ -53,7 +53,7 @@ public class PostCheckTurnRoute implements Route {
 
 
 
-        if (playerLobby.getGameCenter().getGame(myPlayer).getActivePlayer().equals(myPlayer.getName())) {
+        if (!playerLobby.getGameCenter().getGame(myPlayer).getActivePlayer().equals(myPlayer.getName())) {
 
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);

@@ -81,7 +81,7 @@ public class GetGameRoute implements Route {
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("modeOptions", null);
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("redPlayer", myPlayer.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("whitePlayer", opponent.getName());
-                    lobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", myPlayer.getName());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("title", "WebCheckers");
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("message", GAME_MSG);
