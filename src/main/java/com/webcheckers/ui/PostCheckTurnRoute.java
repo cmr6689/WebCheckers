@@ -65,9 +65,9 @@ public class PostCheckTurnRoute implements Route {
 
             playerLobby.getMap().put("currentUser", myPlayer.getName());
             if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
-                playerLobby.getMap().put("board", playerLobby.getGame(myPlayer).getBoardView1());
+                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
             else
-                playerLobby.getMap().put("board", playerLobby.getGame(myPlayer).getBoardView2());
+                gameData.setBoard(playerLobby.getGame(myPlayer).getBoardView1());
             playerLobby.getGame(myPlayer).setIsActive(true);
             Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
 
