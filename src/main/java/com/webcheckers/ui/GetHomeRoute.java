@@ -76,6 +76,7 @@ public class GetHomeRoute implements Route {
             playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("currentUser", playerLobby.getGameCenter().getGame(player).getPlayer1());
             playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("board", playerLobby.getGameCenter().getGame(player).getBoardView2());
             playerLobby.getGameCenter().getGame(player).setIsActive(true);
+            playerLobby.getGameCenter().getGame(player).getGameData().dataSetup();
             System.err.println("Game found!");
             response.redirect("/game");
             //return null;
