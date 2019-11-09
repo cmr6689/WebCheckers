@@ -65,39 +65,46 @@ public class GetGameRoute implements Route {
         Session httpSession = request.session();
 
         Player myPlayer = httpSession.attribute("player");
-        final Player opponent;
-        //loop through active players
-        for (Player opp : lobby.getPlayers()) {
-            //if clicked on opponent is real
-            if (opp.equals(new Player(request.queryParams("opponent")))) {
-                //set the opponent
-                opponent = opp;
-                //set the opponent in the session
-                httpSession.attribute("opponent", opponent);
-                //create game
-                lobby.getGameCenter().newGame(myPlayer, opponent);
+        //player 1 part
+        if (lobby.getGameCenter().getGame(myPlayer) == null) {
+            final Player opponent;
+            //loop through active players
+            for (Player opp : lobby.getPlayers()) {
+                //if clicked on opponent is real
+                if (opp.equals(new Player(request.queryParams("opponent")))) {
+                    //set the opponent
+                    opponent = opp;
+                    //set the opponent in the session
+                    httpSession.attribute("opponent", opponent);
+                    //create game
+                    lobby.getGameCenter().newGame(myPlayer, opponent);
 
-                Map<String, Object> vm = new HashMap<>();
-                vm.put("title", "Webcheckers");
-                // display a user message in the Game page
-                vm.put("message", GAME_MSG);
-
-                gameData.setVm(vm);
-                gameData.setCurrentUser(myPlayer);
-                gameData.setViewMode("PLAY");
-                gameData.setModeOptionsAsJSON(null);
-                gameData.setRedPlayer(myPlayer);
-                gameData.setWhitePlayer(opponent);
-                gameData.setActiveColor("RED");
-                gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
-                gameData.dataSetup();
-                vm = gameData.getVm();
+                    Map<String, Object> vm = new HashMap<>();
 
 
-                lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
+                    gameData.setVm(vm);
+                    gameData.setCurrentUser(myPlayer);
+                    gameData.setViewMode("PLAY");
+                    gameData.setModeOptionsAsJSON(null);
+                    gameData.setRedPlayer(myPlayer);
+                    gameData.setWhitePlayer(opponent);
+                    gameData.setActiveColor("RED");
+                    gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+                    gameData.dataSetup();
+                    vm = gameData.getVm();
+                    vm.put("title", "Webcheckers");
+                    // display a user message in the Game page
+                    vm.put("message", GAME_MSG);
 
-                return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+                    lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
+
+                    return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+                }
             }
+        }
+        //player 2 part
+        else {
+            return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getGameData().getVm(), "game.ftl"));
         }
         //response.redirect("/");
         System.err.println("Stop");

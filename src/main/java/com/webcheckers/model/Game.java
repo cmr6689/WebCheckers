@@ -74,6 +74,8 @@ public class Game {
         return boardView2;
     }
 
+
+
     /**
      * Set the player that is player one and the red player
      * @param player1 the player to be player 1
