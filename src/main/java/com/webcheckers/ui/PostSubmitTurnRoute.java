@@ -2,8 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.Game;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.*;
 
@@ -64,6 +63,8 @@ public class PostSubmitTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        Move move = httpSession.attribute("move");
+
 
         if(gameData.getVm().get("activeColor").equals("WHITE")) {
             gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
@@ -72,6 +73,17 @@ public class PostSubmitTurnRoute implements Route {
             gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
             gameData.setActiveColor("WHITE");
         }
+
+        BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+        int thisRow = move.getStart().getRow();
+        int thisCell = move.getStart().getCell();
+        Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
+        //actually do the move given that it's valid on the board
+        board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
+        thisRow = move.getEnd().getRow();
+        thisCell = move.getEnd().getCell();
+        board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
+        board.resetMovs();
 
         gameData.dataSetup();
         playerLobby.setMap(gameData.getVm());

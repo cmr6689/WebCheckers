@@ -64,6 +64,12 @@ public class PostValidateMoveRoute implements Route {
     public boolean moveIsValid(BoardView board, Move move, Piece thisPiece){
         Piece.TYPE type;
         type = thisPiece.getType();
+        if(board.getNumMovs() > 1){
+            return false;
+        }
+        if(move.getStart().getCell() == move.getEnd().getCell()){
+            return false;
+        }
         if(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1){
             //set the row and the cell of the piece being jumped
             int tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
@@ -93,25 +99,30 @@ public class PostValidateMoveRoute implements Route {
         int tempCellInt;
         Piece.TYPE type;
         Piece.COLOR color;
-        if(!(positionIsValid(board, row, cell)) || (rowsBeingJumped >= 2)){
+        if(!(positionIsValid(board, row, cell)) || (rowsBeingJumped >= 3)){
             return false;
         }else{
-            //set the row and the cell of the piece being jumped
-            tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
-            tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
-            //get the color of the piece at the location
-            color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
-            //get the type of the piece at the location
-            type = thisPiece.getType();
-            //if the color is the same as the color being jumped return false
-            if (color != thisPiece.getColor()) {
-                if(type == Piece.TYPE.SINGLE && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
-                    //if it's not king it cannot move backwards
+            if(rowsBeingJumped>1) {
+                //set the row and the cell of the piece being jumped
+                tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
+                tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
+                //get the color of the piece at the location
+                color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
+                //get the type of the piece at the location
+                type = thisPiece.getType();
+                //if the color is the same as the color being jumped return false
+                if (color != thisPiece.getColor()) {
+                    if (type == Piece.TYPE.SINGLE && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
+                        //if it's not king it cannot move backwards
+                        return false;
+                    }
+                    return true;
+                } else {
                     return false;
                 }
+            }
+            else{
                 return true;
-            }else{
-                return false;
             }
         }
     }
@@ -154,11 +165,7 @@ public class PostValidateMoveRoute implements Route {
         if(isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
-            //actually do the move given that it's valid on the board
-            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
-            thisRow = move.getEnd().getRow();
-            thisCell = move.getEnd().getCell();
-            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
+            httpSession.attribute("move", move);
             //increase the number of movs this turn
             board.increaseNumMovs();
             if(thisRow == 7){

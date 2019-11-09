@@ -178,7 +178,7 @@ public class WebServer {
     // Ajax call that submits a move a player has made
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(gameData, playerLobby));
     // Ajax call that returns a moved piece back to its starting position if invoked
-    post(BACKUP_MOVE, new PostBackupMoveRoute());
+    post(BACKUP_MOVE, new PostBackupMoveRoute(playerLobby));
 
     //
     //LOG.config("WebServer is initialized.");

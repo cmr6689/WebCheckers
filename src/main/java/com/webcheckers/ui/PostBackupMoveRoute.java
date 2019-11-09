@@ -1,9 +1,13 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Player;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.Session;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -17,11 +21,17 @@ public class PostBackupMoveRoute implements Route {
 
     private final Gson gson;
 
+    //new
+    PlayerLobby playerLobby;
+
+
+
     /**
      * Constructor to set the gson
      */
-    public PostBackupMoveRoute(){
+    public PostBackupMoveRoute(PlayerLobby playerLobby){
         this.gson = new Gson();
+        this.playerLobby = playerLobby;
     }
 
     /**
@@ -38,6 +48,12 @@ public class PostBackupMoveRoute implements Route {
 
         request.queryParams("gameID");
         vm.put("title", "Loser");
+
+        //added this to try something
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
+        BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+        board.resetMovs();
 
         ResponseMessage message = new ResponseMessage();
         // to back up a move, replace message type of ERROR with INFO
