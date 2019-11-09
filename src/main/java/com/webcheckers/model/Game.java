@@ -4,7 +4,6 @@ import com.webcheckers.ui.GameData;
 
 import java.util.ArrayList;
 import java.util.Map;
-
 /**
  * The game class responsible for controlling the board views and the players
  * that are playing the game.

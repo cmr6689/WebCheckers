@@ -30,6 +30,12 @@ public class GetGameRoute implements Route {
 
     private GameData gameData;
 
+    private boolean initial = true;
+
+    private Player opponent;
+
+    private boolean turn = true;
+
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
@@ -51,7 +57,7 @@ public class GetGameRoute implements Route {
      * @return the rendered HTML for the Home page
      */
     @Override
-    public Object handle(Request request, Response response) {
+    public Object handle(Request request, Response response){
         //TODO rewrite
 
         System.err.println("i was called");

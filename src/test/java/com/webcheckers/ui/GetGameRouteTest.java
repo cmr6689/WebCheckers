@@ -126,6 +126,14 @@ public class GetGameRouteTest {
         testHelper.assertViewModelAttributeIsAbsent("playerList");
     }
 
+    /**
+     * Make sure the viewMode and modeOptionsAsJSON are valid and correct
+     */
+
+    @Test void exsist(){
+        assertNotNull(Cut.handle(request, response));
+    }
+
     @Test
     public void testModes() {
 

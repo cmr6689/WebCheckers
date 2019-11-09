@@ -117,6 +117,13 @@ public class BoardView implements Iterable {
     }
 
     /**
+     * set the number of movs this turn to 0
+     */
+    public void resetMovs(){
+        this.numMovs = 0;
+    }
+
+    /**
      * Method to retrieve a specific row from the list of rows
      *
      * @param index the row number
