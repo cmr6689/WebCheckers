@@ -79,10 +79,6 @@ public class GetGameRoute implements Route {
                     //create game
                     lobby.getGameCenter().newGame(myPlayer, opponent);
 
-                    Map<String, Object> vm = new HashMap<>();
-
-
-                    gameData.setVm(vm);
                     gameData.setCurrentUser(myPlayer);
                     gameData.setViewMode("PLAY");
                     gameData.setModeOptionsAsJSON(null);
@@ -91,14 +87,13 @@ public class GetGameRoute implements Route {
                     gameData.setActiveColor("RED");
                     gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
                     gameData.dataSetup();
-                    vm = gameData.getVm();
-                    vm.put("title", "Webcheckers");
+                    gameData.getVm().put("title", "Webcheckers");
                     // display a user message in the Game page
-                    vm.put("message", GAME_MSG);
+                    gameData.getVm().put("message", GAME_MSG);
 
-                    lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
+                    lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(gameData.getVm());
 
-                    return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+                    return templateEngine.render(new ModelAndView(gameData.getVm(), "game.ftl"));
                 }
             }
         }
