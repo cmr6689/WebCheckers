@@ -53,48 +53,26 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        /*if(gameData.getVm().get("activeColor").equals("RED")){
-            gameData.setCurrentUser((Player)gameData.getVm().get("redPlayerObj"));
-        }else{
-            gameData.setCurrentUser((Player)gameData.getVm().get("whitePlayerObj"));
-        }*/
-
-        /*if(playerLobby.getGame(myPlayer).getPlayer1().equals(gameData.getVm().get("currentUser"))) {
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
-            gameData.setActiveColor("RED");
-        }else{
-            gameData.setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
-            gameData.setActiveColor("WHITE");
-        }*/
-
         System.err.println(gameData.getVm().get("activeColor"));
 
-        //gameData.setActiveColor("WHITE");
-        //gameData.dataSetup();
-        //playerLobby.setMap(gameData.getVm());
 
-        //System.err.println("It is my turn: " + myPlayer.getName() + " : " + gameData.getVm().get("currentUser"));
 
-        //if(gameData.getVm().get("activeColor"))
         if (gameData.getVm().get("currentUser").equals(myPlayer.getName())) {
 
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
 
-            //gameData.dataSetup();
-            //playerLobby.setMap(gameData.getVm());
+            playerLobby.getMap().put("currentUser", myPlayer.getName());
+            playerLobby.getMap().put("board", playerLobby.getGame(myPlayer).getBoardView1());
+            playerLobby.getGame(myPlayer).setIsActive(true);
+            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl")));
 
             return gson.toJson(message1);
         } else {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
-            // render the View
-
-            //gameData.dataSetup();
-            //playerLobby.setMap(gameData.getVm());
-
             return gson.toJson(message2);
         }
     }
