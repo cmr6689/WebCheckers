@@ -77,7 +77,6 @@ public class GetHomeRoute implements Route {
             playerLobby.getGameCenter().getGame(player).getGameData().getVm().put("board", playerLobby.getGameCenter().getGame(player).getBoardView2());
             playerLobby.getGameCenter().getGame(player).setIsActive(true);
             System.err.println("Game found!");
-            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(player).getGameData().getVm(), "game.ftl")));
             response.redirect("/game");
             //return null;
             //return templateEngine.render(new ModelAndView(playerLobby.getMap(), "game.ftl"));

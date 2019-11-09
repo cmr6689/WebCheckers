@@ -92,10 +92,7 @@ public class GetGameRoute implements Route {
                 gameData.setBoard(lobby.getGameCenter().getGame(myPlayer).getBoardView1());
                 gameData.dataSetup();
                 vm = gameData.getVm();
-                vm.put("title", "Webcheckers");
-                vm.put("message", GAME_MSG);
-                vm.put("viewMode", "PLAY");
-                vm.put("whitePlayer", opponent.getName());
+
 
                 lobby.getGameCenter().getGame(myPlayer).getGameData().setVm(vm);
 
