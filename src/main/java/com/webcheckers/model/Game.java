@@ -29,9 +29,7 @@ public class Game {
 
     private Map<String, Object> map;
 
-    Piece.COLOR currentColor;
-
-    private ArrayList<Row> rows = new ArrayList<>();
+    private ArrayList<Row> rows = new ArrayList<>(7);
 
     /**
      * Constructor for the game class that sets the board views for each player
@@ -47,7 +45,7 @@ public class Game {
         this.player2 = p2;
         p2.setColor(Player.Color.WHITE);
         boardView1 = new BoardView(rows, p1);
-        boardView2 = new BoardView(boardView1.getRows(), p2);
+        boardView2 = boardView1;
         this.map = new HashMap<>();
     }
 

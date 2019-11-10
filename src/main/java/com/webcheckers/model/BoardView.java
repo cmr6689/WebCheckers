@@ -14,7 +14,7 @@ import java.util.Iterator;
 public class BoardView implements Iterable {
     //create a new ArrayList of Rows
     private ArrayList<Row> rows;
-    private ArrayList<Row> otherBoard = new ArrayList<>();
+    private ArrayList<Row> otherBoard = new ArrayList<>(7);
     //the current color
     COLOR currentColor;
     int i;
@@ -26,7 +26,7 @@ public class BoardView implements Iterable {
      *
      */
     public BoardView(ArrayList<Row> gameBoard, Player player) {
-        if(player.getColor().equals(Player.Color.RED)) {
+        //if(player.getColor().equals(Player.Color.RED)) {
             for (int i = 0; i < 8; i++) {
                 this.rows = gameBoard;
                 //create a new space
@@ -39,18 +39,15 @@ public class BoardView implements Iterable {
                     currentColor = color;
                 }
                 Row row = new Row(i, color);
-                if ((i % 2) == 0) {
-                    row = new Row(i, color);
-                }
                 //add that space to the ArrayList
                 rows.add(row);
             }
-        }else{
-            for(int i = 7; i >=0; i--){
-                otherBoard.add(new Row(gameBoard.get(i)));
-            }
-            rows = otherBoard;
-        }
+//        }else{
+//            for(int i = 7; i >=0; i--){
+//                otherBoard.add(new Row(gameBoard.get(i)));
+//            }
+//            rows = otherBoard;
+//        }
     }
 
 
