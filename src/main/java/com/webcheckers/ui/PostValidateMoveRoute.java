@@ -133,6 +133,7 @@ public class PostValidateMoveRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        System.out.println("Called Validate");
         Map<String, Object> vm = new HashMap<>();
 
         Session httpSession = request.session();

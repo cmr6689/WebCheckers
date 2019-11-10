@@ -28,12 +28,6 @@ public class GetGameRoute implements Route {
 
     private PlayerLobby lobby;
 
-    private boolean initial = true;
-
-    private Player opponent;
-
-    private boolean turn = true;
-
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *

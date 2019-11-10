@@ -42,6 +42,7 @@ public class PostSubmitTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         //TODO Change turn by changing current user and active color
+        System.out.println("Called Submit");
         Map<String, Object> vm = new HashMap<>();
 
         LOG.finer("PostSubmitTurnRoute is invoked.");

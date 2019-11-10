@@ -43,6 +43,7 @@ public class PostCheckTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        System.out.println("Called Check");
          LOG.finer("PostCheckTurn is invoked.");
          //TODO check if you are the active color other wise refresh
 
