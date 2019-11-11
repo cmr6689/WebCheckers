@@ -60,6 +60,7 @@ public class PostSubmitTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        Player.Color myColor = myPlayer.getColor();
         Move move = httpSession.attribute("move");
 
         //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
@@ -74,7 +75,12 @@ public class PostSubmitTurnRoute implements Route {
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "WHITE");
         }
 
-        BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+        BoardView board;
+        if(myColor.equals(Player.Color.RED)) {
+            board = playerLobby.getGame(myPlayer).getBoardView1();
+        }else{
+            board = playerLobby.getGame(myPlayer).getBoardView2();
+        }
         int thisRow = move.getStart().getRow();
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();

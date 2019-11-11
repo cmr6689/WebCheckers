@@ -17,7 +17,7 @@ public class Player {
     /**
      * The players color can either be red or white
      */
-    enum Color{
+    public enum Color{
         RED,WHITE;
     }
     //the name of the player

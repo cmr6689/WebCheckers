@@ -25,7 +25,7 @@ public class Row implements Iterable{
     /**
      * The constructor for the row class that creates the rows
      * @param index the index of the row
-     * @param color the color of the spaces
+     * @param color the color of the pieces
      */
     public Row(int index, COLOR color){
         this.index = index;

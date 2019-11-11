@@ -19,10 +19,9 @@ public class Game {
     //Player 2 of the game
     private Player player2;
 
-    //Respective boards veiw for each player
+    //Respective boards view for each player
     private BoardView boardView1;
     private BoardView boardView2;
-    //private BoardView boardView2;
 
     //if the game is active
     private Boolean active = true;
@@ -38,8 +37,6 @@ public class Game {
      * @param p2 player 2
      */
     public Game (Player p1, Player p2){
-        //boardView = new BoardView();
-        //boardView2 = new BoardView(2);
         this.player1 = p1;
         p1.setColor(Player.Color.RED);
         this.player2 = p2;
@@ -76,8 +73,6 @@ public class Game {
     public BoardView getBoardView2() {
         return boardView2;
     }
-
-
 
     /**
      * Set the player that is player one and the red player
