@@ -49,6 +49,7 @@ public class PostCheckTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        //Player opp = httpSession.attribute("opponent");
 
         System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
 
@@ -60,7 +61,7 @@ public class PostCheckTurnRoute implements Route {
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
 
-            //playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("activeColor", myPlayer.getName());
+            //playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", opp.getName());
 
             if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
                 playerLobby.getGameCenter().getGame(myPlayer).getMap().put("board", playerLobby.getGame(myPlayer).getBoardView1());
@@ -72,6 +73,7 @@ public class PostCheckTurnRoute implements Route {
 
             return gson.toJson(message1);
         } else {
+            //playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", myPlayer.getName());
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");

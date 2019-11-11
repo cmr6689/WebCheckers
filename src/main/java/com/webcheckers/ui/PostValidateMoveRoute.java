@@ -22,6 +22,8 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
+    private boolean lastWasJump;
+
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -31,6 +33,7 @@ public class PostValidateMoveRoute implements Route {
     public PostValidateMoveRoute(PlayerLobby playerLobby){
         this.gson = new Gson();
         this.playerLobby = playerLobby;
+        lastWasJump = false;
     }
 
     /**
@@ -62,21 +65,11 @@ public class PostValidateMoveRoute implements Route {
         Piece.TYPE type;
         type = thisPiece.getType();
         //last was jump needs to be implemented so that a player can multiple jump
-        if(board.getNumMovs() > 1 /*&& !lastWasJump*/){
+        if(board.getNumMovs() > 1 && !lastWasJump){
             return false;
         }
         if(move.getStart().getCell() == move.getEnd().getCell()){
             return false;
-        }
-        if(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1){
-            //set the row and the cell of the piece being jumped
-            int tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
-            int tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
-            Piece tempPiece = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece();
-            if(tempPiece == null) {
-                //the move can't be over 1 row if it's not jumping a piece
-                return false;
-            }
         }
         if(thisPiece.getColor().equals(Piece.COLOR.RED) && type == Piece.TYPE.SINGLE && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
             //if it's not king it cannot move backwards
@@ -104,25 +97,41 @@ public class PostValidateMoveRoute implements Route {
             return false;
         }else{
             if(rowsBeingJumped>1) {
-                //set the row and the cell of the piece being jumped
-                tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
-                tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
-                //get the color of the piece at the location
-                color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
-                //get the type of the piece at the location
-                type = thisPiece.getType();
-                //if the color is the same as the color being jumped return false
-                if (color != thisPiece.getColor()) {
-                    if (type == Piece.TYPE.SINGLE && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
-                        //if it's not king it cannot move backwards
+                if(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1){
+                    //set the row and the cell of the piece being jumped
+                    tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
+                    tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
+                    Piece tempPiece = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece();
+                    if(tempPiece == null) {
+                        //the move can't be over 1 row if it's not jumping a piece
                         return false;
                     }
-                    return true;
-                } else {
-                    return false;
+                }else {
+                    //set the row and the cell of the piece being jumped
+                    tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
+                    tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
+                    //get the color of the piece at the location
+                    color = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece().getColor();
+                    //get the type of the piece at the location
+                    type = thisPiece.getType();
+                    //if the color is the same as the color being jumped return false
+                    if (color != thisPiece.getColor()) {
+                        if (type == Piece.TYPE.SINGLE && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
+                            //if it's not king it cannot move backwards
+                            return false;
+                        }
+                        lastWasJump = true;
+                        return true;
+                    } else {
+                        return false;
+                    }
                 }
+                //placeholder so there's no error
+                lastWasJump = true;
+                return true;
             }
             else{
+                lastWasJump = true;
                 return true;
             }
         }
