@@ -76,7 +76,9 @@ public class PostSubmitTurnRoute implements Route {
         }
 
         BoardView board;
-        if(myColor.equals(Player.Color.RED)) {
+
+        //submit move using position and board view here
+        if(myPlayer.equals(playerLobby.getGame(myPlayer).getPlayer1())) {
             board = playerLobby.getGame(myPlayer).getBoardView1();
         }else{
             board = playerLobby.getGame(myPlayer).getBoardView2();
