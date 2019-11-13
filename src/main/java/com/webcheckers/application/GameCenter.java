@@ -17,16 +17,12 @@ public class GameCenter {
 
     //Hashmap of the active games
     private HashMap<Player, Game> activeGames;
-    //hashmap of the dormant games
-    private HashMap<Player, Game> dormantGames;
-
 
     /**
      * GameCenter constructor which sets the hashmaps
      */
     public GameCenter(){
         activeGames = new HashMap<>();
-        dormantGames = new HashMap<>();
     }
 
     /**
@@ -51,18 +47,17 @@ public class GameCenter {
      * @param p1: player 1
      * @return: the game if it was there, null if it wasn't
      */
-    public Game endGame(Player p1){
+    public boolean endGame(Player p1){
         //iterate through
         if(activeGames.containsKey(p1)) {
             activeGames.get(p1).setIsActive(false);
             activeGames.get(p1).getPlayer2().setInGame(false);
             p1.setInGame(false);
-            dormantGames.put(p1, activeGames.get(p1));
             activeGames.remove(p1);
-            return dormantGames.get(p1);
+            return true;
         }
         else
-            return null;
+            return false;
     }
 
     /**
@@ -77,12 +72,6 @@ public class GameCenter {
             if(game.getPlayer2().equals(player))
                 return game;
         }
-        if(dormantGames.containsKey(player))
-            return dormantGames.get(player);
-        for(Game game : dormantGames.values()){
-            if(game.getPlayer2().equals(player))
-                return game;
-        }
         return null;
     }
 
@@ -92,29 +81,7 @@ public class GameCenter {
      * @return the game the player is in if it exists
      */
     public Game getActiveGame(Player player){
-        if(activeGames.containsKey(player))
-            return activeGames.get(player);
-        for(Game game : activeGames.values()){
-            if(game.getPlayer2().equals(player))
-                return game;
-        }
-        return null;
-    }
-
-    /**
-     * return the dormant game given a player
-     * @param player a player within the game
-     * @return the game the player is in if it exists
-     */
-    public Game getDormantGames(Player player){
-        //TODO do we need? use hashmaps to remove players from games
-        if(dormantGames.containsKey(player))
-            return dormantGames.get(player);
-        for(Game game : dormantGames.values()){
-            if(game.getPlayer2().equals(player))
-                return game;
-        }
-        return null;
+        return getGame(player);
     }
 
     /**
@@ -126,12 +93,4 @@ public class GameCenter {
         return activeGames.containsValue(name);
     }
 
-    /**
-     * checks if this game is in the dormant games arraylist
-     * @param name a game
-     * @return if the game is the dormant games arrayList
-     */
-    public Boolean gameIsDormant(Game name) {
-        return dormantGames.containsValue(name);
-    }
 }
