@@ -56,15 +56,20 @@ public class PostResignRoute implements Route {
         vm.put("title", "Loser");
 
         //TODO fix resigning (it shouldn't always say you cant resign)
-        ResponseMessage message = new ResponseMessage();
-        // to successfully resign, replace message type of ERROR with INFO
-        message.setType(ResponseMessage.MessageType.INFO);
-        message.setText("You can not resign in the state you are in.");
 
         final Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
 
         playerLobby.getGameCenter().endGame(p1);
+
+        ResponseMessage message = new ResponseMessage();
+        // to successfully resign, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("You can not resign in the state you are in.");
+
+//        playerLobby.getGameCenter().getGame(p1).getMap().put("isGameOver", true);
+//        modeOptions.put("gameOverMessage", /* get end of game message */);
+//        m.put("modeOptionsAsJSON", gson.toJson(modeOptions));
 
         // render the View
         return gson.toJson(message);
