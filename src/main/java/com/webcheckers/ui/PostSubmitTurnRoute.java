@@ -42,6 +42,7 @@ public class PostSubmitTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         //TODO Change turn by changing current user and active color
+        //TODO check if jump is available
         System.out.println("Called Submit");
         Map<String, Object> vm = new HashMap<>();
 
@@ -80,12 +81,7 @@ public class PostSubmitTurnRoute implements Route {
 
         BoardView board;
 
-        //submit move using position and board view here
-        if(myPlayer.equals(playerLobby.getGame(myPlayer).getPlayer1())) {
-            board = playerLobby.getGame(myPlayer).getBoardView1();
-        }else{
-            board = playerLobby.getGame(myPlayer).getBoardView2();
-        }
+        board = playerLobby.getGame(myPlayer).getBoardView1();
         int thisRow = start.getRow();
         int thisCell = start.getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();

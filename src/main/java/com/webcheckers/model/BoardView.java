@@ -26,7 +26,6 @@ public class BoardView implements Iterable {
      *
      */
     public BoardView(ArrayList<Row> rows, Player player) {
-        //TODO move to game
         if(player.getColor().equals(Player.Color.RED)) {
            this.rows = rows;
         }else{

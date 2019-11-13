@@ -76,7 +76,7 @@ public class PostValidateMoveRoute implements Route {
         if(thisPiece.getColor().equals(Piece.COLOR.RED) && type.equals(Piece.TYPE.SINGLE) && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
             //if it's not king it cannot move backwards
             return false;
-        }else if (thisPiece.getColor().equals(Piece.COLOR.WHITE) && type.equals(Piece.TYPE.SINGLE) && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
+        }else if (thisPiece.getColor().equals(Piece.COLOR.WHITE) && type.equals(Piece.TYPE.SINGLE) && !((move.getStart().getRow() - move.getEnd().getRow()) < 0)) {
             //if it's not king it cannot move backwards
             return false;
         }
@@ -171,12 +171,7 @@ public class PostValidateMoveRoute implements Route {
         // to validate a move, replace message type of ERROR with INFO
         BoardView board;
 
-        //validate move using position and board view here
-        if(myPlayer.equals(playerLobby.getGame(myPlayer).getPlayer1())) {
-            board = playerLobby.getGame(myPlayer).getBoardView1();
-        }else{
-            board = playerLobby.getGame(myPlayer).getBoardView2();
-        }
+        board = playerLobby.getGame(myPlayer).getBoardView1();
         int thisRow = move.getStart().getRow();
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();

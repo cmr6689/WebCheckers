@@ -39,7 +39,6 @@ public class Game {
      * @param p2 player 2
      */
     public Game (Player p1, Player p2){
-        //TODO move board stuff here
         this.player1 = p1;
         p1.setColor(Player.Color.RED);
         this.player2 = p2;
