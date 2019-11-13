@@ -62,6 +62,9 @@ public class PostSubmitTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
         Player.Color myColor = myPlayer.getColor();
         Move move = httpSession.attribute("move");
+        Position start = new Position(move.getStart().getRow(),move.getStart().getCell());
+        Position end = new Position(move.getEnd().getRow(),move.getEnd().getCell());
+        Boolean jumped = httpSession.attribute("jumped");
 
         //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
 
@@ -83,16 +86,27 @@ public class PostSubmitTurnRoute implements Route {
         }else{
             board = playerLobby.getGame(myPlayer).getBoardView2();
         }
-        int thisRow = move.getStart().getRow();
-        int thisCell = move.getStart().getCell();
+        int thisRow = start.getRow();
+        int thisCell = start.getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         //actually do the move given that it's valid on the board
         board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
-        thisRow = move.getEnd().getRow();
-        thisCell = move.getEnd().getCell();
+        thisRow = end.getRow();
+        thisCell = end.getCell();
         board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
         board.resetMovs();
-
+        if(jumped){
+            //remove the piece
+            thisRow = ((start.getRow() + end.getRow()) / 2);
+            thisCell = ((start.getCell() + end.getCell()) / 2);
+            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
+        }
+        if(end.getRow() == 0 || end.getRow() == 7){
+            //king the piece
+            thisRow = end.getRow();
+            thisCell = end.getCell();
+            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece().kingPiece();
+        }
         // render the View
         return gson.toJson(message);
     }

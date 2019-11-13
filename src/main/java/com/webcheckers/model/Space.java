@@ -76,6 +76,13 @@ public class Space {
     }
 
     /**
+     * remove the piece from this space
+     */
+    public void removePiece(){
+        this.piece = null;
+    }
+
+    /**
      *
      */
     @Override
