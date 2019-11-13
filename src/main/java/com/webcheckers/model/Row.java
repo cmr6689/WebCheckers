@@ -54,10 +54,9 @@ public class Row implements Iterable{
         }
     }
     //for p2
-    public Row(Row row) {
-        for (int i = 7; i >= 0; i--) {
-            spaces.add(row.getSpaceAtIndex(i));
-        }
+    public Row(int index, ArrayList<Space> spaces) {
+        this.index = index;
+        this.spaces = spaces;
     }
 
     /**

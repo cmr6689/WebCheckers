@@ -16,38 +16,36 @@ public class BoardView implements Iterable {
     private ArrayList<Row> rows;
     private ArrayList<Row> otherBoard = new ArrayList<>(7);
     //the current color
-    COLOR currentColor;
     int i;
     int numMovs;
+    COLOR currentColor;
 
     /**
      * Constructor for the board view that creates the orientation
      * of the board based on the color that the player is
      *
      */
-    public BoardView(ArrayList<Row> gameBoard, Player player) {
-        //if(player.getColor().equals(Player.Color.RED)) {
-            for (int i = 0; i < 8; i++) {
-                this.rows = gameBoard;
-                //create a new space
-                Piece.COLOR color;
-                if (i < 4) {
-                    color = Piece.COLOR.WHITE;
-                    currentColor = color;
-                } else {
-                    color = Piece.COLOR.RED;
-                    currentColor = color;
+    public BoardView(ArrayList<Row> rows, Player player) {
+        //TODO move to game
+        if(player.getColor().equals(Player.Color.RED)) {
+           this.rows = rows;
+        }else{
+            ArrayList<Row> otherBoard = new ArrayList<>(7);
+            ArrayList<Row> nonFlipped = new ArrayList<>(7);
+            Row reverse;
+            for(int i = 0; i < 8; i++){
+                ArrayList<Space> space = new ArrayList<>();
+                for(int j = 7; j >=0; j--) {
+                    space.add(rows.get(i).getSpaceAtIndex(j));
                 }
-                Row row = new Row(i, color);
-                //add that space to the ArrayList
-                rows.add(row);
+                reverse = new Row(i, space);
+                nonFlipped.add(reverse);
             }
-//        }else{
-//            for(int i = 7; i >=0; i--){
-//                otherBoard.add(new Row(gameBoard.get(i)));
-//            }
-//            rows = otherBoard;
-//        }
+            for(int i = 7; i >= 0; i--){
+                otherBoard.add(nonFlipped.get(i));
+            }
+            this.rows = otherBoard;
+        }
     }
 
 

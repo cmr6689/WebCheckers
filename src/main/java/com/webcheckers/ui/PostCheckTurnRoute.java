@@ -49,32 +49,18 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-//        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
-//
-//
-//
-//        if (!playerLobby.getGameCenter().getGame(myPlayer).getActivePlayer().equals(myPlayer.getName())) {
-//
-//            ResponseMessage message1 = new ResponseMessage();
-//            message1.setType(ResponseMessage.MessageType.INFO);
-//            message1.setText("false");
-//
-//            //playerLobby.getGameCenter().getGame(myPlayer).getGameData().getVm().put("activeColor", myPlayer.getName());
-//
-//            if(myPlayer.equals(playerLobby.getGameCenter().getGame(myPlayer).getPlayer1()))
-//                playerLobby.getGameCenter().getGame(myPlayer).getMap().put("board", playerLobby.getGame(myPlayer).getBoardView1());
-//            else
-//                playerLobby.getGameCenter().getGame(myPlayer).getMap().put("board", playerLobby.getGame(myPlayer).getBoardView2());
-//
-//            playerLobby.getGame(myPlayer).setIsActive(true);
-//            Spark.get("/game", (req, res) -> templateEngine.render(new ModelAndView(playerLobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl")));
-//
-//            return gson.toJson(message1);
-//        } else {
+        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
+
+        if (!playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
+            ResponseMessage message1 = new ResponseMessage();
+            message1.setType(ResponseMessage.MessageType.INFO);
+            message1.setText("false");
+            return gson.toJson(message1);
+        } else {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
             return gson.toJson(message2);
-        //}
+        }
     }
 }

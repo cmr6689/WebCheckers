@@ -18,6 +18,7 @@ public class Move {
      * @param end position on the board where the piece is moved to
      */
     public Move(Position start, Position end){
+        //TODO add double jump
         this.start = start;
         this.end = end;
         //if the player is attempting to jump a piece(moving across 2 rows) then set the boolean to be true

@@ -65,6 +65,7 @@ public class PostResignRoute implements Route {
         Player p1 = httpSession.attribute("player");
 
         playerLobby.getGameCenter().endGame(p1);
+
         // render the View
         return gson.toJson(message);
     }

@@ -30,6 +30,8 @@ public class Game {
 
     private ArrayList<Row> rows = new ArrayList<>(7);
 
+    Piece.COLOR currentColor;
+
     /**
      * Constructor for the game class that sets the board views for each player
      * and sets the players as their respective color
@@ -37,13 +39,32 @@ public class Game {
      * @param p2 player 2
      */
     public Game (Player p1, Player p2){
+        //TODO move board stuff here
         this.player1 = p1;
         p1.setColor(Player.Color.RED);
         this.player2 = p2;
         p2.setColor(Player.Color.WHITE);
+        makeBoard();
         boardView1 = new BoardView(rows, p1);
-        boardView2 = boardView1;
+        boardView2 = new BoardView(rows, p2);
         this.map = new HashMap<>();
+    }
+
+    public void makeBoard(){
+        for (int i = 0; i < 8; i++) {
+            //create a new space
+            Piece.COLOR color;
+            if (i < 4) {
+                color = Piece.COLOR.WHITE;
+                currentColor = color;
+            } else {
+                color = Piece.COLOR.RED;
+                currentColor = color;
+            }
+            Row row = new Row(i, color);
+            //add that space to the ArrayList
+            rows.add(row);
+        }
     }
 
     public Map<String, Object> getMap() {

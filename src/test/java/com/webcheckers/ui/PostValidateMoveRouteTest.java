@@ -60,7 +60,7 @@ public class PostValidateMoveRouteTest {
      */
     @Test
     public void positionIsValid() {
-        BoardView board = new BoardView(null, null);
+        BoardView board = new BoardView(null,null);
         int row = 3;
         int cell = 2;
         assertTrue(CuT.positionIsValid(board, row, cell));
@@ -71,7 +71,7 @@ public class PostValidateMoveRouteTest {
      */
     @Test
     public void positionIsInvalid() {
-        BoardView board = new BoardView(null, null);
+        BoardView board = new BoardView(null,null);
         int row = 3;
         int cell = 1;
         assertFalse(CuT.positionIsValid(board, row, cell));

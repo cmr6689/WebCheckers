@@ -107,6 +107,7 @@ public class GameCenter {
      * @return the game the player is in if it exists
      */
     public Game getDormantGames(Player player){
+        //TODO do we need? use hashmaps to remove players from games
         if(dormantGames.containsKey(player))
             return dormantGames.get(player);
         for(Game game : dormantGames.values()){
