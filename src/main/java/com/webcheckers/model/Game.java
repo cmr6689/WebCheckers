@@ -42,7 +42,9 @@ public class Game {
         this.player1 = p1;
         p1.setColor(Player.Color.RED);
         this.player2 = p2;
+        p1.setInGame(true);
         p2.setColor(Player.Color.WHITE);
+        p2.setInGame(true);
         makeBoard();
         boardView1 = new BoardView(rows, p1);
         boardView2 = new BoardView(rows, p2);

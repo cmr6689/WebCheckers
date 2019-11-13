@@ -68,6 +68,17 @@ public class GetGameRoute implements Route {
                     //set the opponent in the session
                     httpSession.attribute("opponent", opponent);
                     //create game
+
+                    //if the opp is already in a game
+                    if(opp.getInGame()){
+                        System.err.println("OH no the opp is already in a game");
+                        final Message message = Message.error("This player is already in a game");
+
+                        httpSession.attribute("message", message);
+                        response.redirect("/");
+                        return null;
+                    }
+
                     lobby.getGameCenter().newGame(myPlayer, opponent);
                     lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
 
@@ -84,7 +95,7 @@ public class GetGameRoute implements Route {
                     return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
                 }
             }
-        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())) {
+        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())){
             lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer2().getName());
             lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));

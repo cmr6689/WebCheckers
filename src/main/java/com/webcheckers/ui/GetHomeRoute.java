@@ -80,7 +80,10 @@ public class GetHomeRoute implements Route {
     vm.put("title", "Welcome!");
 
     // display a user message in the Home page
-    vm.put("message", WELCOME_MSG);
+    if(httpSession.attribute("message") == null)
+      vm.put("message", WELCOME_MSG);
+    else
+      vm.put("message", httpSession.attribute("message"));
 
 
       //Message message = Message.info(playerLobby.players.toString());
@@ -91,7 +94,7 @@ public class GetHomeRoute implements Route {
 
     if (playerLobby.getPlayers().size() > 0) {
       ArrayList<String> playerNames = new ArrayList<>();
-      for (Player player1 : playerLobby.getAvaPlayers()) {
+      for (Player player1 : playerLobby.getPlayers()) {
         playerNames.add(player1.getName());
       }
       vm.put("playerList", playerNames);

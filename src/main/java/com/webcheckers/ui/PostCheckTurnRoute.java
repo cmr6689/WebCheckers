@@ -48,9 +48,9 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
+//        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
 
-        if (!playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
+        if (playerLobby.getGameCenter().getGame(myPlayer) != null) {
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
