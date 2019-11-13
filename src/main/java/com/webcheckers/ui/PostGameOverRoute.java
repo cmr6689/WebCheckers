@@ -49,32 +49,19 @@ public class PostGameOverRoute implements Route {
         Session httpSession = request.session();
 
         Player myPlayer = httpSession.attribute("player");
-        Player opponent = httpSession.attribute("opponent");
-
-        Map<String, Object> vm = new HashMap<>();
-        //k
-        vm.put("title", "Webcheckers");
-
-        // display a user message in the Game page
-        vm.put("message", GAME_MSG);
-
-        //variables for game
-        vm.put("currentUser", myPlayer.getName());
-        vm.put("viewMode", "PLAY");
 
         //set mode options as a map
         final Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", true);
         modeOptions.put("gameOverMessage", myPlayer.getName() + " has captured all the pieces.");
         Gson gson = new Gson();
-        vm.put("modeOptionsAsJSON", gson.toJson(modeOptions));
 
-        vm.put("redPlayer", myPlayer.getName());
-        vm.put("whitePlayer", opponent.getName());
-        vm.put("activeColor", "RED");
-        vm.put("board", lobby.getGame(myPlayer));
+        lobby.getGameCenter().getGame(myPlayer).getMap().put("modeOptionsAsJSON", gson.toJson(modeOptions));
 
+        ResponseMessage message = new ResponseMessage();
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("The game is over");
 
-        return templateEngine.render(new ModelAndView(vm, "game.ftl"));
+        return gson.toJson(message);
     }
 }

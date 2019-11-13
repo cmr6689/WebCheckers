@@ -1,5 +1,6 @@
 package com.webcheckers.model;
 
+import com.google.gson.Gson;
 import com.webcheckers.ui.GameData;
 
 import java.util.ArrayList;
@@ -65,6 +66,35 @@ public class Game {
             Row row = new Row(i, color);
             //add that space to the ArrayList
             rows.add(row);
+        }
+    }
+
+    public void checkGameOver() {
+        boolean redWins = true;
+        boolean whiteWins = true;
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (rows.get(i).getSpaceAtIndex(j).getPiece() == null
+                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
+                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING))) {
+                    whiteWins = false;
+                } else if (rows.get(i).getSpaceAtIndex(j).getPiece() == null
+                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
+                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
+                    redWins = false;
+                }
+            }
+        }
+        final Map<String, Object> modeOptions = new HashMap<>(2);
+        Gson gson = new Gson();
+        if (redWins) {
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", player1.getName() + " has captured all the pieces.");
+            this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+        } else if (whiteWins) {
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
+            this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         }
     }
 

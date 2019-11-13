@@ -71,10 +71,12 @@ public class PostSubmitTurnRoute implements Route {
         if(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE")) {
             //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());
             //gameData.setBoard(playerLobby.getGameCenter().getGame(myPlayer).getBoardView1());
+            playerLobby.getGameCenter().getGame(myPlayer).checkGameOver();
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
         }else{
             //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
             //gameData.setBoard(playerLobby.getGameCenter().getGame(myPlayer).getBoardView2());
+            playerLobby.getGameCenter().getGame(myPlayer).checkGameOver();
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "WHITE");
         }
 
