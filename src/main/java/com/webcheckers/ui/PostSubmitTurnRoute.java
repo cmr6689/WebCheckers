@@ -87,10 +87,15 @@ public class PostSubmitTurnRoute implements Route {
         int thisCell = start.getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         //actually do the move given that it's valid on the board
-        board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
-        thisRow = end.getRow();
-        thisCell = end.getCell();
-        board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
+        //if it only moved once do this
+        if(!(board.getNumMovs() > 1)) {
+            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
+            thisRow = end.getRow();
+            thisCell = end.getCell();
+            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
+        }else{
+
+        }
         board.resetMovs();
         if(jumped){
             //remove the piece

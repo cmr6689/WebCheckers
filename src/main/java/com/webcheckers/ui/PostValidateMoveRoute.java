@@ -22,7 +22,9 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
-    boolean jumped = false;
+    boolean jumped;
+
+    boolean isValid;
 
 
     /**
@@ -64,9 +66,11 @@ public class PostValidateMoveRoute implements Route {
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
 
-        ValidateMove MoveValidator = new ValidateMove(board,thisPiece,move);
+        ValidateMove MoveValidator = new ValidateMove(board);
+        isValid = MoveValidator.Validator(thisPiece,move);
+        jumped = MoveValidator.getJumped();
 
-        if(MoveValidator.getIsValid()) {
+        if(isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);

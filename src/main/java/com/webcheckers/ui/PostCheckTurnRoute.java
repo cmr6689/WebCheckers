@@ -50,7 +50,7 @@ public class PostCheckTurnRoute implements Route {
 
 //        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
 
-        if (playerLobby.getGameCenter().getGame(myPlayer) != null) {
+        if (!playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
             playerLobby.getGameCenter().getGame(myPlayer).checkGameOver();
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);

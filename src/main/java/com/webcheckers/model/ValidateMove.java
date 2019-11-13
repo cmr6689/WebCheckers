@@ -2,20 +2,47 @@ package com.webcheckers.model;
 
 public class ValidateMove {
 
+    //boolean to tell if the last move was a jump
     private boolean lastWasJump = false;
 
+    //boolean to tell if this move was a jump
     boolean jumped = false;
 
+    //check if the space is valid
+    boolean positionIsValid;
+
+    //check if it is a move and is valid
+    boolean moveIsValid;
+
+    //check if it's a jump and is valid
+    boolean jumpIsValid;
+
+    //is the move valid
     boolean isValid;
+
+    //boardview
+    BoardView board;
+
+    //the piece being moved
+    Piece thisPiece;
+
+    //the move
+    Move move;
 
     /**
      * Constructor to check if a move or jump is valid
      */
-    public ValidateMove(BoardView board, Piece thisPiece, Move move){
+    public ValidateMove(BoardView board){
+        this.board = board;
+    }
+
+    public boolean Validator(Piece thisPiece, Move move){
         int rowsBeingJumped = Math.abs(move.getStart().getRow() - move.getEnd().getRow());
-        isValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell()) &&
-                moveIsValid(board, move, thisPiece) &&
-                jumpIsValid(rowsBeingJumped, move, board, thisPiece, move.getEnd().getRow(), move.getEnd().getCell());
+        this.positionIsValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell());
+        this.moveIsValid = moveIsValid(board, move, thisPiece);
+        this.jumpIsValid = jumpIsValid(rowsBeingJumped, move, board, thisPiece, move.getEnd().getRow(), move.getEnd().getCell());
+        this.isValid = positionIsValid && moveIsValid && jumpIsValid;
+        return isValid;
     }
 
     /**
@@ -31,10 +58,10 @@ public class ValidateMove {
             return false;
         }
         //if the space is a valid spot to move to
-        if(actualSpace.isValid()){
-            return true;
+        if(!actualSpace.isValid()){
+            return false;
         }
-        return false;
+        return true;
     }
 
     /**
@@ -46,18 +73,20 @@ public class ValidateMove {
     public boolean moveIsValid(BoardView board, Move move, Piece thisPiece){
         Piece.TYPE type;
         type = thisPiece.getType();
-        if(board.getNumMovs() > 1 && !lastWasJump){
+        if(board.getNumMovs() > 1 && !(lastWasJump)){
             //if the person is trying to move twice
             return false;
         }
         if((move.getStart().getCell() == move.getEnd().getCell()) && (board.getNumMovs() < 2)){
-            //if they're trying to move directly accross the board without jumping 2 pieces
+            //if they're trying to move directly across the board without jumping 2 pieces
             return false;
         }
-        if(thisPiece.getColor().equals(Piece.COLOR.RED) && type.equals(Piece.TYPE.SINGLE) && !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
+        if(thisPiece.getColor().equals(Piece.COLOR.RED) && type.equals(Piece.TYPE.SINGLE) &&
+                !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
             //if it's not king it cannot move backwards
             return false;
-        }else if (thisPiece.getColor().equals(Piece.COLOR.WHITE) && type.equals(Piece.TYPE.SINGLE) && !((move.getStart().getRow() - move.getEnd().getRow()) < 0)) {
+        }else if (thisPiece.getColor().equals(Piece.COLOR.WHITE) && type.equals(Piece.TYPE.SINGLE) &&
+                !((move.getStart().getRow() - move.getEnd().getRow()) < 0)) {
             //if it's not king it cannot move backwards
             return false;
         }
@@ -78,6 +107,10 @@ public class ValidateMove {
         int tempCellInt;
         Piece.TYPE type;
         Piece.COLOR color;
+        if(board.getNumMovs() > 1 && !(lastWasJump)){
+            //if the person is trying to move twice
+            return false;
+        }
         if(!(positionIsValid(board, row, cell)) || (rowsBeingJumped >= 3)){
             //the spot is invalid or the jump is too far
             lastWasJump = false;
@@ -133,8 +166,27 @@ public class ValidateMove {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     public Boolean getIsValid(){
 
         return isValid;
+    }
+
+    public void setThisPiece(Piece piece){
+        thisPiece = piece;
+    }
+
+    public void setMove(Move move){
+        this.move = move;
+    }
+
+    /**
+     *
+     */
+    public Boolean getJumped(){
+        return this.jumped;
     }
 }
