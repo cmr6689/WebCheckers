@@ -93,4 +93,7 @@ public class GameCenter {
         return activeGames.containsValue(name);
     }
 
+    public void removePlayer(Player player){
+        this.activeGames.remove(player);
+    }
 }
