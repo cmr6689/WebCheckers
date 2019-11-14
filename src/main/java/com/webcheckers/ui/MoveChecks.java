@@ -38,7 +38,8 @@ public class MoveChecks {
                     pieces.add(piece); //adds all of the pieces to the arraylists
                     positionPieceHashMap.put(new Position(i, j), piece);
                 }
-                positions.add(new Position(i, j));
+                if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK));
+                    positions.add(new Position(i, j));
             }
         }
 
