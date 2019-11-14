@@ -74,14 +74,14 @@ public class Game {
         boolean whiteWins = true;
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
-                if (rows.get(i).getSpaceAtIndex(j).getPiece() == null
-                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
-                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING))) {
-                    whiteWins = false;
-                } else if (rows.get(i).getSpaceAtIndex(j).getPiece() == null
-                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
-                        || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
-                    redWins = false;
+                if (rows.get(i).getSpaceAtIndex(j).getPiece() != null) {
+                    if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
+                            || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING))) {
+                        whiteWins = false;
+                    } else if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
+                            || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
+                        redWins = false;
+                    }
                 }
             }
         }
