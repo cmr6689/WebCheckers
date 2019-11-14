@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Player;
+import com.webcheckers.model.ValidateMove;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -53,6 +54,8 @@ public class PostBackupMoveRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+        ValidateMove MoveValidator = new ValidateMove(board);
+        MoveValidator.clearRemovedPieces();
         board.resetMovs();
 
         ResponseMessage message = new ResponseMessage();

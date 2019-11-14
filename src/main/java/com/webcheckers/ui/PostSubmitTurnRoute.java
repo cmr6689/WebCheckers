@@ -6,6 +6,7 @@ import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -22,6 +23,10 @@ public class PostSubmitTurnRoute implements Route {
     private final Gson gson;
 
     PlayerLobby playerLobby;
+
+    ArrayList<Position> removedPs = new ArrayList<>();
+
+    ArrayList<Move> allMoves = new ArrayList<>();
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -60,7 +65,7 @@ public class PostSubmitTurnRoute implements Route {
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-        Player.Color myColor = myPlayer.getColor();
+        ValidateMove MoveValidator = httpSession.attribute("validator");
         Move move = httpSession.attribute("move");
         Position start = new Position(move.getStart().getRow(),move.getStart().getCell());
         Position end = new Position(move.getEnd().getRow(),move.getEnd().getCell());
@@ -80,35 +85,47 @@ public class PostSubmitTurnRoute implements Route {
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "WHITE");
         }
 
-        BoardView board;
-
-        board = playerLobby.getGame(myPlayer).getBoardView1();
-        int thisRow = start.getRow();
-        int thisCell = start.getCell();
-        Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
-        //actually do the move given that it's valid on the board
-        //if it only moved once do this
-        if(!(board.getNumMovs() > 1)) {
+        removedPs = MoveValidator.getRemovedPieces();
+        allMoves = MoveValidator.getMovesThisTurn();
+        BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+        for(int i = 0; i < allMoves.size(); i++) {
+            move = allMoves.get(i);
+            start = new Position(move.getStart().getRow(),move.getStart().getCell());
+            end = new Position(move.getEnd().getRow(),move.getEnd().getCell());
+            //BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
+            int thisRow = start.getRow();
+            int thisCell = start.getCell();
+            Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
+            //actually do the move given that it's valid on the board
+            //if it only moved once do this
             board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
             thisRow = end.getRow();
             thisCell = end.getCell();
             board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(thisPiece);
-        }else{
-
+            /*
+            if (removedPs.size() != 0) {
+                //if there is a jump or multiple jump remove each piece jumped
+                for (Position p : removedPs) {
+                    board.getRowAtIndex(p.getRow()).getSpaceAtIndex(p.getCell()).removePiece();
+                }
+                MoveValidator.clearRemovedPieces();
+            }
+            */
+            if (jumped) {
+                //remove the piece
+                thisRow = ((start.getRow() + end.getRow()) / 2);
+                thisCell = ((start.getCell() + end.getCell()) / 2);
+                board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
+            }
+            if (end.getRow() == 0 || end.getRow() == 7) {
+                //king the piece
+                thisRow = end.getRow();
+                thisCell = end.getCell();
+                board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece().kingPiece();
+            }
         }
         board.resetMovs();
-        if(jumped){
-            //remove the piece
-            thisRow = ((start.getRow() + end.getRow()) / 2);
-            thisCell = ((start.getCell() + end.getCell()) / 2);
-            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).setPiece(null);
-        }
-        if(end.getRow() == 0 || end.getRow() == 7){
-            //king the piece
-            thisRow = end.getRow();
-            thisCell = end.getCell();
-            board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece().kingPiece();
-        }
+        MoveValidator.clearMovesThisTurn();
         // render the View
         return gson.toJson(message);
     }

@@ -26,6 +26,9 @@ public class PostValidateMoveRoute implements Route {
 
     boolean isValid;
 
+    Piece.TYPE originalType;
+
+    Piece.COLOR originalColor;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -65,9 +68,13 @@ public class PostValidateMoveRoute implements Route {
         int thisRow = move.getStart().getRow();
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
+        if(board.getNumMovs() == 0){
+            originalType = thisPiece.getType();
+            originalColor = thisPiece.getColor();
+        }
 
         ValidateMove MoveValidator = new ValidateMove(board);
-        isValid = MoveValidator.Validator(thisPiece,move);
+        isValid = MoveValidator.Validator(thisPiece,move, originalType,originalColor);
         jumped = MoveValidator.getJumped();
 
         if(isValid) {
@@ -75,6 +82,8 @@ public class PostValidateMoveRoute implements Route {
             message.setText("Your move is valid");
             httpSession.attribute("move", move);
             httpSession.attribute("jumped", jumped);
+            httpSession.attribute("validator", MoveValidator);
+            //httpSession.attribute("removed", MoveValidator.getRemovedPieces());
             //increase the number of movs this turn
             board.increaseNumMovs();
         }else{
