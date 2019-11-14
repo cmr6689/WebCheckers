@@ -17,6 +17,9 @@ public class Space {
 
     //the cell index from 0 to 7
     private int cellIdx;
+
+    private Position position;
+
     //the piece on this space
     private Piece piece;
     //the color of the space
@@ -32,6 +35,15 @@ public class Space {
         this.piece = piece;
         this.cellIdx = cellIdx;
         this.color = color;
+    }
+
+    public Space(Piece piece, int cellIDx, BOARD_COLOR color, Position position){
+        this(piece, cellIDx, color);
+        this.position = position;
+    }
+
+    public Position getPosition() {
+        return position;
     }
 
     /**
