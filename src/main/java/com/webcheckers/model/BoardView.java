@@ -19,6 +19,9 @@ public class BoardView implements Iterable {
     int i;
     int numMovs;
     COLOR currentColor;
+    ArrayList<Position> removedPieces = new ArrayList<>();
+    Position originalPos;
+    Position finalPos;
 
     /**
      * Constructor for the board view that creates the orientation
@@ -125,5 +128,43 @@ public class BoardView implements Iterable {
      */
     public Row getRowAtIndex(int index) {
         return this.rows.get(index);
+    }
+
+    public void clearRemovedPieces(){
+        removedPieces.clear();
+    }
+
+    public ArrayList<Position> getRemovedPieces(){
+        return removedPieces;
+    }
+
+    public void setRemovedPiece(Position p){
+        removedPieces.add(p);
+    }
+
+    public void setOriginalPos(Position p){
+        originalPos = p;
+    }
+
+    public void setFinalPos(Position p){
+        finalPos = p;
+    }
+
+    public Position getOriginalPos(){
+        return this.originalPos;
+    }
+
+    public Position getFinalPos(){
+        return this.finalPos;
+    }
+
+    public void resetPositions(){
+        this.originalPos = null;
+        this.finalPos = null;
+    }
+
+    public void backupPiece(){
+        //remove the last element
+        removedPieces.remove(removedPieces.size());
     }
 }

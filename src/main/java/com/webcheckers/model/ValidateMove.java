@@ -31,8 +31,6 @@ public class ValidateMove {
     //the move
     Move move;
 
-    ArrayList<Position> removedPieces = new ArrayList<>();
-
     ArrayList<Move> movesThisTurn = new ArrayList<>();
 
     /**
@@ -42,7 +40,7 @@ public class ValidateMove {
         this.board = board;
     }
 
-    public boolean Validator(Piece thisPiece, Move move, Piece.TYPE type, Piece.COLOR color){
+    public boolean Validator(Piece thisPiece, Move move, Piece.TYPE type, Piece.COLOR color, ArrayList<Position> removed){
         int rowsBeingJumped = Math.abs(move.getStart().getRow() - move.getEnd().getRow());
         this.positionIsValid = positionIsValid(board, move.getEnd().getRow(), move.getEnd().getCell());
         this.moveIsValid = moveIsValid(board, move, thisPiece, type, color);
@@ -51,6 +49,15 @@ public class ValidateMove {
         this.isValid = positionIsValid && moveIsValid && jumpIsValid;
         if(isValid){
             movesThisTurn.add(move);
+            if(board.getOriginalPos() == null){
+                board.setOriginalPos(move.getStart());
+            }
+            board.setFinalPos(move.getEnd());
+            if(jumped){
+                Position pieceRemoved = new Position((move.getStart().getRow()+move.getEnd().getRow())/2,
+                        (move.getStart().getCell()+move.getEnd().getCell())/2);
+                removed.add(pieceRemoved);
+            }
         }
         return isValid;
     }
@@ -146,7 +153,7 @@ public class ValidateMove {
                 tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
                 Piece tempPiece = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece();
                 //create a position for where the piece will be removed from
-                Position pieceRemoved = new Position(tempRowInt,tempCellInt);
+                //Position pieceRemoved = new Position(tempRowInt,tempCellInt);
                 if(tempPiece == null) {
                     //there is no piece being jumped
                     lastWasJump = false;
@@ -178,7 +185,7 @@ public class ValidateMove {
                     }
                     lastWasJump = true;
                     jumped = true;
-                    removedPieces.add(pieceRemoved);
+                    //removedPieces.add(pieceRemoved);
                     return true;
                 } else {
                     //if it's trying to jump a piece of the same color it can't
@@ -215,17 +222,6 @@ public class ValidateMove {
         return this.jumped;
     }
 
-    /**
-     *
-     */
-    public ArrayList<Position> getRemovedPieces(){
-        return this.removedPieces;
-    }
-
-    public void clearRemovedPieces(){
-        removedPieces.clear();
-    }
-
     public ArrayList<Move> getMovesThisTurn(){
         return movesThisTurn;
     }
@@ -233,4 +229,5 @@ public class ValidateMove {
     public void clearMovesThisTurn(){
         movesThisTurn.clear();
     }
+
 }

@@ -53,9 +53,13 @@ public class PostBackupMoveRoute implements Route {
         //added this to try something
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        ValidateMove MoveValidator = httpSession.attribute("validator");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
-        ValidateMove MoveValidator = new ValidateMove(board);
-        MoveValidator.clearRemovedPieces();
+        //TODO
+        //need to make an arrayList of moves in board and decrease the size and get the end position from the new last
+        //move in the board
+        //board.setFinalPos();
+        board.backupPiece();
         board.resetMovs();
 
         ResponseMessage message = new ResponseMessage();

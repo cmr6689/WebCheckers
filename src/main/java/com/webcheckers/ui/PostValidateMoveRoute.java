@@ -74,16 +74,14 @@ public class PostValidateMoveRoute implements Route {
         }
 
         ValidateMove MoveValidator = new ValidateMove(board);
-        isValid = MoveValidator.Validator(thisPiece,move, originalType,originalColor);
+        isValid = MoveValidator.Validator(thisPiece,move, originalType,originalColor,board.getRemovedPieces());
         jumped = MoveValidator.getJumped();
 
         if(isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);
-            httpSession.attribute("jumped", jumped);
             httpSession.attribute("validator", MoveValidator);
-            //httpSession.attribute("removed", MoveValidator.getRemovedPieces());
             //increase the number of movs this turn
             board.increaseNumMovs();
         }else{
