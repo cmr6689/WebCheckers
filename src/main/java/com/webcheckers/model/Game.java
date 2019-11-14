@@ -72,12 +72,17 @@ public class Game {
     public void checkGameOver() {
         boolean redWins = true;
         boolean whiteWins = true;
+        //loop through rows
         for (int i = 0; i < 8; i++) {
+            //loop through spaces
             for (int j = 0; j < 8; j++) {
+                //only checking spaces with pieces
                 if (rows.get(i).getSpaceAtIndex(j).getPiece() != null) {
+                    //check if red pieces on board
                     if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
                             || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING))) {
                         whiteWins = false;
+                    //check if white pieces on board
                     } else if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
                             || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
                         redWins = false;
@@ -85,15 +90,18 @@ public class Game {
                 }
             }
         }
+        //make modeOptions
         final Map<String, Object> modeOptions = new HashMap<>(2);
         Gson gson = new Gson();
         if (redWins) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player1.getName() + " has captured all the pieces.");
+            //set mode options
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         } else if (whiteWins) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
+            //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
         }
     }

@@ -51,12 +51,13 @@ public class PostCheckTurnRoute implements Route {
 //        System.err.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
 
         if (!playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
-            playerLobby.getGameCenter().getGame(myPlayer).checkGameOver();
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
             return gson.toJson(message1);
         } else {
+            if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null)
+                playerLobby.getGameCenter().getGame(myPlayer).setIsActive(false);
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
