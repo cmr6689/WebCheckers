@@ -21,7 +21,7 @@ public class MoveChecks {
         this.game = game;
     }
 
-    public boolean moveAvailable(){
+    public boolean checkMoves(){
         Piece piece;
 
         moves.clear();
@@ -58,6 +58,10 @@ public class MoveChecks {
                 }
             }
         }
+        return !moves.isEmpty();
+    }
+
+    public boolean moveAvailable(){
         return !moves.isEmpty();
     }
 
