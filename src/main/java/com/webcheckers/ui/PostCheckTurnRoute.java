@@ -56,8 +56,10 @@ public class PostCheckTurnRoute implements Route {
             message1.setText("false");
             return gson.toJson(message1);
         } else {
-            if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null)
+            if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 playerLobby.getGameCenter().getGame(myPlayer).setIsActive(false);
+                playerLobby.getGameCenter().endGame(myPlayer);
+            }
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
