@@ -43,6 +43,7 @@ public class PostCheckTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        //TODO using same names after game is over puts users into same game with game over state
          LOG.config("PostCheckTurn is invoked.");
 
         Session httpSession = request.session();
@@ -58,7 +59,7 @@ public class PostCheckTurnRoute implements Route {
         } else {
             if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 playerLobby.getGameCenter().getGame(myPlayer).setIsActive(false);
-                playerLobby.getGameCenter().endGame(myPlayer);
+                //playerLobby.getGameCenter().endGame(myPlayer);
             }
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
