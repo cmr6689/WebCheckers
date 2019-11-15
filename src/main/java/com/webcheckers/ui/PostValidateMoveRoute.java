@@ -82,8 +82,7 @@ public class PostValidateMoveRoute implements Route {
             message.setText("Your move is valid");
             httpSession.attribute("move", move);
             httpSession.attribute("validator", MoveValidator);
-            //increase the number of movs this turn
-            board.increaseNumMovs();
+            httpSession.attribute("piece", thisPiece);
         }else{
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("Your move is not valid");

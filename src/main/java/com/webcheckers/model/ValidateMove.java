@@ -31,8 +31,6 @@ public class ValidateMove {
     //the move
     Move move;
 
-    ArrayList<Move> movesThisTurn = new ArrayList<>();
-
     /**
      * Constructor to check if a move or jump is valid
      */
@@ -48,7 +46,8 @@ public class ValidateMove {
                 type, color);
         this.isValid = positionIsValid && moveIsValid && jumpIsValid;
         if(isValid){
-            movesThisTurn.add(move);
+            board.setMoveThisTurn(move);
+            board.increaseNumMovs();
             if(board.getOriginalPos() == null){
                 board.setOriginalPos(move.getStart());
             }
@@ -70,13 +69,6 @@ public class ValidateMove {
         System.err.println(board + " " + row);
         Row actualRow = board.getRowAtIndex(row);
         Space actualSpace = actualRow.getSpaceAtIndex(cell);
-        //check to see if the piece has already been moved once
-        /*
-        if(board.getNumMovs() > 0){
-            System.out.println("1");
-            return false;
-        }
-         */
         //if the space is a valid spot to move to
         if(!actualSpace.isValid()){
             System.out.println("2");
@@ -220,14 +212,6 @@ public class ValidateMove {
      */
     public Boolean getJumped(){
         return this.jumped;
-    }
-
-    public ArrayList<Move> getMovesThisTurn(){
-        return movesThisTurn;
-    }
-
-    public void clearMovesThisTurn(){
-        movesThisTurn.clear();
     }
 
 }

@@ -85,7 +85,7 @@ public class PostSubmitTurnRoute implements Route {
         Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
         board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
         board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
-        System.out.println(board.getRemovedPieces().size());
+        //System.out.println(board.getRemovedPieces().size());
         if(removedPs.size() != 0){
             System.out.println(board.getRemovedPieces().size());
             for(Position p: removedPs){
@@ -93,7 +93,7 @@ public class PostSubmitTurnRoute implements Route {
             }
         }
         board.resetPositions();
-        MoveValidator.clearMovesThisTurn();
+        board.clearMovesThisTurn();
         board.clearRemovedPieces();
         board.resetMovs();
         return gson.toJson(message);

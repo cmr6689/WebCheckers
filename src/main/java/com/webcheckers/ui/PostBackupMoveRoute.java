@@ -2,9 +2,7 @@ package com.webcheckers.ui;
 
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.ValidateMove;
+import com.webcheckers.model.*;
 import spark.Request;
 import spark.Response;
 import spark.Route;
@@ -53,14 +51,22 @@ public class PostBackupMoveRoute implements Route {
         //added this to try something
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-        ValidateMove MoveValidator = httpSession.attribute("validator");
+        Piece thisPiece = httpSession.attribute("piece");
+        //ValidateMove MoveValidator = httpSession.attribute("validator");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         //TODO
         //need to make an arrayList of moves in board and decrease the size and get the end position from the new last
-        //move in the board
-        //board.setFinalPos();
-        board.backupPiece();
-        board.resetMovs();
+        if(board.getMovesThisTurn().size() > 1){
+            board.decrementMovesThisTurn();
+            board.decreaseNumMoves();
+            board.getRowAtIndex(board.getMovesThisTurn().get(
+                    board.getMovesThisTurn().size()-1).getEnd().getRow()).getSpaceAtIndex(
+                            board.getMovesThisTurn().get(board.getMovesThisTurn().size()-1).getEnd().getCell()).setPiece(thisPiece);
+            board.setFinalPos(board.getMovesThisTurn().get(board.getMovesThisTurn().size()-1).getEnd());
+            if(board.getRemovedPieces().size() != 0) {
+                board.backupPiece();
+            }
+        }
 
         ResponseMessage message = new ResponseMessage();
         // to back up a move, replace message type of ERROR with INFO

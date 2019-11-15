@@ -20,6 +20,7 @@ public class BoardView implements Iterable {
     int numMovs;
     COLOR currentColor;
     ArrayList<Position> removedPieces = new ArrayList<>();
+    ArrayList<Move> movesThisTurn = new ArrayList<>();
     Position originalPos;
     Position finalPos;
 
@@ -114,6 +115,13 @@ public class BoardView implements Iterable {
     }
 
     /**
+     *
+     */
+    public void decreaseNumMoves(){
+        this.numMovs--;
+    }
+
+    /**
      * set the number of movs this turn to 0
      */
     public void resetMovs(){
@@ -142,6 +150,22 @@ public class BoardView implements Iterable {
         removedPieces.add(p);
     }
 
+    public void clearMovesThisTurn(){
+        movesThisTurn.clear();
+    }
+
+    public ArrayList<Move> getMovesThisTurn(){
+        return movesThisTurn;
+    }
+
+    public void setMoveThisTurn(Move m){
+        movesThisTurn.add(m);
+    }
+
+    public void decrementMovesThisTurn(){
+        movesThisTurn.remove(movesThisTurn.size()-1);
+    }
+
     public void setOriginalPos(Position p){
         originalPos = p;
     }
@@ -165,6 +189,6 @@ public class BoardView implements Iterable {
 
     public void backupPiece(){
         //remove the last element
-        removedPieces.remove(removedPieces.size());
+        removedPieces.remove(removedPieces.size()-1);
     }
 }
