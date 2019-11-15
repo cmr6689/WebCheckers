@@ -2,6 +2,7 @@ package com.webcheckers.model;
 
 import com.google.gson.Gson;
 import com.webcheckers.ui.GameData;
+import com.webcheckers.ui.MoveChecks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -103,7 +104,12 @@ public class Game {
             modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-        }
+        } /*else if (!new MoveChecks(this).checkMoves()) {
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", "No more moves available! It's a tie!");
+            //set mode option
+            this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+        } */
     }
 
     public Map<String, Object> getMap() {
