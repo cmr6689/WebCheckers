@@ -69,7 +69,7 @@ public class GetHomeRoute implements Route {
 
     if(player != null) {
       if (playerLobby.getGame(player) != null && playerLobby.getGame(player).isActive()) {
-          if (player == playerLobby.getGameCenter().getGame(player).getPlayer2()) {
+          if (player.equals(playerLobby.getGameCenter().getGame(player).getPlayer2())) {
             System.err.println("Game found!");
             response.redirect("/game");
           }

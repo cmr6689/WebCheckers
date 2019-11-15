@@ -3,8 +3,6 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.*;
-import com.webcheckers.util.Message;
-import javafx.geometry.Pos;
 import spark.*;
 
 import java.util.*;
@@ -56,15 +54,26 @@ public class PostSubmitTurnRoute implements Route {
         request.queryParams("gameID");
         vm.put("title", "Webcheckers");
 
-        //Check if valid move first
-        ResponseMessage message = new ResponseMessage();
-        // to successfully resign, replace message type of ERROR with INFO
-        message.setType(ResponseMessage.MessageType.INFO);
-        message.setText("You can not submit a turn in the state you are in.");
 
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
         ValidateMove MoveValidator = httpSession.attribute("validator");
+        MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
+        System.out.println(moveCheck.jumpAvailable());
+
+        ResponseMessage message;
+        //Check if valid move first
+        if(moveCheck.jumpAvailable()) {
+            message = new ResponseMessage();
+            // to successfully resign, replace message type of ERROR with INFO
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("You can not submit a turn in the state you are in.");
+        }else{
+            message = new ResponseMessage();
+            // to successfully resign, replace message type of ERROR with INFO
+            message.setType(ResponseMessage.MessageType.INFO);
+            message.setText("You can submit a turn in the state you are in.");
+        }
 
         //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
 
@@ -84,6 +93,10 @@ public class PostSubmitTurnRoute implements Route {
         removedPs = board.getRemovedPieces();
         Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
         board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
+//        if(board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.RED) &&
+//                !thisPiece.getType().equals(Piece.TYPE.KING)){
+//            thisPiece.setType(Piece.TYPE.KING);
+//        }
         board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
         //System.out.println(board.getRemovedPieces().size());
         if(removedPs.size() != 0){

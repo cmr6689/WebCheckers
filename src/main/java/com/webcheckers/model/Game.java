@@ -111,7 +111,7 @@ public class Game {
     }
 
     public String getActivePlayer(){
-        if(this.map.get("activeColor").equals(Piece.COLOR.RED)){
+        if(this.map.get("activeColor").equals(Piece.COLOR.RED.name())){
             return (String) this.map.get("redPlayer");
         }else{
             return (String) this.map.get("whitePlayer");
