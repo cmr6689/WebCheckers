@@ -70,7 +70,7 @@ public class GetGameRoute implements Route {
                     //create game
 
                     //if the opp is already in a game
-                    if(opp.getInGame()){
+                    if (opp.getInGame()) {
                         System.err.println("OH no the opp is already in a game");
                         final Message message = Message.error("This player is already in a game");
 
@@ -81,6 +81,8 @@ public class GetGameRoute implements Route {
 
                     lobby.getGameCenter().newGame(myPlayer, opponent);
                     lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
+                    //prevent access to end game code
+                    lobby.getGameCenter().setJustEnded(false);
 
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("viewMode", "PLAY");
@@ -95,15 +97,40 @@ public class GetGameRoute implements Route {
                     return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
                 }
             }
-        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())){
+            //for the player that refreshes after the game ends
+        } else if (lobby.getGameCenter().justEnded()) {
+            lobby.getGameCenter().setJustEnded(false);
+            //create temp map
+            Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
+            //end game
+            lobby.getGameCenter().endGame(lobby.getGameCenter().getGame(myPlayer).getPlayer1(), lobby.getGameCenter().getGame(myPlayer).getPlayer2());
+            //display the temp map
+            return templateEngine.render(new ModelAndView(map, "game.ftl"));
+
+            //player 2 (white player)
+        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())) {
             lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer2().getName());
             lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
             lobby.getGameCenter().getGame(myPlayer).checkGameOver();
+            //if game is over
+            if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
+                //allow other player to remove the game
+                lobby.getGameCenter().setJustEnded(true);
+                return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
+            }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
+
+            //player 1 (red player)
         } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1())) {
             lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer1().getName());
             lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
             lobby.getGameCenter().getGame(myPlayer).checkGameOver();
+            //if game is over
+            if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
+                //allow other player to remove the game
+                lobby.getGameCenter().setJustEnded(true);
+                return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
+            }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
         }
         //response.redirect("/");

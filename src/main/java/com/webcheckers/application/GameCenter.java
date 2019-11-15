@@ -6,6 +6,7 @@ import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * The GameCenter class handles multiple games on the server at once.
@@ -18,11 +19,23 @@ public class GameCenter {
     //Hashmap of the active games
     private HashMap<Player, Game> activeGames;
 
+    //if a player has made a game winning move/resigned
+    private boolean justEnded;
+
     /**
      * GameCenter constructor which sets the hashmaps
      */
     public GameCenter(){
         activeGames = new HashMap<>();
+        justEnded = false;
+    }
+
+    public boolean justEnded() {
+        return justEnded;
+    }
+
+    public void setJustEnded(boolean justEnded) {
+        this.justEnded = justEnded;
     }
 
     /**
@@ -47,13 +60,21 @@ public class GameCenter {
      * @param p1: player 1
      * @return: the game if it was there, null if it wasn't
      */
-    public boolean endGame(Player p1){
+    public boolean endGame(Player p1, Player p2){
         //iterate through
         if(activeGames.containsKey(p1)) {
             activeGames.get(p1).setIsActive(false);
             activeGames.get(p1).getPlayer2().setInGame(false);
-            p1.setInGame(false);
+            activeGames.get(p1).getPlayer1().setInGame(false);
             activeGames.remove(p1);
+            justEnded = true;
+            return true;
+        } else if (activeGames.containsKey(p2)) {
+            activeGames.get(p2).setIsActive(false);
+            activeGames.get(p2).getPlayer2().setInGame(false);
+            activeGames.get(p2).getPlayer1().setInGame(false);
+            activeGames.remove(p2);
+            justEnded = true;
             return true;
         }
         else

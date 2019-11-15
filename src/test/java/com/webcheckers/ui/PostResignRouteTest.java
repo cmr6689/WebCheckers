@@ -70,7 +70,7 @@ public class PostResignRouteTest {
         // to successfully resign, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can not resign in the state you are in.");
-        playerLobby.getGameCenter().endGame(p1);
+        //playerLobby.getGameCenter().endGame(p1);
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object

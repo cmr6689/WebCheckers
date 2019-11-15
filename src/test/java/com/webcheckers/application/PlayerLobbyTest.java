@@ -113,7 +113,7 @@ public class PlayerLobbyTest {
         arrayList.add(test4);
         assertEquals(arrayList, playerLobby.getAvaPlayers());
         ArrayList<Player> arrayList2 = new ArrayList<>();
-        gameCenter.endGame(test1);
+        gameCenter.endGame(test1, test2);
         arrayList2.add(test1);
         arrayList2.add(test2);
         arrayList2.add(test3);

@@ -61,7 +61,7 @@ public class GameCenterTest {
         //start game
         CuT.newGame(test1,test2);
         //end game
-        CuT.endGame(test1);
+        CuT.endGame(test1, test2);
 
         // Analyze the results
         // 2) the game is not Active
@@ -110,7 +110,7 @@ public class GameCenterTest {
         //check that the game has started
         assertTrue(CuT.getGame(test1).isActive());
         //end the game
-        assertNotNull(CuT.endGame(test1));
+        assertNotNull(CuT.endGame(test1,test2));
         // Analyze the results
         // 1) the returned game is not real
         assertNull(CuT.getActiveGame(test1));

@@ -47,6 +47,7 @@ public class PlayerLobby {
             setInvalidName(true);
             return false;
         }
+        /*
         REGEX = "";
         pattern = Pattern.compile(REGEX);
         matcher = pattern.matcher(newPlayer.getName());
@@ -54,6 +55,7 @@ public class PlayerLobby {
             setInvalidName(true);
             return false;
         }
+         */
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
                 setInvalidName(true);

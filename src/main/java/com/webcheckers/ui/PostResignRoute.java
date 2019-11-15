@@ -56,10 +56,12 @@ public class PostResignRoute implements Route {
 
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
-
+        Player p2 = playerLobby.getGameCenter().getGame(p1).getPlayer2();
+        if (playerLobby.getGameCenter().getGame(p1).getActivePlayer().equals(p1.getName())) {
             vm.put("isGameOver", true);
             vm.put("gameOverMessage", p1.getName() + " has resigned from the game.");
-            playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+            playerLobby.getGameCenter().getGame(p2).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+            playerLobby.getGameCenter().setJustEnded(true);
 
             ResponseMessage message = new ResponseMessage();
             // to successfully resign, replace message type of ERROR with INFO
@@ -68,6 +70,11 @@ public class PostResignRoute implements Route {
 
             // render the View
             return gson.toJson(message);
-
+        } else {
+            ResponseMessage message = new ResponseMessage();
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("You cannot resign if it is not your turn!");
+            return gson.toJson(message);
+        }
     }
 }

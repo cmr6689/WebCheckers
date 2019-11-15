@@ -49,18 +49,20 @@ public class PostCheckTurnRoute implements Route {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        System.out.println(playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor"));
+        //for the player that needs to refresh when the game has ended
+        if (playerLobby.getGameCenter().justEnded()) {
+            ResponseMessage message2 = new ResponseMessage();
+            message2.setType(ResponseMessage.MessageType.INFO);
+            message2.setText("true");
+            return gson.toJson(message2);
 
-        if (playerLobby.getGameCenter().getGame(myPlayer) == null || !playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
+            //game is no longer active
+        }else if (playerLobby.getGameCenter().getGame(myPlayer) == null || !playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
             ResponseMessage message1 = new ResponseMessage();
             message1.setType(ResponseMessage.MessageType.INFO);
             message1.setText("false");
             return gson.toJson(message1);
         } else {
-            if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
-                playerLobby.getGameCenter().getGame(myPlayer).setIsActive(false);
-                //playerLobby.getGameCenter().endGame(myPlayer);
-            }
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
