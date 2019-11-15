@@ -47,7 +47,6 @@ public class PostResignRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        //TODO using same names after signing out shows resigned game
         Map<String, Object> vm = new HashMap<>();
 
         System.out.println("RESIGNED");
@@ -56,11 +55,10 @@ public class PostResignRoute implements Route {
 
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
-        Player p2 = playerLobby.getGameCenter().getGame(p1).getPlayer2();
         if (playerLobby.getGameCenter().getGame(p1).getActivePlayer().equals(p1.getName())) {
             vm.put("isGameOver", true);
             vm.put("gameOverMessage", p1.getName() + " has resigned from the game.");
-            playerLobby.getGameCenter().getGame(p2).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+            playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
             playerLobby.getGameCenter().setJustEnded(true);
 
             ResponseMessage message = new ResponseMessage();

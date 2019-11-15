@@ -43,7 +43,6 @@ public class PostCheckTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        //TODO using same names after game is over puts users into same game with game over state
          LOG.config("PostCheckTurn is invoked.");
 
         Session httpSession = request.session();
