@@ -49,9 +49,7 @@ public class PostResignRoute implements Route {
     public Object handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
 
-        System.out.println("RESIGNED");
-
-        LOG.finer("PostResignRoute is invoked.");
+        LOG.config("PostResignRoute is invoked.");
 
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");

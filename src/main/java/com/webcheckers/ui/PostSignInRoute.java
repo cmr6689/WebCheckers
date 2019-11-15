@@ -36,9 +36,6 @@ public class PostSignInRoute implements Route {
    */
   public PostSignInRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-    //
-    LOG.config("PostSignInRoute is initialized.");
-
     this.playerLobby = playerLobby;
   }
 
@@ -55,6 +52,7 @@ public class PostSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
+    LOG.config("PostSignInRoute is invoked");
     Map<String, Object> vm = new HashMap<>();
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
@@ -67,10 +65,6 @@ public class PostSignInRoute implements Route {
     } else {
       httpSession.attribute("player", player);
     }
-
-
-
-    LOG.finer("PostSignInRoute is invoked.");
     //
     vm.put("title", "Welcome!");
 

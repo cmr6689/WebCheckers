@@ -36,8 +36,6 @@ public class GetSignInRoute implements Route {
    */
   public GetSignInRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-    //
-    LOG.config("GetSignInRoute is initialized.");
 
     this.playerlobby = playerLobby;
     playerLobby.setInvalidName(false);
@@ -56,7 +54,7 @@ public class GetSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.finer("GetSignInRoute is invoked.");
+    LOG.config("GetSignInRoute is invoked.");
     //
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Sign In");

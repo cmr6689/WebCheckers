@@ -35,8 +35,6 @@ public class GetGameRoute implements Route {
      */
     public GetGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-        //
-        LOG.config("GetGameRoute is initialized.");
         this.lobby = playerLobby;
     }
 
@@ -49,9 +47,7 @@ public class GetGameRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response){
-        //TODO rewrite
-
-        System.err.println("i was called");
+        LOG.config("GetGameRoute is invoked.");
 
         Session httpSession = request.session();
 

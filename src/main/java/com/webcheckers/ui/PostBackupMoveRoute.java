@@ -43,7 +43,7 @@ public class PostBackupMoveRoute implements Route {
     public Object handle(Request request, Response response) {
         Map<String, Object> vm = new HashMap<>();
 
-        LOG.finer("PostBackupMoveRoute is invoked.");
+        LOG.config("PostBackupMoveRoute is invoked.");
 
         request.queryParams("gameID");
         vm.put("title", "Loser");

@@ -61,7 +61,7 @@ public class GetHomeRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.finer("GetHomeRoute is invoked.");
+    LOG.config("GetHomeRoute is invoked.");
 
     final Session httpSession = request.session();
 
@@ -71,7 +71,7 @@ public class GetHomeRoute implements Route {
       if (!playerLobby.getGameCenter().justEnded(player)) {
         if (playerLobby.getGame(player) != null && playerLobby.getGame(player).isActive()) {
           if (player.equals(playerLobby.getGameCenter().getGame(player).getPlayer2())) {
-            System.err.println("Game found!");
+            LOG.config("Game found!");
             response.redirect("/game");
           }
         }
