@@ -49,8 +49,11 @@ public class PostSubmitTurnRoute implements Route {
 
         LOG.finer("PostSubmitTurnRoute is invoked.");
 
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
+
         //for the player that needs to refresh when the game has ended
-        if (playerLobby.getGameCenter().justEnded()) {
+        if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("");
@@ -62,9 +65,6 @@ public class PostSubmitTurnRoute implements Route {
         request.queryParams("gameID");
         vm.put("title", "Webcheckers");
 
-
-        Session httpSession = request.session();
-        Player myPlayer = httpSession.attribute("player");
         ValidateMove MoveValidator = httpSession.attribute("validator");
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
         System.out.println(moveCheck.jumpAvailable());

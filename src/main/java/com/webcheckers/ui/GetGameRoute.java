@@ -82,7 +82,7 @@ public class GetGameRoute implements Route {
                     lobby.getGameCenter().newGame(myPlayer, opponent);
                     lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
                     //prevent access to end game code
-                    lobby.getGameCenter().setJustEnded(false);
+                    lobby.getGameCenter().setJustEnded(myPlayer, opponent, false);
 
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("viewMode", "PLAY");
@@ -98,8 +98,8 @@ public class GetGameRoute implements Route {
                 }
             }
             //for the player that refreshes after the game ends
-        } else if (lobby.getGameCenter().justEnded()) {
-            lobby.getGameCenter().setJustEnded(false);
+        } else if (lobby.getGameCenter().justEnded(myPlayer)) {
+            lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), false);
             //create temp map
             Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
             //end game
@@ -115,7 +115,7 @@ public class GetGameRoute implements Route {
             //if game is over
             if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 //allow other player to remove the game
-                lobby.getGameCenter().setJustEnded(true);
+                lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), true);
                 return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
             }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
@@ -128,7 +128,7 @@ public class GetGameRoute implements Route {
             //if game is over
             if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 //allow other player to remove the game
-                lobby.getGameCenter().setJustEnded(true);
+                lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), true);
                 return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
             }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));

@@ -49,7 +49,7 @@ public class PostCheckTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
 
         //for the player that needs to refresh when the game has ended
-        if (playerLobby.getGameCenter().justEnded()) {
+        if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");

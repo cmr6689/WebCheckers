@@ -68,7 +68,7 @@ public class GetHomeRoute implements Route {
     Player player = httpSession.attribute("player");
 
     if(player != null) {
-      if (!playerLobby.getGameCenter().justEnded()) {
+      if (!playerLobby.getGameCenter().justEnded(player)) {
         if (playerLobby.getGame(player) != null && playerLobby.getGame(player).isActive()) {
           if (player.equals(playerLobby.getGameCenter().getGame(player).getPlayer2())) {
             System.err.println("Game found!");

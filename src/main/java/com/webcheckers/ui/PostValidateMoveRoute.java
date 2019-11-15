@@ -59,7 +59,7 @@ public class PostValidateMoveRoute implements Route {
         LOG.config("PostValidateMoveRoute is invoked.");
 
         //if player 2 resigns
-        if (playerLobby.getGameCenter().justEnded()) {
+        if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("Opponent has resigned, submit move to end game");

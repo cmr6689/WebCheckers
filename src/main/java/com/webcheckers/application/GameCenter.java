@@ -20,22 +20,24 @@ public class GameCenter {
     private HashMap<Player, Game> activeGames;
 
     //if a player has made a game winning move/resigned
-    private boolean justEnded;
+    private HashMap<Player, Boolean> justEnded;
 
     /**
      * GameCenter constructor which sets the hashmaps
      */
     public GameCenter(){
         activeGames = new HashMap<>();
-        justEnded = false;
+        justEnded = new HashMap<>();
     }
 
-    public boolean justEnded() {
-        return justEnded;
+    public boolean justEnded(Player p1) {
+        if (justEnded.containsKey(p1)) return justEnded.get(p1);
+        else return false;
     }
 
-    public void setJustEnded(boolean justEnded) {
-        this.justEnded = justEnded;
+    public void setJustEnded(Player p1, Player p2, boolean ended) {
+        justEnded.put(p1, ended);
+        justEnded.put(p2, ended);
     }
 
     /**
@@ -67,14 +69,14 @@ public class GameCenter {
             activeGames.get(p1).getPlayer2().setInGame(false);
             activeGames.get(p1).getPlayer1().setInGame(false);
             activeGames.remove(p1);
-            justEnded = true;
+            setJustEnded(p1, p2, true);
             return true;
         } else if (activeGames.containsKey(p2)) {
             activeGames.get(p2).setIsActive(false);
             activeGames.get(p2).getPlayer2().setInGame(false);
             activeGames.get(p2).getPlayer1().setInGame(false);
             activeGames.remove(p2);
-            justEnded = true;
+            setJustEnded(p1, p2, true);
             return true;
         }
         else
