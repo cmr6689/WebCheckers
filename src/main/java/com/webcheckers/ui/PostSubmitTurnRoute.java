@@ -49,6 +49,14 @@ public class PostSubmitTurnRoute implements Route {
 
         LOG.finer("PostSubmitTurnRoute is invoked.");
 
+        //for the player that needs to refresh when the game has ended
+        if (playerLobby.getGameCenter().justEnded()) {
+            ResponseMessage message2 = new ResponseMessage();
+            message2.setType(ResponseMessage.MessageType.INFO);
+            message2.setText("");
+            return gson.toJson(message2);
+        }
+
         System.err.println("turn was submitted");
 
         request.queryParams("gameID");

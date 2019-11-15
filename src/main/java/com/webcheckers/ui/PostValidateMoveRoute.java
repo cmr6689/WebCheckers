@@ -10,6 +10,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
 
+import static spark.Spark.post;
+
 /**
  * This class handles the ajax call of /validateMove and responds with a json message
  *
@@ -56,6 +58,14 @@ public class PostValidateMoveRoute implements Route {
 
         LOG.config("PostValidateMoveRoute is invoked.");
 
+        //if player 2 resigns
+        if (playerLobby.getGameCenter().justEnded()) {
+            ResponseMessage message2 = new ResponseMessage();
+            message2.setType(ResponseMessage.MessageType.INFO);
+            message2.setText("Opponent has resigned, submit move to end game");
+            return gson.toJson(message2);
+        }
+
         System.out.println(request.queryParams("actionData"));
 
         request.queryParams("gameID");
@@ -68,7 +78,7 @@ public class PostValidateMoveRoute implements Route {
         int thisRow = move.getStart().getRow();
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
-        if(board.getNumMovs() == 0){
+        if(board.getNumMovs() == 0) {
             originalType = thisPiece.getType();
             originalColor = thisPiece.getColor();
         }

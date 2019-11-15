@@ -55,24 +55,17 @@ public class PostResignRoute implements Route {
 
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
-        if (playerLobby.getGameCenter().getGame(p1).getActivePlayer().equals(p1.getName())) {
-            vm.put("isGameOver", true);
-            vm.put("gameOverMessage", p1.getName() + " has resigned from the game.");
-            playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
-            playerLobby.getGameCenter().setJustEnded(true);
+        vm.put("isGameOver", true);
+        vm.put("gameOverMessage", p1.getName() + " has resigned from the game.");
+        playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+        playerLobby.getGameCenter().setJustEnded(true);
 
-            ResponseMessage message = new ResponseMessage();
-            // to successfully resign, replace message type of ERROR with INFO
-            message.setType(ResponseMessage.MessageType.INFO);
-            message.setText("You can not resign in the state you are in.");
+        ResponseMessage message = new ResponseMessage();
+        // to successfully resign, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("You can not resign in the state you are in.");
 
-            // render the View
-            return gson.toJson(message);
-        } else {
-            ResponseMessage message = new ResponseMessage();
-            message.setType(ResponseMessage.MessageType.ERROR);
-            message.setText("You cannot resign if it is not your turn!");
-            return gson.toJson(message);
-        }
+        // render the View
+        return gson.toJson(message);
     }
 }
