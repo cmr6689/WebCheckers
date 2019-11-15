@@ -54,7 +54,7 @@ public class PostResignRoute implements Route {
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
         vm.put("isGameOver", true);
-        vm.put("gameOverMessage", p1.getName() + " has resigned from the game.");
+        vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
         playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
         playerLobby.getGameCenter().setJustEnded(playerLobby.getGame(p1).getPlayer1(), playerLobby.getGame(p1).getPlayer2(), true);
 
