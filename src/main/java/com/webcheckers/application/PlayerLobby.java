@@ -46,16 +46,16 @@ public class PlayerLobby {
         if(matcher.lookingAt()){
             setInvalidName(true);
             return false;
+        }else {
+            REGEX = "^\\s*$";
+            pattern = Pattern.compile(REGEX);
+            matcher = pattern.matcher(newPlayer.getName());
+            if (matcher.lookingAt()) {
+                setInvalidName(true);
+                return false;
+            }
         }
-        /*
-        REGEX = "";
-        pattern = Pattern.compile(REGEX);
-        matcher = pattern.matcher(newPlayer.getName());
-        if(matcher.lookingAt()){
-            setInvalidName(true);
-            return false;
-        }
-         */
+
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
                 setInvalidName(true);
