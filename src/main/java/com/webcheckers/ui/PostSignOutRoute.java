@@ -38,10 +38,12 @@ public class PostSignOutRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
+        Session httpSession = request.session();
+        httpSession.removeAttribute("player");
         Player player = new Player(request.queryParams("signout"));
         this.playerlobby.getPlayers().remove(player);
         playerlobby.setInvalidName(false);
-        response.redirect("/signin");
+        response.redirect("/");
         return null;
     }
 }
