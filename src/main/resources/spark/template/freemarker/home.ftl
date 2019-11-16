@@ -25,10 +25,11 @@
     <#if currentUser??>
         <h2>Players Online</h2>
         <#if playerList??>
-            <#if (playerList?size > 1)>
+            <#if (playerList?size > 2)>
                 <ul>
                     <#list playerList as player>
-                        <#if currentUser.name != player>
+                        <#if player == "AI">
+                        <#elseif currentUser.name != player>
                             <li><form method="get" action="/game" target="_self">
                                 <input type="submit" name="opponent" value=${player}></form>
                         </#if>
@@ -39,18 +40,26 @@
                     <li>There are no other players online.</li>
                 </ul>
             </#if>
+        <h2>Play Alone</h2>
+        <ul><li><form method="get" action="/game" target="_self">
+            <input type="submit" name="opponent" value="AI"></form></li></ul>
         <#else>
             <ul>
                 <li>There are no other players online.</li>
             </ul>
+            <h2>Play Alone</h2>
+            <ul><li><form method="get" action="/game" target="_self">
+                <input type="submit" name="opponent" value="AI"></form></li></ul>
         </#if>
     <#else>
         <h2>Players Online</h2>
         <#if playerList??>
-            <#if (playerList?size > 1)>
-                <ul><li>${playerList?size} players online.</li></ul>
+            <#if (playerList?size > 2)>
+                <ul><li>${playerList?size-1} players online.</li></ul>
+            <#elseif (playerList?size > 1)>
+                <ul><li>${playerList?size-1} player online.</li></ul>
             <#else>
-                <ul><li>${playerList?size} player online.</li></ul>
+                <ul><li>There are no players online.</li></ul>
             </#if>
         <#else>
             <ul><li>There are no players online.</li></ul>
