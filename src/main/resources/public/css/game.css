@@ -63,6 +63,7 @@ fieldset#game-info table td.name {
 fieldset#game-toolbar button {
   padding: 9px;
   margin-right: 0.25em;
+  margin-top: 0.25em;
   font-size: larger;
   cursor: pointer;
   background-color: #CAECFF;

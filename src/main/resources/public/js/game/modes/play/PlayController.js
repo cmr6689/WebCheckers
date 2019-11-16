@@ -85,6 +85,7 @@ define(function(require){
         PlayModeConstants.BACKUP_BUTTON_TOOLTIP, this.backupMove);
     this.addButton(PlayModeConstants.SUBMIT_BUTTON_ID, 'Submit turn', false,
         PlayModeConstants.SUBMIT_BUTTON_TOOLTIP, this.submitTurn);
+    this.addButton('helpBtn', 'Help', true, 'Get help for your next move', this.helpMove);
     this.addButton(PlayModeConstants.RESIGN_BUTTON_ID, 'Resign', true,
         PlayModeConstants.RESIGN_BUTTON_TOOLTIP, this.resignGame);
     this.addButton(PlayModeConstants.EXIT_BUTTON_ID, 'Exit', true,
@@ -157,6 +158,14 @@ define(function(require){
     return ! this.isTurnActive();
   };
 
+  PlayController.prototype.helpMove = function helpMove() {
+    AjaxUtils.callServer('/helpMove',
+            // the handler method should be run in the context of 'this' Controller object
+            handleResponse, this);
+    function handleResponse(message) {
+      this.displayMessage(message);
+    }
+  };
   /**
    * Resign from the game.
    * 

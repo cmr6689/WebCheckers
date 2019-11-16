@@ -74,6 +74,7 @@ public class WebServer {
   private static final String VALIDATE_MOVE_URL = "/validateMove";
   private static final String SUBMIT_TURN_URL = "/submitTurn";
   private static final String BACKUP_MOVE = "/backupMove";
+  private static final String HELP_MOVE = "/helpMove";
 
   //
   // Attributes
@@ -177,6 +178,8 @@ public class WebServer {
     post(SUBMIT_TURN_URL, new PostSubmitTurnRoute(playerLobby));
     // Ajax call that returns a moved piece back to its starting position if invoked
     post(BACKUP_MOVE, new PostBackupMoveRoute(playerLobby));
+    //Ajax call for help
+    post(HELP_MOVE, new PostHelpMoveRoute(playerLobby));
 
     //
     //LOG.config("WebServer is initialized.");
