@@ -67,8 +67,10 @@ define(function(require){
       this._controller.resetPendingMove();
       const hasMoves = this._controller.isTurnActive();
       this._controller.setState(hasMoves ? PlayModeConstants.STABLE_TURN : PlayModeConstants.EMPTY_TURN);
-    }
-    else {
+    } else if (message.text === 'refresh') {
+        // end the State machine by refreshing the Game View (via a browser page request)
+        this._controller.refresh();
+    } else {
       this._controller.addPendingMove();
       this._controller.setState(PlayModeConstants.STABLE_TURN);
     }

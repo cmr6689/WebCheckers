@@ -61,7 +61,7 @@ public class PostValidateMoveRoute implements Route {
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.INFO);
-            message2.setText("Opponent has resigned, submit move to end game");
+            message2.setText("refresh");
             return gson.toJson(message2);
         }
 
