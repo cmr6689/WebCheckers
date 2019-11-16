@@ -99,16 +99,19 @@ public class Game {
             modeOptions.put("gameOverMessage", player1.getName() + " has captured all the pieces.");
             //set mode options
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            this.map.put("activeColor", "");
         } else if (whiteWins) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            this.map.put("activeColor", "");
         } /*else if (!new MoveChecks(this).checkMoves()) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", "No more moves available! It's a tie!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            this.map.put("activeColor", "");
         } */
     }
 

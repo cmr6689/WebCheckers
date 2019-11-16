@@ -95,6 +95,11 @@ public class GetGameRoute implements Route {
             }
             //for the player that refreshes after the game ends
         } else if (lobby.getGameCenter().justEnded(myPlayer)) {
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
+            if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1()))
+                lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+            else
+                lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
             lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), false);
             //create temp map
             Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
