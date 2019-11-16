@@ -100,6 +100,8 @@ public class GetHomeRoute implements Route {
         playerNames.add(player1.getName());
       }
       vm.put("playerList", playerNames);
+    } else {
+      vm.put("playerList", null);
     }
 
 
