@@ -30,6 +30,8 @@ public class PlayerLobby {
     public PlayerLobby(GameCenter gameCenter) {
         this.invalidName = false;
         this.gameCenter = gameCenter;
+        Player AI = new Player("AI");
+        addPlayer(AI);
     }
 
     /**
