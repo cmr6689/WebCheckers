@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 
 <head>
+  <link rel="shortcut icon" href="/img/favicon.ico">
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"></meta>
   <meta http-equiv="refresh" content="10">
   <title>Web Checkers | ${title}</title>
