@@ -41,7 +41,6 @@ public class PlayerLobby {
      */
     public boolean addPlayer(Player newPlayer) {
         if (newPlayer.getName() == null || newPlayer.getName().trim().isEmpty()) {
-            System.out.println("Incorrect format of string");
             return false;
         }
         Pattern p = Pattern.compile("[^A-Za-z0-9]");
