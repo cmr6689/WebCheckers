@@ -40,23 +40,16 @@ public class PlayerLobby {
      * @return true if the player was successfully added and signed in
      */
     public boolean addPlayer(Player newPlayer) {
-        String REGEX = "\\W";
-        Pattern pattern;
-        Matcher matcher;
-        pattern = Pattern.compile(REGEX);
-        matcher = pattern.matcher(newPlayer.getName());
-        if(matcher.lookingAt()){
-            setInvalidName(true);
+        if (newPlayer.getName() == null || newPlayer.getName().trim().isEmpty()) {
+            System.out.println("Incorrect format of string");
             return false;
-        }else {
-            REGEX = "^\\s*$";
-            pattern = Pattern.compile(REGEX);
-            matcher = pattern.matcher(newPlayer.getName());
-            if (matcher.lookingAt()) {
-                setInvalidName(true);
-                return false;
-            }
         }
+        Pattern p = Pattern.compile("[^A-Za-z0-9]");
+        Matcher m = p.matcher(newPlayer.getName());
+        // boolean b = m.matches();
+        boolean specialFound = m.find();
+        if (specialFound)
+            return false;
 
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
