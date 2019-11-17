@@ -31,7 +31,6 @@ public class PostCheckTurnRouteTest {
     private Session session;
     private Request request;
     private Response response;
-    private GameData gameData;
 
     /**
      * Setup mock classes to fill dependencies through
@@ -45,7 +44,6 @@ public class PostCheckTurnRouteTest {
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
-        gameData = new GameData();
         CuT = new PostCheckTurnRoute(templateEngine, playerLobby);
     }
 
@@ -70,17 +68,9 @@ public class PostCheckTurnRouteTest {
         Player fakeOpp = new Player("Opp");
         when(request.queryParams("opponent")).thenReturn("Opp");
 
-        gameData.setCurrentUser(fakeOpp);
-        gameData.setActiveColor("RED");
-        gameData.setRedPlayer(fakeOpp);
-        gameData.setWhitePlayer(new Player(request.queryParams("Player")));
-        gameData.setModeOptionsAsJSON(null);
-        gameData.setViewMode("PLAY");
-        gameData.dataSetup();
-
         ResponseMessage message1 = new ResponseMessage();
         message1.setType(ResponseMessage.MessageType.INFO);
-        message1.setText("true");
+        message1.setText("false");
         Gson gson = new Gson();
 
         when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
@@ -100,15 +90,6 @@ public class PostCheckTurnRouteTest {
         when(session.attribute("player")).thenReturn(new Player("Player"));
         Player fakeOpp = new Player("Opp");
         when(request.queryParams("opponent")).thenReturn("Opp");
-
-
-        gameData.setCurrentUser(new Player("Player"));
-        gameData.setActiveColor("RED");
-        gameData.setRedPlayer(new Player("Player"));
-        gameData.setWhitePlayer(fakeOpp);
-        gameData.setModeOptionsAsJSON(null);
-        gameData.setViewMode("PLAY");
-        gameData.dataSetup();
 
         ResponseMessage message1 = new ResponseMessage();
         message1.setType(ResponseMessage.MessageType.INFO);

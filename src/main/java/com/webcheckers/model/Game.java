@@ -1,8 +1,6 @@
 package com.webcheckers.model;
 
 import com.google.gson.Gson;
-import com.webcheckers.ui.GameData;
-import com.webcheckers.ui.MoveChecks;
 
 import java.util.ArrayList;
 import java.util.HashMap;

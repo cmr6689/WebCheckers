@@ -27,7 +27,6 @@ public class GetGameRouteTest {
     private Response response;
     private TemplateEngine engine;
     private PlayerLobby lobby;
-    private GameData gameData;
 
     /**
      * Setting up mock classes to fulfill dependencies throughout the tests
@@ -36,7 +35,6 @@ public class GetGameRouteTest {
     public void setup() {
         this.request = mock(Request.class);
         this.session = mock(Session.class);
-        this.gameData = mock(GameData.class);
         when(request.session()).thenReturn(session);
         this.response = mock(Response.class);
         this.engine = mock(TemplateEngine.class);
@@ -58,7 +56,6 @@ public class GetGameRouteTest {
     @Test
     public void noOpponent() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
-
         assertNull(Cut.handle(request, response));
     }
 
@@ -70,10 +67,13 @@ public class GetGameRouteTest {
         //Arrange scenario
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
-        when(session.attribute("player")).thenReturn(new Player("Player"));
-        Player fakeOpp = new Player("Opp");
-        lobby.addPlayer(fakeOpp);
+        Player myPlayer = new Player("Player");
+        when(session.attribute("Player")).thenReturn(myPlayer);
+        Player opponent = new Player("Opp");
         when(request.queryParams("opponent")).thenReturn("Opp");
+        lobby.getGameCenter().newGame(myPlayer, opponent);
+        lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
+
         // To analyze what the Route created in the View-Model map you need
         // to be able to extract the argument to the TemplateEngine.render method.
         // Mock up the 'render' method by supplying a Mockito 'Answer' object

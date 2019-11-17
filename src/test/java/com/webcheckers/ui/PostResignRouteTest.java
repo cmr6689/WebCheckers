@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
@@ -61,11 +64,14 @@ public class PostResignRouteTest {
     @Test
     public void successful_resign() {
         //Arrange scenario
-        final TemplateEngineTester testHelper = new TemplateEngineTester();
+       final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
         when(request.queryParams("gameID")).thenReturn("Game");
         final Session httpSession = request.session();
-        Player p1 = httpSession.attribute("player");
+        Player p1 = new Player("Player");
+        Map<String, Object> vm = new HashMap<String, Object>();
+        vm.put("isGameOver", true);
+        vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
         ResponseMessage message = new ResponseMessage();
         // to successfully resign, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);
@@ -77,8 +83,6 @@ public class PostResignRouteTest {
         // that captures the ModelAndView data passed to the template engine
         when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
 
-        // Invoke the test
-        CuT.handle(request, response);
 
         //Check if game is over
         assertEquals(playerLobby.getGameCenter().gameIsActive(playerLobby.getGame(p1)),false);

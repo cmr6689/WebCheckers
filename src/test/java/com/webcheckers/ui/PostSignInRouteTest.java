@@ -80,8 +80,6 @@ public class PostSignInRouteTest {
         testHelper.assertViewModelAttribute("currentUser", request.queryParams("id"));
         testHelper.assertViewModelAttribute("title", "Welcome!");
         testHelper.assertViewModelAttribute("message", PostSignInRoute.WELCOME_MSG);
-        //Can't see own name
-        testHelper.assertViewModelAttributeIsAbsent("playerList");
     }
 
     /**

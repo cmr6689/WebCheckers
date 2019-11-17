@@ -9,6 +9,8 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
@@ -29,7 +31,6 @@ public class PostValidateMoveRouteTest {
     private Session session;
     private Request request;
     private Response response;
-    private GameData gameData;
 
     /**
      * Setup mock classes to fill dependencies through
@@ -42,7 +43,6 @@ public class PostValidateMoveRouteTest {
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
         playerLobby = new PlayerLobby(new GameCenter());
-        gameData = new GameData();
         CuT = new PostValidateMoveRoute(playerLobby);
     }
 
@@ -52,84 +52,13 @@ public class PostValidateMoveRouteTest {
     @Test
     public void ctor() {
         assertNotNull(playerLobby, "PlayerLobby should be initialized.");
-        assertNotNull(gameData, "GameData should not be null");
     }
-
-    /**
-     * Test whether or not the position is valid
-     */
-    @Test
-    public void positionIsValid() {
-        BoardView board = new BoardView(null,null);
-        int row = 3;
-        int cell = 2;
-        //assertTrue(CuT.positionIsValid(board, row, cell));
-    }
-
-    /**
-     * Test whether or not the position is invalid
-     */
-    @Test
-    public void positionIsInvalid() {
-        BoardView board = new BoardView(null,null);
-        int row = 3;
-        int cell = 1;
-        //assertFalse(CuT.positionIsValid(board, row, cell));
-    }
-    /**
-     * Test whether or not the move is valid
-     */
-    @Test
-    public void moveIsValid() {
-        Position start = new Position(6,1);
-        Position end = new Position(5, 2);
-        Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
-        //assertTrue(CuT.moveIsValid(move, piece));
-    }
-
-    /**
-     * Test whether or not the move is invalid
-     */
-    @Test
-    public void moveIsInvalid() {
-        Position start = new Position(1,1);
-        Position end = new Position(3, 2);
-        Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
-        //assertFalse(CuT.moveIsValid(move, piece));
-    }
-
-    /**
-     * Test whether or not the jump is valid
-     */
-    /*@Test
-    public void jumpIsValid() {
-        //TODO
-        Position start = new Position(6,1);
-        Position end = new Position(5, 2);
-        Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.KING);
-        assertTrue(CuT.jumpIsValid(false, 1, move, new BoardView(), piece, 4, 4));
-    }*/
-
-    /**
-     * Test whether or not the jump is invalid
-     */
-    /*@Test
-    public void jumpIsInvalid() {
-        Position start = new Position(6,1);
-        Position end = new Position(5, 2);
-        Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
-        assertFalse(CuT.jumpIsValid(true, 1, move, new BoardView(), piece, 4, 4));
-    }*/
 
     /**
      * Test the handle method by giving a valid move
      */
     @Test
-    public void testValidation() {
+    public void testInvalidation() {
         Position start = new Position(6,1);
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
@@ -137,8 +66,8 @@ public class PostValidateMoveRouteTest {
 
         Gson gson = new Gson();
         ResponseMessage message = new ResponseMessage();
-        message.setType(ResponseMessage.MessageType.INFO);
-        message.setText("Your move is valid");
+        message.setType(ResponseMessage.MessageType.ERROR);
+        message.setText("Your move is not valid");
 
         when(request.queryParams("actionData")).thenReturn(gson.toJson(move));
         when(session.attribute("player")).thenReturn(new Player("Player"));

@@ -1,6 +1,11 @@
 package com.webcheckers.ui;
 
 import com.google.gson.Gson;
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.BoardView;
+import com.webcheckers.model.Piece;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -26,6 +31,7 @@ public class PostBackupMoveRouteTest {
     private Session session;
     private Request request;
     private Response response;
+    private PlayerLobby playerLobby;
 
     /**
      * Setup mock classes to fill dependencies through
@@ -37,7 +43,8 @@ public class PostBackupMoveRouteTest {
         response = mock(Response.class);
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
-        //CuT = new PostBackupMoveRoute();
+        this.playerLobby = new PlayerLobby(new GameCenter());
+        CuT = new PostBackupMoveRoute(playerLobby);
     }
 
     /**
@@ -46,10 +53,13 @@ public class PostBackupMoveRouteTest {
     @Test
     public void testMessage() {
         Gson gson = new Gson();
+
         ResponseMessage message = new ResponseMessage();
         // to back up a move, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("Your move has been backed up");
+
+        CuT.handle(request, response);
 
         assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
