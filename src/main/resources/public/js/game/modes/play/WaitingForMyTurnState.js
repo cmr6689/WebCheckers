@@ -39,7 +39,7 @@ define(function(require){
      */
     WaitingForMyTurnState.prototype.onEntry = function onEntry() {
         this._controller.enableButton(PlayModeConstants.RESIGN_BUTTON_ID);
-        this._controller.hideButton('helpBtn');
+        this._controller.disableButton('helpBtn');
         // wait five seconds then check my turn
         setTimeout(() => { this._controller.setState(PlayModeConstants.CHECKING_MY_TURN); }, 5000);
     }
