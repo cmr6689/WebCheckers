@@ -97,11 +97,14 @@ public class PostSubmitTurnRoute implements Route {
         removedPs = board.getRemovedPieces();
         Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
         board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
-//        if(board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.RED) &&
-//                !thisPiece.getType().equals(Piece.TYPE.KING)){
-//            thisPiece.setType(Piece.TYPE.KING);
-//        }
-        board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
+        if(((board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(0)) && thisPiece.getColor().equals(Piece.COLOR.RED)) ||
+                (board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.WHITE))) &&
+                    !thisPiece.getType().equals(Piece.TYPE.KING)){
+            thisPiece.setType(Piece.TYPE.KING);
+            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
+        }else{
+            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
+        }
         //System.out.println(board.getRemovedPieces().size());
         if(removedPs.size() != 0){
             System.out.println(board.getRemovedPieces().size());
