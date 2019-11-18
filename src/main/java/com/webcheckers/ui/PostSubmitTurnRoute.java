@@ -107,11 +107,12 @@ public class PostSubmitTurnRoute implements Route {
         }
         //System.out.println(board.getRemovedPieces().size());
         if(removedPs.size() != 0){
-            System.out.println(board.getRemovedPieces().size());
+            //System.out.println(board.getRemovedPieces().size());
             for(Position p: removedPs){
                 board.getRowAtIndex(p.getRow()).getSpaceAtIndex(p.getCell()).removePiece();
             }
         }
+        board.setLastWasJump(false);
         board.resetPositions();
         board.clearMovesThisTurn();
         board.clearRemovedPieces();
