@@ -61,22 +61,20 @@ public class GetHomeRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.config("GetHomeRoute is invoked.");
-
     final Session httpSession = request.session();
-
     Player player = httpSession.attribute("player");
 
     if(player != null) {
+      LOG.config("GetHomeRoute is invoked by " + player.getName() + ".");
       if (!playerLobby.getGameCenter().justEnded(player)) {
         if (playerLobby.getGame(player) != null && playerLobby.getGame(player).isActive()) {
           if (player.equals(playerLobby.getGameCenter().getGame(player).getPlayer2())) {
-            LOG.config("Game found!");
+            LOG.config("Game joined by " + player.getName() + ".");
             response.redirect("/game");
           }
         }
       }
-    }
+    } else LOG.config("GetHomeRoute is invoked.");
 
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");

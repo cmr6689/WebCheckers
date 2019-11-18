@@ -46,14 +46,13 @@ public class GetGameRoute implements Route {
      * @return the rendered HTML for the Home page
      */
     @Override
-    public Object handle(Request request, Response response){
-        LOG.config("GetGameRoute is invoked.");
-
+    public Object handle(Request request, Response response) {
         Session httpSession = request.session();
-
         Player myPlayer = httpSession.attribute("player");
+
         //player 1 part
         if (lobby.getGameCenter().getGame(myPlayer) == null) {
+            LOG.config("Game started by " + myPlayer.getName() + "." );
             final Player opponent;
             //loop through active players
             for (Player opp : lobby.getPlayers()) {
@@ -66,7 +65,7 @@ public class GetGameRoute implements Route {
                     //create game
 
                     //if the opp is already in a game
-                    if (opp.getInGame()) {
+                    if (opp.getInGame() && !opp.getName().equals("AI")) {
                         System.err.println("OH no the opp is already in a game");
                         final Message message = Message.error("This player is already in a game");
 

@@ -43,10 +43,9 @@ public class PostCheckTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-         LOG.config("PostCheckTurn is invoked.");
-
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+        LOG.config("PostCheckTurn is invoked by " + myPlayer.getName() + ".");
 
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {

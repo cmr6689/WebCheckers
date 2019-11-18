@@ -47,12 +47,10 @@ public class PostResignRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        Map<String, Object> vm = new HashMap<>();
-
-        LOG.config("PostResignRoute is invoked.");
-
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
+
+        LOG.config("PostResignRoute is invoked by " + p1.getName() + ".");
 
         //if player 2 resigns
         if (playerLobby.getGameCenter().justEnded(p1)) {
@@ -62,7 +60,7 @@ public class PostResignRoute implements Route {
             return gson.toJson(message2);
         }
 
-
+        Map<String, Object> vm = new HashMap<>();
         vm.put("isGameOver", true);
         vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
         playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));

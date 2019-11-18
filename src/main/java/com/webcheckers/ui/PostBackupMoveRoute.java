@@ -41,16 +41,12 @@ public class PostBackupMoveRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        Map<String, Object> vm = new HashMap<>();
-
-        LOG.config("PostBackupMoveRoute is invoked.");
-
-        request.queryParams("gameID");
-        vm.put("title", "Loser");
-
-        //added this to try something
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+
+        LOG.config("PostBackupMoveRoute is invoked by " + myPlayer.getName() + ".");
+
+        //added this to try something
         Piece thisPiece = httpSession.attribute("piece");
         //ValidateMove MoveValidator = httpSession.attribute("validator");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();

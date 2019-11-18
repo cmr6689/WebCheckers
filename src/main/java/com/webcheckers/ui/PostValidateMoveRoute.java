@@ -50,18 +50,12 @@ public class PostValidateMoveRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        Map<String, Object> vm = new HashMap<>();
-
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
 
-        LOG.config("PostValidateMoveRoute is invoked.");
+        LOG.config("PostValidateMoveRoute is invoked by " + myPlayer.getName() + ".");
 
-        System.out.println(request.queryParams("actionData"));
-
-        request.queryParams("gameID");
         Move move = gson.fromJson(request.queryParams("actionData"), Move.class);
-        vm.put("title", "Loser");
 
         ResponseMessage message = new ResponseMessage();
         // to validate a move, replace message type of ERROR with INFO

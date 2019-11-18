@@ -44,12 +44,10 @@ public class PostSubmitTurnRoute implements Route {
     @Override
     public Object handle(Request request, Response response) {
         //TODO check if jump is available
-        Map<String, Object> vm = new HashMap<>();
-
-        LOG.config("PostSubmitTurnRoute is invoked.");
-
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
+
+        LOG.config("PostSubmitTurnRoute is invoked by " + myPlayer.getName() + ".");
 
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {
@@ -58,9 +56,6 @@ public class PostSubmitTurnRoute implements Route {
             message2.setText("");
             return gson.toJson(message2);
         }
-
-        request.queryParams("gameID");
-        vm.put("title", "Webcheckers");
 
         ValidateMove MoveValidator = httpSession.attribute("validator");
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));

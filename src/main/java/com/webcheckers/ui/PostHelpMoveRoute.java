@@ -41,7 +41,9 @@ public class PostHelpMoveRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        LOG.config("PostHelpTurn is invoked.");
+        Session httpSession = request.session();
+        Player myPlayer = httpSession.attribute("player");
+        LOG.config("PostHelpTurn is invoked by " + myPlayer.getName() + ".");
 
         ResponseMessage message = new ResponseMessage();
         message.setType(ResponseMessage.MessageType.INFO);

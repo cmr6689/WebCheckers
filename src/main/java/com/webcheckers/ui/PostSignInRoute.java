@@ -52,10 +52,10 @@ public class PostSignInRoute implements Route {
    */
   @Override
   public Object handle(Request request, Response response) {
-    LOG.config("PostSignInRoute is invoked");
-    Map<String, Object> vm = new HashMap<>();
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
+    LOG.config("PostSignInRoute is invoked by " + player.getName() + ".");
+    Map<String, Object> vm = new HashMap<>();
 
     //Check to see if another player has the same name
     Session httpSession = request.session();
