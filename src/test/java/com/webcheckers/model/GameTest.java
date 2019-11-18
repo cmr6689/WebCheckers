@@ -143,11 +143,11 @@ class GameTest {
      * test getGameTest() method
      */
     @Test
-    void getGameTest() {
+    void getBoardTest() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
-        assertEquals(CuT.getGame(new Player("1")), CuT.getBoardView1());
-        assertEquals(CuT.getGame(new Player("2")), CuT.getBoardView2());
-        assertEquals(CuT.getGame(new Player("5")), CuT.getBoardView1());
+        assertEquals(CuT.getBoard(new Player("1")), CuT.getBoardView1());
+        assertEquals(CuT.getBoard(new Player("2")), CuT.getBoardView2());
+        assertEquals(CuT.getBoard(new Player("5")), CuT.getBoardView1());
     }
 
     /**

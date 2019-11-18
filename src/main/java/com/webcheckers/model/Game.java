@@ -221,7 +221,7 @@ public class Game {
      * @param player player one or player two
      * @return board view 1 if player 1 or board view 2 if player 2
      */
-    public BoardView getGame(Player player) {
+    public BoardView getBoard(Player player) {
         if (player.equals(player2)) {
             return boardView2;
         }

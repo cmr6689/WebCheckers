@@ -44,7 +44,14 @@ define(function(require){
     this._controller.hideButton(PlayModeConstants.SUBMIT_BUTTON_ID);
     this._controller.hideButton(PlayModeConstants.RESIGN_BUTTON_ID);
     this._controller.hideButton("helpBtn");
+    champ();
+
   };
+
+  function champ() {
+          const sound = document.getElementById("champ");
+          sound.play();
+  }
 
   // export class constructor
   return GameOverState;

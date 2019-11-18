@@ -86,7 +86,7 @@ public class GetGameRoute implements Route {
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("redPlayer", myPlayer.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("whitePlayer", opponent.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
-                    lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+                    lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoard(myPlayer));
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("title", "WebCheckers");
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("message", GAME_MSG);
 
@@ -96,10 +96,7 @@ public class GetGameRoute implements Route {
             //for the player that refreshes after the game ends
         } else if (lobby.getGameCenter().justEnded(myPlayer)) {
             lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
-            if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1()))
-                lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
-            else
-                lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoard(myPlayer));
             lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), false);
             //create temp map
             Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
@@ -108,23 +105,10 @@ public class GetGameRoute implements Route {
             //display the temp map
             return templateEngine.render(new ModelAndView(map, "game.ftl"));
 
-            //player 2 (white player)
-        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())) {
-            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer2().getName());
-            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView2());
-            lobby.getGameCenter().getGame(myPlayer).checkGameOver();
-            //if game is over
-            if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
-                //allow other player to remove the game
-                lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), true);
-                return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
-            }
-            return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
-
-            //player 1 (red player)
-        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1())) {
-            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", lobby.getGameCenter().getGame(myPlayer).getPlayer1().getName());
-            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoardView1());
+            //if player is part of the game
+        } else if (myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer1()) || myPlayer.equals(lobby.getGameCenter().getGame(myPlayer).getPlayer2())) {
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
+            lobby.getGameCenter().getGame(myPlayer).getMap().put("board", lobby.getGameCenter().getGame(myPlayer).getBoard(myPlayer));
             lobby.getGameCenter().getGame(myPlayer).checkGameOver();
             //if game is over
             if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
