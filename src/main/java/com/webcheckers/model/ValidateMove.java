@@ -4,11 +4,10 @@ import java.util.ArrayList;
 
 public class ValidateMove {
 
-    //boolean to tell if the last move was a jump
-    private boolean lastWasJump = false;
-
     //boolean to tell if this move was a jump
     boolean jumped = false;
+
+    boolean lastWasJump;
 
     //check if the space is valid
     boolean positionIsValid;
@@ -36,6 +35,7 @@ public class ValidateMove {
      */
     public ValidateMove(BoardView board){
         this.board = board;
+        this.lastWasJump = board.getLastWasJump();
     }
 
     public boolean Validator(Piece thisPiece, Move move, Piece.TYPE type, Piece.COLOR color, ArrayList<Position> removed){
@@ -47,7 +47,7 @@ public class ValidateMove {
         this.isValid = positionIsValid && moveIsValid && jumpIsValid;
         if(isValid){
             board.setMoveThisTurn(move);
-            board.increaseNumMovs();
+//            board.increaseNumMovs();
             if(board.getOriginalPos() == null){
                 board.setOriginalPos(move.getStart());
             }
@@ -85,9 +85,17 @@ public class ValidateMove {
      */
     public boolean moveIsValid(BoardView board, Move move, Piece thisPiece, Piece.TYPE type, Piece.COLOR color){
         //Piece.TYPE type = thisPiece.getType();
-        if(board.getNumMovs() > 1 && !(lastWasJump)){
+        System.out.println("Num moves is" + board.getNumMovs());
+        lastWasJump = board.getLastWasJump();
+        if(board.getNumMovs() > 0 && !(lastWasJump)){
             //if the person is trying to move twice
+            System.out.println(lastWasJump);
+            System.out.println(jumped);
             System.out.println("3");
+            return false;
+        }
+        if(lastWasJump && (!(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1))){
+            //if the last move was a jump but they're not trying to jump again
             return false;
         }
         if((move.getStart().getCell() == move.getEnd().getCell()) && (board.getNumMovs() < 2)){
@@ -106,7 +114,7 @@ public class ValidateMove {
             System.out.println("6");
             return false;
         }
-        lastWasJump = false;
+        board.setLastWasJump(false);
         jumped = false;
         return true;
     }
@@ -122,6 +130,7 @@ public class ValidateMove {
                                Piece.TYPE type, Piece.COLOR color){
         int tempRowInt;
         int tempCellInt;
+        lastWasJump = board.getLastWasJump();
         if(board.getNumMovs() > 1 && !(lastWasJump)){
             //if the person is trying to move twice
             System.out.println("7");
@@ -129,14 +138,14 @@ public class ValidateMove {
         }
         if(!(positionIsValid(board, row, cell)) || (rowsBeingJumped >= 3)){
             //the spot is invalid or the jump is too far
-            lastWasJump = false;
+            board.setLastWasJump(false);
             jumped = false;
             System.out.println("8");
             return false;
         }else{
             if(!(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1)){
                 //if there is no jump just return true, the other methods do the checking
-                lastWasJump = false;
+                board.setLastWasJump(false);
                 jumped = false;
                 return true;
             }else {
@@ -148,7 +157,7 @@ public class ValidateMove {
                 //Position pieceRemoved = new Position(tempRowInt,tempCellInt);
                 if(tempPiece == null) {
                     //there is no piece being jumped
-                    lastWasJump = false;
+                    board.setLastWasJump(false);
                     jumped = false;
                     System.out.println("9");
                     return false;
@@ -163,25 +172,25 @@ public class ValidateMove {
                     if (type.equals(Piece.TYPE.SINGLE) && color.equals(Piece.COLOR.RED) &&
                             !((move.getStart().getRow() - move.getEnd().getRow()) > 0)) {
                         //if it's not king and it's red it cannot move backwards
-                        lastWasJump = false;
+                        board.setLastWasJump(false);
                         jumped = false;
                         System.out.println("10");
                         return false;
                     }else if (type.equals(Piece.TYPE.SINGLE) && color.equals(Piece.COLOR.WHITE) &&
                             !((move.getStart().getRow() - move.getEnd().getRow()) < 0)){
                         //if it's not king and it's white it cannot move backwards
-                        lastWasJump = false;
+                        board.setLastWasJump(false);
                         jumped = false;
                         System.out.println("11");
                         return false;
                     }
-                    lastWasJump = true;
+                    board.setLastWasJump(true);
                     jumped = true;
                     //removedPieces.add(pieceRemoved);
                     return true;
                 } else {
                     //if it's trying to jump a piece of the same color it can't
-                    lastWasJump = false;
+                    board.setLastWasJump(false);
                     jumped = false;
                     System.out.println("12");
                     return false;

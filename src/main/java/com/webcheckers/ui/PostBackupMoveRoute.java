@@ -56,13 +56,23 @@ public class PostBackupMoveRoute implements Route {
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         //TODO
         //need to make an arrayList of moves in board and decrease the size and get the end position from the new last
-        if(board.getMovesThisTurn().size() > 1){
-            board.decrementMovesThisTurn();
+        if(board.getMovesThisTurn().size() >= 1){
+            System.out.println("Num movs is " + board.getNumMovs());
             board.decreaseNumMoves();
-            board.getRowAtIndex(board.getMovesThisTurn().get(
-                    board.getMovesThisTurn().size()-1).getEnd().getRow()).getSpaceAtIndex(
-                            board.getMovesThisTurn().get(board.getMovesThisTurn().size()-1).getEnd().getCell()).setPiece(thisPiece);
-            board.setFinalPos(board.getMovesThisTurn().get(board.getMovesThisTurn().size()-1).getEnd());
+            System.out.println("Num movs was decreased to " + board.getNumMovs());
+            Position start = board.getOriginalPos();
+            Position end = board.getFinalPos();
+            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).removePiece();
+            board.decrementMovesThisTurn();
+            if(board.getMovesThisTurn().size() == 0){
+                board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
+                board.setLastWasJump(false);
+            }else {
+                board.getRowAtIndex(board.getMovesThisTurn().get(
+                        board.getMovesThisTurn().size() - 1).getEnd().getRow()).getSpaceAtIndex(
+                        board.getMovesThisTurn().get(board.getMovesThisTurn().size() - 1).getEnd().getCell()).setPiece(thisPiece);
+                board.setFinalPos(board.getMovesThisTurn().get(board.getMovesThisTurn().size() - 1).getEnd());
+            }
             if(board.getRemovedPieces().size() != 0) {
                 board.backupPiece();
             }

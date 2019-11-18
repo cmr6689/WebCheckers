@@ -23,6 +23,7 @@ public class BoardView implements Iterable {
     ArrayList<Move> movesThisTurn = new ArrayList<>();
     Position originalPos;
     Position finalPos;
+    Boolean lastWasJump = false;
 
     /**
      * Constructor for the board view that creates the orientation
@@ -190,5 +191,13 @@ public class BoardView implements Iterable {
     public void backupPiece(){
         //remove the last element
         removedPieces.remove(removedPieces.size()-1);
+    }
+
+    public void setLastWasJump(Boolean b){
+        this.lastWasJump = b;
+    }
+
+    public Boolean getLastWasJump() {
+        return lastWasJump;
     }
 }
