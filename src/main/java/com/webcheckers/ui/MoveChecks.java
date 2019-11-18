@@ -21,6 +21,78 @@ public class MoveChecks {
         this.game = game;
     }
 
+    public ArrayList<Move> checkSinglePieceMoves(Piece piece, Position position){
+        positions.clear();
+        ArrayList<Move> moves = new ArrayList<>();
+
+        ArrayList<Row> tempRows = new ArrayList<>();
+        for(Row row : game.getBoardView1().getRows()){
+            tempRows.add(row);
+        }
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+
+        validateMove = new ValidateMove(tempBoard);
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
+                    positions.add(new Position(i, j));
+            }
+        }
+
+        for(Position position2 : positions){
+            Move move = new Move(position, position2);
+            ArrayList<Position> temp = new ArrayList<>();
+            if(validateMove.Validator(piece,
+                    move,
+                    piece.getType(),
+                    piece.getColor(),
+                    temp)
+            ) {
+                moves.add(move);
+            }
+        }
+
+        return moves;
+    }
+
+    public ArrayList<Move> checkSinglePieceJumps(Piece piece, Position position){
+        positions.clear();
+        ArrayList<Move> jumps = new ArrayList<>();
+
+        ArrayList<Row> tempRows = new ArrayList<>();
+        for(Row row : game.getBoardView1().getRows()){
+            tempRows.add(row);
+        }
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+
+        validateMove = new ValidateMove(tempBoard);
+
+        for(int i = 0; i < 8; i++){
+            for(int j = 0; j < 8; j++){
+                if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
+                    positions.add(new Position(i, j));
+            }
+        }
+
+        for(Position position2 : positions){
+            Move move = new Move(position, position2);
+            ArrayList<Position> temp = new ArrayList<>();
+            if(validateMove.Validator(piece,
+                    move,
+                    piece.getType(),
+                    piece.getColor(),
+                    temp)
+            ) {
+                if(!temp.isEmpty()){
+                    jumps.add(move);
+                }
+            }
+        }
+
+        return jumps;
+    }
+
     public boolean checkMoves(){
         Piece piece;
 
