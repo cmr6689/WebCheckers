@@ -64,6 +64,11 @@ public class GetGameRoute implements Route {
                     httpSession.attribute("opponent", opponent);
                     //create game
 
+                    // If opp is AI
+                    if(opp.getName().equals("AI")){
+                        lobby.getPlayers().remove(opp);
+                        lobby.addPlayer(new Player("AI"));
+                    }
                     //if the opp is already in a game
                     if (opp.getInGame() && !opp.getName().equals("AI")) {
                         System.err.println("OH no the opp is already in a game");
