@@ -75,4 +75,10 @@ public class MoveChecks {
     public boolean jumpAvailable(){
         return !jumps.isEmpty();
     }
+
+    public ArrayList<Move> getMoves (){ return moves; }
+
+    public ArrayList<Move> getJumps() {
+        return jumps;
+    }
 }
