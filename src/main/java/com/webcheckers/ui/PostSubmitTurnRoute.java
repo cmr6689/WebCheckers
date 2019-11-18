@@ -62,7 +62,7 @@ public class PostSubmitTurnRoute implements Route {
 
         System.err.println("Im going to check what moves and jumps are available (postSubmitTurnRoute:68)");
 
-        moveCheck.checkMoves();
+//        moveCheck.checkMoves();
 
         ResponseMessage message;
         //Check if valid move first

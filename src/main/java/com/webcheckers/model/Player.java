@@ -26,6 +26,8 @@ public class Player {
     private boolean inGame = false;
     //the color of the player
     private Color playerColor;
+    //AI Player
+    private boolean AI = false;
 
     /**
      * The constructor for the player class that sets the name and the color to null since they are
@@ -83,6 +85,20 @@ public class Player {
      */
     public void setColor(Color color){
         this.playerColor = color;
+    }
+
+    /**
+     * Tells lobby if player is an AI
+     * @return if the player is an AI
+     */
+    public boolean getAI(){
+        return this.AI;
+    }
+    /**
+     * Make Player an AI
+     */
+    public void setAI(){
+        this.AI = true;
     }
 
     /**

@@ -47,6 +47,12 @@ public class PostCheckTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
         LOG.config("PostCheckTurn is invoked by " + myPlayer.getName() + ".");
 
+        MoveChecks move = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
+
+        if(playerLobby.getGameCenter().getGame(myPlayer).getPlayer2().getName().equals("AI")){
+
+            playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
+        }
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
