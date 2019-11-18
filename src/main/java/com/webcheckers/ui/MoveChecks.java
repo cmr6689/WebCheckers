@@ -30,7 +30,13 @@ public class MoveChecks {
         positions.clear();
         positionPieceHashMap.clear();
 
-        validateMove = new ValidateMove(game.getBoardView1());
+        ArrayList<Row> tempRows = new ArrayList<>();
+        for(Row row : game.getBoardView1().getRows()){
+            tempRows.add(row);
+        }
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+
+        validateMove = new ValidateMove(tempBoard);
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null) {
@@ -38,7 +44,7 @@ public class MoveChecks {
                     pieces.add(piece); //adds all of the pieces to the arraylists
                     positionPieceHashMap.put(new Position(i, j), piece);
                 }
-                if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK));
+                if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
                     positions.add(new Position(i, j));
             }
         }
