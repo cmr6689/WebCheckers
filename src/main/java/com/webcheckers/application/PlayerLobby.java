@@ -30,7 +30,8 @@ public class PlayerLobby {
     public PlayerLobby(GameCenter gameCenter) {
         this.invalidName = false;
         this.gameCenter = gameCenter;
-        Player AI = new Player("AI");
+        Player AI = new Player("AI Player");
+        AI.setAI();
         addPlayer(AI);
     }
 
@@ -40,15 +41,17 @@ public class PlayerLobby {
      * @return true if the player was successfully added and signed in
      */
     public boolean addPlayer(Player newPlayer) {
-        if (newPlayer.getName() == null || newPlayer.getName().trim().isEmpty()) {
-            return false;
+        if(!newPlayer.getAI()) {
+            if (newPlayer.getName() == null || newPlayer.getName().trim().isEmpty()) {
+                return false;
+            }
+            Pattern p = Pattern.compile("[^A-Za-z0-9]");
+            Matcher m = p.matcher(newPlayer.getName());
+            // boolean b = m.matches();
+            boolean specialFound = m.find();
+            if (specialFound)
+                return false;
         }
-        Pattern p = Pattern.compile("[^A-Za-z0-9]");
-        Matcher m = p.matcher(newPlayer.getName());
-        // boolean b = m.matches();
-        boolean specialFound = m.find();
-        if (specialFound)
-            return false;
 
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {

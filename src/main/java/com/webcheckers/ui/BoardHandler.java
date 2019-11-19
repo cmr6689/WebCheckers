@@ -26,12 +26,10 @@ public class BoardHandler {
                 !thisPiece.getType().equals(Piece.TYPE.KING)){
             thisPiece.setType(Piece.TYPE.KING);
             board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
-        }else{
+        }else {
             board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
         }
-        //System.out.println(board.getRemovedPieces().size());
         if(removedPs.size() != 0){
-            //System.out.println(board.getRemovedPieces().size());
             for(Position p: removedPs){
                 board.getRowAtIndex(p.getRow()).getSpaceAtIndex(p.getCell()).removePiece();
             }
