@@ -64,7 +64,7 @@ public class PostValidateMoveRoute implements Route {
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         if(board.getNumMovs() == 0) {
-            originalType = thisPiece.getType();
+            originalType = thisPiece.getType();         //maybe
             originalColor = thisPiece.getColor();
         }
 
