@@ -29,7 +29,7 @@ public class MoveChecks {
         for(Row row : game.getBoardView1().getRows()){
             tempRows.add(row);
         }
-        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer1());
 
         validateMove = new ValidateMove(tempBoard);
 
@@ -64,7 +64,7 @@ public class MoveChecks {
         for(Row row : game.getBoardView1().getRows()){
             tempRows.add(row);
         }
-        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer1());
 
         validateMove = new ValidateMove(tempBoard);
 

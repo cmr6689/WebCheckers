@@ -55,6 +55,14 @@ public class Position {
         return ((this.cell == that.cell) && (this.row == that.row));
     }
 
+    public String helpString() {
+        return "(" + cell + "," + (7-row) + ")";
+    }
+
+    public String helpString2() {
+        return "(" + (7-cell) + "," + row + ")";
+    }
+
     @Override
     public String toString(){
         return "The position of this piece is row " + row + " and cell " + cell;
