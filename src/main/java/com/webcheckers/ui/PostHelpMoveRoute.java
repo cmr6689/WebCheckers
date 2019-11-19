@@ -36,7 +36,7 @@ public class PostHelpMoveRoute implements Route {
         this.gson = new Gson();
     }
 
-    public String getRedMove(Player myPlayer) {
+    public String getRedJump(Player myPlayer) {
         MoveChecks moveChecks = new MoveChecks(playerLobby.getGame(myPlayer));
         //loop through rows
         for (int i = 0; i < 8; i++) {
@@ -45,10 +45,10 @@ public class PostHelpMoveRoute implements Route {
                 //if piece is not null and red
                 if (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null &&
                         (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
-                        || playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING)))) {
+                                || playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING)))) {
                     //if jump is available
                     if (moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
-                    new Position(i, j)).size() > 0) {
+                            new Position(i, j)).size() > 0) {
                         //get first jump in returned list
                         Move jump = moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
@@ -59,10 +59,11 @@ public class PostHelpMoveRoute implements Route {
                     }
                 }
             }
-
-
         }
-
+        return "No moves available!";
+    }
+    public String getRedMove(Player myPlayer) {
+        MoveChecks moveChecks = new MoveChecks(playerLobby.getGame(myPlayer));
         for (int i = 0; i < 8; i++) {
             //loop through spaces
             for (int j = 0; j < 8; j++) {
@@ -81,14 +82,12 @@ public class PostHelpMoveRoute implements Route {
                     }
                 }
             }
-
-
         }
         //no jumps or moves available
         return "No moves available!";
     }
 
-    public String getWhiteMove(Player myPlayer) {
+    public String getWhiteJump(Player myPlayer) {
         MoveChecks moveChecks = new MoveChecks(playerLobby.getGame(myPlayer));
         //loop through rows
         for (int i = 0; i < 8; i++) {
@@ -106,7 +105,11 @@ public class PostHelpMoveRoute implements Route {
                 }
             }
         }
+        return "No moves available!";
+    }
 
+    public String getWhiteMove(Player myPlayer) {
+        MoveChecks moveChecks = new MoveChecks(playerLobby.getGame(myPlayer));
         for (int i = 0; i < 8; i++) {
             //loop through spaces
             for (int j = 0; j < 8; j++) {
@@ -139,12 +142,14 @@ public class PostHelpMoveRoute implements Route {
         if (myPlayer.equals(playerLobby.getGame(myPlayer).getPlayer1())) {
             ResponseMessage message = new ResponseMessage();
             message.setType(ResponseMessage.MessageType.INFO);
-            message.setText(getRedMove(myPlayer));
+            if (!getRedJump(myPlayer).equals("No moves available!")) message.setText(getRedJump(myPlayer));
+            else message.setText(getRedMove(myPlayer));
             return gson.toJson(message);
         } else {
             ResponseMessage message = new ResponseMessage();
             message.setType(ResponseMessage.MessageType.INFO);
-            message.setText(getWhiteMove(myPlayer));
+            if (!getWhiteJump(myPlayer).equals("No moves available!")) message.setText(getWhiteJump(myPlayer));
+            else message.setText(getWhiteMove(myPlayer));
             return gson.toJson(message);
         }
     }
