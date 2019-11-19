@@ -52,7 +52,14 @@ public class PostHelpMoveRoute implements Route {
                         //get first jump in returned list
                         Move jump = moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
-                        //return first jump
+                        //return first
+                        String temp = jump.getStart().helpString() + " -> ";
+                        if(!moveChecks.getDoubleJumps().isEmpty()){
+                            Move tempM = moveChecks.getDoubleJumps().get(jump).get(0);
+                            temp += tempM.getStart().helpString() + " -> " + tempM.getEnd().helpString();
+                            return temp;
+                        }
+
                         return jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
 
                         //if no jump is available check simple moves
