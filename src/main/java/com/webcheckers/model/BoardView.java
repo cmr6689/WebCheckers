@@ -24,6 +24,8 @@ public class BoardView implements Iterable {
     Position originalPos;
     Position finalPos;
     Boolean lastWasJump = false;
+    Piece.COLOR startingColor = null;
+    Piece.TYPE startingType = null;
 
     /**
      * Constructor for the board view that creates the orientation
@@ -199,5 +201,21 @@ public class BoardView implements Iterable {
 
     public Boolean getLastWasJump() {
         return lastWasJump;
+    }
+
+    public void setStartingColor(Piece.COLOR c){
+        this.startingColor = c;
+    }
+
+    public Piece.COLOR getStartingColor(){
+        return this.startingColor;
+    }
+
+    public void setStartingType(Piece.TYPE t){
+        this.startingType = t;
+    }
+
+    public Piece.TYPE getStartingType(){
+        return this.startingType;
     }
 }

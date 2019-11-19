@@ -64,12 +64,12 @@ public class PostValidateMoveRoute implements Route {
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         if(board.getNumMovs() == 0) {
-            originalType = thisPiece.getType();         //maybe
+            originalType = thisPiece.getType();        //maybe
             originalColor = thisPiece.getColor();
         }
 
         ValidateMove MoveValidator = new ValidateMove(board);
-        isValid = MoveValidator.Validator(thisPiece,move, originalType,originalColor,board.getRemovedPieces());
+        isValid = MoveValidator.Validator(thisPiece,move,originalType,originalColor,board.getRemovedPieces());
         jumped = MoveValidator.getJumped();
 
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
