@@ -90,7 +90,7 @@ public class MoveChecks {
                 if(!temp.isEmpty()){
                     jumps.add(move);
                     //checking for double jumps
-                    System.err.println("I Found some jumps");
+                    System.err.println("I Found some jumps at pos : " + position.helpString());
                     ArrayList<Move> tempMoves = checkSinglePieceJumps(piece, position2);
                     if(!tempMoves.isEmpty()){
                         System.err.println("I found some double jumps yay!!");
