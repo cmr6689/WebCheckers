@@ -52,6 +52,7 @@ public class PostBackupMoveRoute implements Route {
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         //TODO
         //need to make an arrayList of moves in board and decrease the size and get the end position from the new last
+        /**
         if(board.getMovesThisTurn().size() >= 1){
             board.decreaseNumMoves();
             Position start = board.getOriginalPos();
@@ -70,6 +71,22 @@ public class PostBackupMoveRoute implements Route {
             if(board.getRemovedPieces().size() != 0){
                 board.backupPiece();
             }
+        }else{
+            //if the number of moves is 0 put back in original spot
+            Position start = board.getOriginalPos();
+            board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
+        }*/
+
+        if(board.getMovesThisTurn().size() >= 1) {
+            board.resetMovs();
+            board.resetPositions();
+            Position start = board.getOriginalPos();
+            Position end = board.getFinalPos();
+            //board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).removePiece();
+            board.clearMovesThisTurn();
+            //board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
+            board.setLastWasJump(false);
+            board.clearRemovedPieces();
         }
 
         ResponseMessage message = new ResponseMessage();
