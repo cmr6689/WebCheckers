@@ -120,7 +120,7 @@ public class MoveChecks {
         for(Row row : game.getBoardView1().getRows()){
             tempRows.add(row);
         }
-        BoardView tempBoard = new BoardView(tempRows, game.getPlayer2());
+        BoardView tempBoard = new BoardView(tempRows, game.getPlayer1());
 
         validateMove = new ValidateMove(tempBoard);
         for(int i = 0; i < 8; i++){
@@ -183,5 +183,23 @@ public class MoveChecks {
 
     public ArrayList<Move> getJumps() {
         return jumps;
+    }
+
+    public boolean redCanJump() {
+        for (Move jump : jumps) {
+            if (game.getBoardView1().getRowAtIndex(jump.getStart().getRow()).getSpaceAtIndex(jump.getStart().getCell()).getPiece().getColor().equals(Piece.COLOR.RED)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean whiteCanJump() {
+        for (Move jump : jumps) {
+            if (game.getBoardView1().getRowAtIndex(jump.getStart().getRow()).getSpaceAtIndex(jump.getStart().getCell()).getPiece().getColor().equals(Piece.COLOR.WHITE)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

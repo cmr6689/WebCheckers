@@ -62,7 +62,6 @@ public class GetGameRoute implements Route {
                     opponent = opp;
                     //set the opponent in the session
                     httpSession.attribute("opponent", opponent);
-                    //create game
 
                     //if the opp is already in a game
                     if (opp.getInGame() && !opp.getAI()) {

@@ -72,14 +72,35 @@ public class PostValidateMoveRoute implements Route {
         isValid = MoveValidator.Validator(thisPiece,move, originalType,originalColor,board.getRemovedPieces());
         jumped = MoveValidator.getJumped();
 
-        if(isValid) {
+        MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
+        moveCheck.checkMoves();
+
+        //TODO - DO NOT REMOVE COMMENTED CODE BELOW
+        //TODO - UNCOMMENT TO FORCE PLAYER TO JUMP
+        /*if(isValid && board.getLastWasJump()) {
+            message.setType(ResponseMessage.MessageType.INFO);
+            message.setText("Your jump is valid");
+            httpSession.attribute("move", move);
+            httpSession.attribute("validator", MoveValidator);
+            httpSession.attribute("piece", thisPiece);
+            board.setRemovedPiece(new Position(thisRow, thisCell));
+            board.increaseNumMovs();
+        } else if(playerLobby.getGame(myPlayer).getPlayer1().equals(myPlayer) && moveCheck.redCanJump()) {
+            message = new ResponseMessage();
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("You must make available jump moves!");
+        } else if (playerLobby.getGame(myPlayer).getPlayer2().equals(myPlayer) && moveCheck.whiteCanJump()) {
+            message = new ResponseMessage();
+            message.setType(ResponseMessage.MessageType.ERROR);
+            message.setText("You must make available jump moves!");
+        } else */if (isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);
             httpSession.attribute("validator", MoveValidator);
             httpSession.attribute("piece", thisPiece);
             board.increaseNumMovs();
-        }else{
+        } else {
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("Your move is not valid");
         }

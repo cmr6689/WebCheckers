@@ -57,28 +57,11 @@ public class PostSubmitTurnRoute implements Route {
             return gson.toJson(message2);
         }
 
-        ValidateMove MoveValidator = httpSession.attribute("validator");
-        MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
-
         System.err.println("Im going to check what moves and jumps are available (postSubmitTurnRoute:68)");
 
-//        moveCheck.checkMoves();
-
-        ResponseMessage message;
-        //Check if valid move first
-        if(moveCheck.jumpAvailable()) {
-            message = new ResponseMessage();
-            // to successfully resign, replace message type of ERROR with INFO
-            message.setType(ResponseMessage.MessageType.ERROR);
-            message.setText("You can not submit a turn in the state you are in.");
-        }else{
-            message = new ResponseMessage();
-            // to successfully resign, replace message type of ERROR with INFO
-            message.setType(ResponseMessage.MessageType.INFO);
-            message.setText("You can submit a turn in the state you are in.");
-        }
-
-        //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer1());
+        ResponseMessage message = new ResponseMessage();
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("You can submit a turn in the state you are in.");
 
         if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE")) {
             //playerLobby.getGameCenter().getGame(myPlayer).getGameData().setCurrentUser(playerLobby.getGame(myPlayer).getPlayer2());

@@ -12,4 +12,9 @@
 ############
 .idea/
 *.iml
+*.DS_Store
+.DS_Store
+*.DS
 
+.DS_Store
+src/.DS_Store
