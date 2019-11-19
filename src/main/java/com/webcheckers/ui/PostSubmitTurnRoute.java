@@ -91,31 +91,8 @@ public class PostSubmitTurnRoute implements Route {
         }
 
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
-        Position start = board.getOriginalPos();
-        Position end = board.getFinalPos();
-        removedPs = board.getRemovedPieces();
-        Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
-        board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
-        if(((board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(0)) && thisPiece.getColor().equals(Piece.COLOR.RED)) ||
-                (board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.WHITE))) &&
-                    !thisPiece.getType().equals(Piece.TYPE.KING)){
-            thisPiece.setType(Piece.TYPE.KING);
-            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
-        }else{
-            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
-        }
-        //System.out.println(board.getRemovedPieces().size());
-        if(removedPs.size() != 0){
-            //System.out.println(board.getRemovedPieces().size());
-            for(Position p: removedPs){
-                board.getRowAtIndex(p.getRow()).getSpaceAtIndex(p.getCell()).removePiece();
-            }
-        }
-        board.setLastWasJump(false);
-        board.resetPositions();
-        board.clearMovesThisTurn();
-        board.clearRemovedPieces();
-        board.resetMovs();
+        BoardHandler boardHandler = new BoardHandler(board);
+        boardHandler.setBoard();
         return gson.toJson(message);
     }
 }
