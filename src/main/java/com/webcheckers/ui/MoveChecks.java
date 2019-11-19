@@ -15,6 +15,8 @@ public class MoveChecks {
     private ArrayList<Move> moves = new ArrayList<>();
     private ArrayList<Move> jumps = new ArrayList<>();
 
+    private HashMap<Move, ArrayList<Move>> doubleJumps = new HashMap<>();
+
     ValidateMove validateMove;
 
     public MoveChecks(Game game){
@@ -22,8 +24,8 @@ public class MoveChecks {
     }
 
     public ArrayList<Move> checkSinglePieceMoves(Piece piece, Position position){
-        positions.clear();
         ArrayList<Move> moves = new ArrayList<>();
+        ArrayList<Position> positions = new ArrayList<>();
 
         ArrayList<Row> tempRows = new ArrayList<>();
         for(Row row : game.getBoardView1().getRows()){
@@ -57,8 +59,8 @@ public class MoveChecks {
     }
 
     public ArrayList<Move> checkSinglePieceJumps(Piece piece, Position position){
-        positions.clear();
         ArrayList<Move> jumps = new ArrayList<>();
+        ArrayList<Position> positions = new ArrayList<>();
 
         ArrayList<Row> tempRows = new ArrayList<>();
         for(Row row : game.getBoardView1().getRows()){
@@ -78,6 +80,20 @@ public class MoveChecks {
         for(Position position2 : positions){
             Move move = new Move(position, position2);
             ArrayList<Position> temp = new ArrayList<>();
+
+            /*if(validateMove.jumpIsValid(
+                    Math.abs(move.getEnd().getRow() - move.getStart().getRow()),
+                    move,
+                    game.getBoardView1(),
+                    piece,
+                    position2.getRow(),
+                    position2.getCell(),
+                    piece.getType(),
+                    piece.getColor())
+            ){
+                jumps.add(move);
+                System.err.println("I found a jump : " + move.getStart().helpString() + " : " + move.getEnd().helpString());
+            }*/
             if(validateMove.Validator(piece,
                     move,
                     piece.getType(),
@@ -86,6 +102,7 @@ public class MoveChecks {
             ) {
                 if(!temp.isEmpty()){
                     jumps.add(move);
+                    //System.err.println("I found a jump : " + move.getStart().helpString() + " : " + move.getEnd().helpString());
                 }
             }
         }
@@ -132,8 +149,25 @@ public class MoveChecks {
                         temp)
                 ) {
                     moves.add(move);
-                    if(!temp.isEmpty())
+                    if(!temp.isEmpty()) { //if a jump happened
                         jumps.add(move);
+                        //have to check to see if another jump is possible
+                        //while(true) {
+                            ArrayList<Move> doubleJumpsTemp = checkSinglePieceJumps(positionPieceHashMap.get(position), position2);
+                            System.err.println("looking for double jumps");
+                            if (!doubleJumpsTemp.isEmpty()) {
+                                //double jump(s) found
+                                ArrayList<Move> possibleDoubleJumps = new ArrayList<>();
+
+                                for (Move move1 : doubleJumpsTemp) {
+                                    possibleDoubleJumps.add(move1);
+                                }
+
+                                doubleJumps.put(move, possibleDoubleJumps);
+                            }else {}
+                                //break; //no more jumps can be made
+                        //}
+                    }
                 }
             }
         }
