@@ -93,7 +93,7 @@ public class PostValidateMoveRoute implements Route {
             message = new ResponseMessage();
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("You must make available jump moves!");
-        } else if (isValid) {
+        } else if (isValid && (!moveCheck.whiteCanJump() ||!moveCheck.redCanJump())) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);

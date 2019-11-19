@@ -52,7 +52,8 @@ public class ValidateMove {
         this.isValid = positionIsValid && moveIsValid && jumpIsValid;
         if(isValid){
             board.setMoveThisTurn(move);
-            if(board.getOriginalPos() == null){
+            //if(board.getOriginalPos() == null){
+            if(board.getNumMovs() == 0){
                 board.setOriginalPos(move.getStart());
             }
             board.setFinalPos(move.getEnd());
