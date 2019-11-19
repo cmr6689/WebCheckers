@@ -56,7 +56,22 @@ public class PostHelpMoveRoute implements Route {
                         return jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
 
                         //if no jump is available check simple moves
-                    } else if (moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                    }
+                }
+            }
+
+
+        }
+
+        for (int i = 0; i < 8; i++) {
+            //loop through spaces
+            for (int j = 0; j < 8; j++) {
+                //if piece is not null and red
+                if (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null &&
+                        (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
+                                || playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING)))) {
+                    //if jump is available
+                    if (moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                             new Position(i, j)).size() > 0) {
                         //get first move in returned list
                         Move move = moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
@@ -66,6 +81,8 @@ public class PostHelpMoveRoute implements Route {
                     }
                 }
             }
+
+
         }
         //no jumps or moves available
         return "No moves available!";
@@ -85,7 +102,18 @@ public class PostHelpMoveRoute implements Route {
                         Move jump = moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
                         return jump.getStart().helpString2() + " -> " + jump.getEnd().helpString2();
-                    } else if (moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                    }
+                }
+            }
+        }
+
+        for (int i = 0; i < 8; i++) {
+            //loop through spaces
+            for (int j = 0; j < 8; j++) {
+                if (playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null &&
+                        (playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
+                                || playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING)))) {
+                    if (moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                             new Position(i, j)).size() > 0) {
                         Move move = moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);

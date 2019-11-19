@@ -81,19 +81,6 @@ public class MoveChecks {
             Move move = new Move(position, position2);
             ArrayList<Position> temp = new ArrayList<>();
 
-            /*if(validateMove.jumpIsValid(
-                    Math.abs(move.getEnd().getRow() - move.getStart().getRow()),
-                    move,
-                    game.getBoardView1(),
-                    piece,
-                    position2.getRow(),
-                    position2.getCell(),
-                    piece.getType(),
-                    piece.getColor())
-            ){
-                jumps.add(move);
-                System.err.println("I found a jump : " + move.getStart().helpString() + " : " + move.getEnd().helpString());
-            }*/
             if(validateMove.Validator(piece,
                     move,
                     piece.getType(),
@@ -102,12 +89,22 @@ public class MoveChecks {
             ) {
                 if(!temp.isEmpty()){
                     jumps.add(move);
-                    //System.err.println("I found a jump : " + move.getStart().helpString() + " : " + move.getEnd().helpString());
+                    //checking for double jumps
+                    System.err.println("I Found some jumps");
+                    ArrayList<Move> tempMoves = checkSinglePieceJumps(piece, position2);
+                    if(!tempMoves.isEmpty()){
+                        System.err.println("I found some double jumps yay!!");
+                        doubleJumps.put(move, tempMoves);
+                    }
                 }
             }
         }
 
         return jumps;
+    }
+
+    public HashMap<Move, ArrayList<Move>> getDoubleJumps() {
+        return doubleJumps;
     }
 
     public boolean checkMoves(){
