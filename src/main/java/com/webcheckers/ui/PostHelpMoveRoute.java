@@ -42,23 +42,32 @@ public class PostHelpMoveRoute implements Route {
         for (int i = 0; i < 8; i++) {
             //loop through spaces
             for (int j = 0; j < 8; j++) {
+                //if piece is not null and red
                 if (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null &&
                         (playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
                         || playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING)))) {
+                    //if jump is available
                     if (moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                     new Position(i, j)).size() > 0) {
+                        //get first jump in returned list
                         Move jump = moveChecks.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
+                        //return first jump
                         return jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
+
+                        //if no jump is available check simple moves
                     } else if (moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                             new Position(i, j)).size() > 0) {
+                        //get first move in returned list
                         Move move = moveChecks.checkSinglePieceMoves(playerLobby.getGame(myPlayer).getBoard(myPlayer).getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
+                        //return first move
                         return move.getStart().helpString() + " -> " + move.getEnd().helpString();
                     }
                 }
             }
         }
+        //no jumps or moves available
         return "No moves available!";
     }
 
