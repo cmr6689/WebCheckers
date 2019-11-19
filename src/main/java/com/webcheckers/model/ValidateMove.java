@@ -97,6 +97,9 @@ public class ValidateMove {
             //if the last move was a jump but they're not trying to jump again
             return false;
         }
+        if(!(Math.abs(move.getStart().getRow()-move.getEnd().getRow()) > 1) && (Math.abs(move.getStart().getCell()-move.getEnd().getCell()) > 1)){
+            return false;
+        }
         if((move.getStart().getCell() == move.getEnd().getCell()) && (board.getNumMovs() < 2)){
             //if they're trying to move directly across the board without jumping 2 pieces
             return false;
@@ -146,6 +149,10 @@ public class ValidateMove {
                 //set the row and the cell of the piece being jumped
                 tempRowInt = ((move.getStart().getRow() + move.getEnd().getRow()) / 2);
                 tempCellInt = ((move.getStart().getCell() + move.getEnd().getCell()) / 2);
+                int stuff = (Math.abs(move.getStart().getCell()-move.getEnd().getCell()));
+                if(stuff > 3){
+                    return false;
+                }
                 Piece tempPiece = board.getRowAtIndex(tempRowInt).getSpaceAtIndex(tempCellInt).getPiece();
                 //create a position for where the piece will be removed from
                 //Position pieceRemoved = new Position(tempRowInt,tempCellInt);

@@ -77,7 +77,7 @@ public class PostValidateMoveRoute implements Route {
 
         //TODO - DO NOT REMOVE COMMENTED CODE BELOW
         //TODO - UNCOMMENT TO FORCE PLAYER TO JUMP
-        /*if(isValid && board.getLastWasJump()) {
+        if(isValid && board.getLastWasJump()) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your jump is valid");
             httpSession.attribute("move", move);
@@ -93,7 +93,7 @@ public class PostValidateMoveRoute implements Route {
             message = new ResponseMessage();
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("You must make available jump moves!");
-        } else */if (isValid) {
+        } else if (isValid) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);
