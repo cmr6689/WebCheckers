@@ -49,7 +49,7 @@ public class PostCheckTurnRoute implements Route {
 
         MoveChecks move = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
 
-        if(playerLobby.getGameCenter().getGame(myPlayer).getPlayer2().getName().equals("AI")){
+        if(playerLobby.getGameCenter().getGame(myPlayer) != null && playerLobby.getGameCenter().getGame(myPlayer).getPlayer2().getName().equals("AI")){
 
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
         }

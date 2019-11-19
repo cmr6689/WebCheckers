@@ -80,8 +80,8 @@ fieldset#game-toolbar button:disabled {
 * Game board styles
 */
 div.game-board {
-  clear: both;
-  width: 100%;
+  /*clear: both;*/
+  /*width: 100%;*/
   text-align: center;
 }
 table#game-board {

@@ -27,7 +27,7 @@
 
     <#include "nav-bar2.ftl" />
 
-    <div class="body">
+    <div class="body" style="width:710px">
 
         <div id="help_text" class="INFO"></div>
 
@@ -61,9 +61,20 @@
                 </fieldset>
 
             </div>
-            <div class="game-board">
+            <div id="columns" style="float:left; padding-right:6px">
+                            <table>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">7</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">6</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">5</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">4</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">3</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">2</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">1</td></tr>
+                                    <tr><td style="color:blue; padding-top:34px; padding-bottom:34px">0</td></tr>
+                            </table>
+            </div>
+            <div class="game-board" style="float:right">
                 <table id="game-board">
-                    <tbody>
                     <#list board.iterator() as row>
                         <tr data-row="${row.index}">
                             <#list row.iterator() as space>
@@ -86,6 +97,20 @@
                     </tbody>
                 </table>
                 </div>
+            </div>
+            <div id="rows">
+                <table style="padding-top:6px; text-align:center; margin:auto; table-layout:fixed; width:680px">
+                    <tr>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">0</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">1</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">2</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">3</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">4</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">5</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">6</td>
+                        <td style="color:blue; padding-left:42.5px; padding-right:42.5px">7</td>
+                    </tr>
+                </table>
             </div>
 
         </div>
