@@ -28,7 +28,7 @@
             <#if (playerList?size > 2)>
                 <ul>
                     <#list playerList as player>
-                        <#if player == "AI">
+                        <#if player == "AI Player">
                         <#elseif currentUser.name != player>
                             <li><form method="get" action="/game" target="_self">
                                 <input type="submit" name="opponent" value=${player}></form>
@@ -42,14 +42,14 @@
             </#if>
         <h2>Play Alone</h2>
         <ul><li><form method="get" action="/game" target="_self">
-            <input type="submit" name="opponent" value="AI"></form></li></ul>
+            <input type="submit" name="opponent" value="AI Player"></form></li></ul>
         <#else>
             <ul>
                 <li>There are no other players online.</li>
             </ul>
             <h2>Play Alone</h2>
             <ul><li><form method="get" action="/game" target="_self">
-                <input type="submit" name="opponent" value="AI"></form></li></ul>
+                <input type="submit" name="opponent" value="AI Player"></form></li></ul>
         </#if>
     <#else>
         <h2>Players Online</h2>
