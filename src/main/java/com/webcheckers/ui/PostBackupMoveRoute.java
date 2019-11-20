@@ -48,32 +48,6 @@ public class PostBackupMoveRoute implements Route {
         Piece thisPiece = httpSession.attribute("piece");
         //ValidateMove MoveValidator = httpSession.attribute("validator");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
-        //TODO
-        //need to make an arrayList of moves in board and decrease the size and get the end position from the new last
-        /**
-        if(board.getMovesThisTurn().size() >= 1){
-            board.decreaseNumMoves();
-            Position start = board.getOriginalPos();
-            Position end = board.getFinalPos();
-            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).removePiece();
-            board.decrementMovesThisTurn();
-            if(board.getMovesThisTurn().size() == 0){
-                board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
-                board.setLastWasJump(false);
-            }else {
-                board.getRowAtIndex(board.getMovesThisTurn().get(
-                        board.getMovesThisTurn().size() - 1).getEnd().getRow()).getSpaceAtIndex(
-                        board.getMovesThisTurn().get(board.getMovesThisTurn().size() - 1).getEnd().getCell()).setPiece(thisPiece);
-                board.setFinalPos(board.getMovesThisTurn().get(board.getMovesThisTurn().size() - 1).getEnd());
-            }
-            if(board.getRemovedPieces().size() != 0){
-                board.backupPiece();
-            }
-        }else{
-            //if the number of moves is 0 put back in original spot
-            Position start = board.getOriginalPos();
-            board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
-        }*/
 
         if(board.getMovesThisTurn().size() >= 1) {
             board.resetMovs();
