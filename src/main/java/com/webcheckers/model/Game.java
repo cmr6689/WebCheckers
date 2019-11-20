@@ -72,6 +72,8 @@ public class Game {
     public void checkGameOver() {
         boolean redWins = true;
         boolean whiteWins = true;
+        boolean jumpsAvailable = false;
+        boolean movesAvailable = false;
         //loop through rows
         for (int i = 0; i < 8; i++) {
             //loop through spaces
@@ -86,6 +88,14 @@ public class Game {
                     } else if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
                             || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
                         redWins = false;
+                    }
+
+                    if (new MoveChecks(this).checkSinglePieceJumps(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                            new Position(i, j)).size() > 0) {
+                        jumpsAvailable = true;
+                    } else if (new MoveChecks(this).checkSinglePieceMoves(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                            new Position(i, j)).size() > 0) {
+                        movesAvailable = true;
                     }
                 }
             }
@@ -105,7 +115,7 @@ public class Game {
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "");
-        } else if (!new MoveChecks(this).checkMoves()) {
+        } else if (!jumpsAvailable && !movesAvailable) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", "No more moves available! It's a tie!");
             //set mode option
