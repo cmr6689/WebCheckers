@@ -238,6 +238,15 @@ public class Game {
     }
 
     /**
+     * Only used for testing
+     * removes the players
+     */
+    public void removePlayers(){
+        player1 = null;
+        player2 = null;
+    }
+
+    /**
      * Get the board view based on the player
      * @param player player one or player two
      * @return board view 1 if player 1 or board view 2 if player 2

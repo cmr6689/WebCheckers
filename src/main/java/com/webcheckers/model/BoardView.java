@@ -14,18 +14,14 @@ import java.util.Iterator;
 public class BoardView implements Iterable {
     //create a new ArrayList of Rows
     private ArrayList<Row> rows;
-    private ArrayList<Row> otherBoard = new ArrayList<>(7);
     //the current color
     int i;
     int numMovs;
-    COLOR currentColor;
     ArrayList<Position> removedPieces = new ArrayList<>();
     ArrayList<Move> movesThisTurn = new ArrayList<>();
     Position originalPos;
     Position finalPos;
     Boolean lastWasJump = false;
-    Piece.COLOR startingColor = null;
-    Piece.TYPE startingType = null;
 
     /**
      * Constructor for the board view that creates the orientation
@@ -65,19 +61,6 @@ public class BoardView implements Iterable {
     }
 
     /**
-     * Class needed in order for the board to have a reversed
-     * version of itself
-     *
-     * @return the reversed version of the iterator of the spaces
-     */
-    public Iterator<Row> reverseIterator() {
-        for(int i = 7; i >=0; i--){
-            otherBoard.add(rows.get(i));
-        }
-        return otherBoard.iterator();
-    }
-
-    /**
      * getter for the array list of rows created
      *
      * @return the list of rows
@@ -93,15 +76,6 @@ public class BoardView implements Iterable {
     public void setRows(ArrayList<Row> rows){this.rows = rows;}
 
     /**
-     * getter for the array list of otherBoard created
-     *
-     * @return the list of rows in reverse
-     */
-    public ArrayList<Row> getOtherBoard(){
-        return otherBoard;
-    }
-
-    /**
      * get the number of movs this turn
      * @return
      */
@@ -115,13 +89,6 @@ public class BoardView implements Iterable {
      */
     public void increaseNumMovs(){
         this.numMovs++;
-    }
-
-    /**
-     *
-     */
-    public void decreaseNumMoves(){
-        this.numMovs--;
     }
 
     /**
@@ -141,46 +108,80 @@ public class BoardView implements Iterable {
         return this.rows.get(index);
     }
 
+    /**
+     * Clears the arrayList of pieces to be removed
+     */
     public void clearRemovedPieces(){
         removedPieces.clear();
     }
 
+    /**
+     * Get's the arrayList of pieces to be removed
+     * @return the arrayList of positions of the pieces to be removed
+     */
     public ArrayList<Position> getRemovedPieces(){
         return removedPieces;
     }
 
+    /**
+     * add a piece to be removed
+     * @param p : the position of the piece being removed
+     */
     public void setRemovedPiece(Position p){
         removedPieces.add(p);
     }
 
+    /**
+     * clears the moves this turn
+     */
     public void clearMovesThisTurn(){
         movesThisTurn.clear();
     }
 
+    /**
+     * Get's the list of moves this turn
+     * @return an array list of moves this turn
+     */
     public ArrayList<Move> getMovesThisTurn(){
         return movesThisTurn;
     }
 
+    /**
+     * add a move to the list of moves this turn
+     * @param m the move being added to the arrayList
+     */
     public void setMoveThisTurn(Move m){
         movesThisTurn.add(m);
     }
 
-    public void decrementMovesThisTurn(){
-        movesThisTurn.remove(movesThisTurn.size()-1);
-    }
-
+    /**
+     * sets the original position of the piece
+     * @param p the original position of the piece
+     */
     public void setOriginalPos(Position p){
         originalPos = p;
     }
 
+    /**
+     * sets the final position of the piece
+     * @param p the final position of the piece
+     */
     public void setFinalPos(Position p){
         finalPos = p;
     }
 
+    /**
+     * gets the original position of the piece
+     * @return the original position
+     */
     public Position getOriginalPos(){
         return this.originalPos;
     }
 
+    /**
+     *
+     * @return
+     */
     public Position getFinalPos(){
         return this.finalPos;
     }
@@ -190,32 +191,11 @@ public class BoardView implements Iterable {
         this.finalPos = null;
     }
 
-    public void backupPiece(){
-        //remove the last element
-        removedPieces.remove(removedPieces.size()-1);
-    }
-
     public void setLastWasJump(Boolean b){
         this.lastWasJump = b;
     }
 
     public Boolean getLastWasJump() {
         return lastWasJump;
-    }
-
-    public void setStartingColor(Piece.COLOR c){
-        this.startingColor = c;
-    }
-
-    public Piece.COLOR getStartingColor(){
-        return this.startingColor;
-    }
-
-    public void setStartingType(Piece.TYPE t){
-        this.startingType = t;
-    }
-
-    public Piece.TYPE getStartingType(){
-        return this.startingType;
     }
 }

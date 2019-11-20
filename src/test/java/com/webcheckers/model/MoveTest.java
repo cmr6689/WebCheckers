@@ -49,6 +49,8 @@ class MoveTest {
         final Move CuT = new Move(new Position(3,2), new Position(4,3));
         assertFalse(CuT1.equals(CuT2));
         assertTrue(CuT.equals(CuT1));
+        assertTrue(CuT.equals(CuT));
+        assertFalse(CuT.equals("Hello"));
     }
 
     /**
