@@ -41,6 +41,8 @@ public class BoardHandler {
         board.resetMovs();
     }
     public void setBoardCond(Position start, Position end){
+        board.setOriginalPos(start);
+        board.setFinalPos(end);
         removedPs = board.getRemovedPieces();
         Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
         board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();

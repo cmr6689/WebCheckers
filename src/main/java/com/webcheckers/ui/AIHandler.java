@@ -32,6 +32,9 @@ public class AIHandler {
                                 position).size() > 0) {
                             Move jump = moveCheck.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                     position).get(0);
+                            Position pieceRemoved = new Position((jump.getStart().getRow()+jump.getEnd().getRow())/2,
+                                    (jump.getStart().getCell()+jump.getEnd().getCell())/2);
+                            playerLobby.getGame(myPlayer).getBoardView1().setRemovedPiece(pieceRemoved);
                             boardHandler.setBoardCond(jump.getStart(), jump.getEnd());
                             done = true;
                             jumped = true;
