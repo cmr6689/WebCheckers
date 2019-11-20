@@ -163,6 +163,6 @@ public class MoveHelperTest {
         game.getBoardView1().setFinalPos(new Position(7, 0));
         game.getBoardView1().setRemovedPiece(new Position(7, 0));
         handler.setBoard();
-        assertEquals("(4,4) -> (2,2) -> (0,0)", CuT.getWhiteJump());
+        assertEquals("(3,3) -> (5,5) -> (7,7)", CuT.getWhiteJump());
     }
 }

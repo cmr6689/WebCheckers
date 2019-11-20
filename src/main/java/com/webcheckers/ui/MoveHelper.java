@@ -27,7 +27,7 @@ public class MoveHelper {
                         Move jump = moveChecks.checkSinglePieceJumps(game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
                         //return first
-                        String temp = jump.getStart().helpString() + " -> " + jump.getStart().helpString();
+                        String temp = jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
 
                         Piece piece = game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece();
                         for(Move move  : moveChecks.getJumpChain(jump, piece)){
