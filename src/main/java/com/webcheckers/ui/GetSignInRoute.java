@@ -21,7 +21,7 @@ import static spark.route.HttpMethod.post;
 public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
-  static final Message WELCOME_MSG = Message.info("Please Sign-in with a value user ID");
+  static final Message WELCOME_MSG = Message.info("Please Sign-in with a valid user ID");
   static final Message INVALID_NAME = Message.error("The name you have chosen is already taken or contains non-alphanumeric");
 
   final TemplateEngine templateEngine;

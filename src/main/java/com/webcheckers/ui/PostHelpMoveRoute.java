@@ -6,7 +6,6 @@ import com.webcheckers.model.Move;
 import com.webcheckers.model.Piece;
 import com.webcheckers.model.Player;
 import com.webcheckers.model.Position;
-import com.webcheckers.util.Message;
 import spark.*;
 
 import javax.servlet.http.HttpSession;

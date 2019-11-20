@@ -9,9 +9,10 @@ import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.BoardView;
 import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import spark.*;
 
-import com.webcheckers.util.Message;
+
 
 /**
  * The UI Controller to GET the Game page
