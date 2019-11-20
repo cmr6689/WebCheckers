@@ -137,17 +137,27 @@ class GameTest {
     }
 
     /**
+     * test the removePlayers method
+     */
+    @Test
+    void removePlayersTest() {
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+        assertNotNull(CuT.getPlayer1());
+        assertNotNull(CuT.getPlayer2());
+        CuT.removePlayers();
+        assertNull(CuT.getPlayer1());
+        assertNull(CuT.getPlayer2());
+    }
+
+    /**
      * test setting the player
      */
     @Test
     void setPlayerTest() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
-        //assertEquals(null,CuT.getPlayer1());
+        CuT.removePlayers();
         CuT.setPlayer(new Player("1"));
         assertEquals(new Player("1"),CuT.getPlayer1());
-        //final Game CuT1 = new Game(new Player("2"), null);
-        //CuT1.setPlayer(new Player("1"));
-        //assertEquals(new Player("1"),CuT1.getPlayer2());
         final Game CuT2 = new Game(new Player("2"), new Player("1"));
         CuT2.setPlayer(new Player("4"));
         assertEquals(new Player("4"),CuT2.getPlayer2());

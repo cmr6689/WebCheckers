@@ -14,7 +14,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("Model-tier")
 public class BoardViewTest {
-
     /**
      * Component under test (CuT)
      */
@@ -32,7 +31,7 @@ public class BoardViewTest {
            //ensure the correct Piece is in the correct Space
            assertEquals(CuT.currentColor, Piece.COLOR.WHITE);
        }
-   }*/
+   }
 
     /**
      * Test if the board is greater than 4
@@ -89,5 +88,4 @@ public class BoardViewTest {
         assertEquals(CuT.getOtherBoard().get(0), eight);
         assertEquals(CuT.getOtherBoard().get(1), seven);
     }*/
-
 }
