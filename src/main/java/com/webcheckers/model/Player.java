@@ -94,6 +94,7 @@ public class Player {
     public boolean getAI(){
         return this.AI;
     }
+
     /**
      * Make Player an AI
      */

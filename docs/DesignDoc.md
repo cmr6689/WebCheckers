@@ -113,8 +113,7 @@ After clicking on the sign in button the player will be brought to the sign in p
 A valid username is defined as one that is not already in use and that does not contain more than one or only special characters. 
 After signing in the player will see a list of all currently active players.   
 
-After the player has selected another player to play against both players are put into the game. After the start of the game the players see the game UI and begin playing. 
-From the there they can resign or keeping playing to the game is over. Once the game is over both players can click the exit button to be brought back to the home page.
+After the player has selected another player to play against both players are put into the game. After the start of the game the players are able to move pieces, resign, signout, and ask for help from the move help button. Once the game is over both players can click the exit button to be brought back to the home page.
 
 
 ### UI Tier
@@ -122,9 +121,9 @@ From the there they can resign or keeping playing to the game is over. Once the 
 ![The WebCheckers UI Tier UML Diagram](ui_uml.png)
 
 The UI tier of the WebCheckers application is responsible for handling all
-of the changes to the view of a player on the server. The GameData class
-stores all of the information in the VM map which is supplied to the game.ftl
-that sets up the checkers board based on the VM information. 
+of the changes to the view of a player on the server. The data for the game that is currently 
+active is stored in a HashMap on the game object. This data is used by the game.ftl 
+that sets up the checkers board based on the VM information.
 
 The server is run on the WebServer class and contains GET and POST route calls, 
 starting with GetHomeRoute which renders the home page. When a player signs in 
@@ -134,15 +133,22 @@ and shows all other player names that are online instead of just the number
 of players. Players can sign out as well and that calls PostSignOutRoute.
 
 Once a player is signed in they can click on another players name to call
-GetGameRoute which displays the checkers board. The player that was clicked
+GetGameRoute which displays the checkers board. Optionally the player can 
+click on the AI player to play against the computer. The AI player works by
+taking the first possible jump or if no jumps can be made then the AI will
+choose the first available move. The player that was clicked
 on will automatically call GetGameRoute from the home page after they are
-clicked on and will be displayed a version of the board.
+clicked on and will be displayed a version of the board. For player 1 the red 
+pieces are closer to them, and for player 2 the white pieces are closer to them.
 
 After both players have joined the game the red player can make a move first.
 The white player will call PostCheckTurnRoute which will not allow them to
 make a move until the red player makes a move which calls PostValidateMoveRoute
 that verifies whether the move is allowed to be made, and then submits the move
 which calls PostSubmitMoveRoute and makes the move on the server. 
+
+During a game the active player can click the help button to have a available 
+move or jumps displayed. This is done by the PostHelpMoveRoute and MoveChecks. 
 
 Once a player has moved a piece they can use the Backup button to call 
 PostBackUpMoveRoute which returns the piece. The player also has the option to
