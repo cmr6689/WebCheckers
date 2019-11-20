@@ -90,10 +90,8 @@ public class MoveChecks {
                 if(!temp.isEmpty()){
                     jumps.add(move);
                     //checking for double jumps
-                    System.err.println("I Found some jumps at pos : " + position.helpString());
                     ArrayList<Move> tempMoves = checkSinglePieceJumps(piece, position2);
                     if(!tempMoves.isEmpty()){
-                        System.err.println("I found some double jumps yay!!");
                         doubleJumps.put(move, tempMoves);
                     }
                 }
@@ -151,7 +149,6 @@ public class MoveChecks {
                         //have to check to see if another jump is possible
                         //while(true) {
                             ArrayList<Move> doubleJumpsTemp = checkSinglePieceJumps(positionPieceHashMap.get(position), position2);
-                            System.err.println("looking for double jumps");
                             if (!doubleJumpsTemp.isEmpty()) {
                                 //double jump(s) found
                                 ArrayList<Move> possibleDoubleJumps = new ArrayList<>();

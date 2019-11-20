@@ -70,7 +70,6 @@ public class ValidateMove {
      * @return
      */
     public boolean positionIsValid(BoardView board, int row, int cell){
-        System.err.println(board + " " + row);
         Row actualRow = board.getRowAtIndex(row);
         Space actualSpace = actualRow.getSpaceAtIndex(cell);
         //if the space is a valid spot to move to
