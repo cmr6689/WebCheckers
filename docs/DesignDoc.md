@@ -60,9 +60,10 @@ The MVP is the most basic form of the program. Having only the most basic of fea
 
 The MVP features are the ability to sign in, select an opponent, start a game, perform basic checkers moves (Move, Single and multi-jump, kinging and winging/losing).  
 
+
 ### Roadmap of Enhancements
 
-We plan to include two top-level enhancements to our program, Spectator Mode and Replay Mode. We plan to implement them in that order as well.
+We plan to include two top-level enhancements to our program, Move Helper and AI player. We plan to implement them in that order as well.
 
 ## Application Domain
 
