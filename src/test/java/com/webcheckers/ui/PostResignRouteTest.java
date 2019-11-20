@@ -1,5 +1,6 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
@@ -11,8 +12,7 @@ import spark.*;
 import java.util.HashMap;
 import java.util.Map;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -63,32 +63,49 @@ public class PostResignRouteTest {
      */
     @Test
     public void successful_resign() {
-        //Arrange scenario
-       final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
-        when(request.queryParams("gameID")).thenReturn("Game");
-        final Session httpSession = request.session();
         Player p1 = new Player("Player");
+        playerLobby.getGameCenter().newGame(p1, new Player("Opp"));
+
         Map<String, Object> vm = new HashMap<String, Object>();
         vm.put("isGameOver", true);
         vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
+
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+
+        CuT.handle(request, response);
+        assertTrue(playerLobby.getGameCenter().justEnded(p1));
+        assertEquals(new Gson().toJson(vm), playerLobby.getGame(p1).getMap().get("modeOptionsAsJSON"));
+
         ResponseMessage message = new ResponseMessage();
-        // to successfully resign, replace message type of ERROR with INFO
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can not resign in the state you are in.");
-        //playerLobby.getGameCenter().endGame(p1);
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
-        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
-
-        //Check if game is over
-        assertEquals(playerLobby.getGameCenter().gameIsActive(playerLobby.getGame(p1)),false);
+        //assertEquals(new Gson().toJson(message), CuT.handle(request, response));
     }
 
     @Test
-    void handle() {
+    public void successful_resign_AI() {
+        Player p1 = new Player("Player");
+        playerLobby.getGameCenter().newGame(p1, new Player("AI"));
+
+        Map<String, Object> vm = new HashMap<String, Object>();
+        vm.put("isGameOver", true);
+        vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
+
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+
+        CuT.handle(request, response);
+        assertNull(playerLobby.getGame(p1));
+    }
+
+    @Test
+    public void game_already_ended() {
+        Player p1 = new Player("Player");
+        playerLobby.getGameCenter().newGame(p1, new Player("Opp"));
+        playerLobby.getGameCenter().setJustEnded(p1, new Player("Opp"), true);
+
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+
+        CuT.handle(request, response);
+        assertTrue(playerLobby.getGameCenter().justEnded(p1));
     }
 }
