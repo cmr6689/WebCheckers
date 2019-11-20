@@ -3,6 +3,8 @@ package com.webcheckers.ui;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.*;
 
+import java.util.ArrayList;
+
 public class AIHandler {
 
     private PlayerLobby playerLobby;
@@ -41,12 +43,32 @@ public class AIHandler {
                                 position).size() > 0) {
                             Move jump = moveCheck.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                     position).get(0);
-                            Position pieceRemoved = new Position(((jump.getStart().getRow()+jump.getEnd().getRow())/2),
-                                    ((jump.getStart().getCell()+jump.getEnd().getCell())/2));
-                            playerLobby.getGame(myPlayer).getBoardView1().setRemovedPiece(pieceRemoved);
-                            boardHandler.setBoardCond(jump.getStart(), jump.getEnd());
+                            ArrayList<Move> jumpChain = moveCheck.getJumpChain(jump, playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece());
+                            if (!jumpChain.isEmpty()) {
+
+                                Position pieceRemoved = new Position((jump.getStart().getRow() + jump.getEnd().getRow()) / 2,
+                                        (jump.getStart().getCell() + jump.getEnd().getCell()) / 2);
+                                playerLobby.getGame(myPlayer).getBoardView1().setRemovedPiece(pieceRemoved);
+                                boardHandler.setBoardCond(jump.getStart(), jump.getEnd());
+
+                                for (Move move : jumpChain) {
+                                    pieceRemoved = new Position((move.getStart().getRow() + move.getEnd().getRow()) / 2,
+                                            (move.getStart().getCell() + move.getEnd().getCell()) / 2);
+                                    playerLobby.getGame(myPlayer).getBoardView1().setRemovedPiece(pieceRemoved);
+                                    boardHandler.setBoardCond(move.getStart(), move.getEnd());
+
+                                }
+
                             done = true;
                             jumped = true;
+                            }else {
+                                Position pieceRemoved = new Position((jump.getStart().getRow() + jump.getEnd().getRow()) / 2,
+                                        (jump.getStart().getCell() + jump.getEnd().getCell()) / 2);
+                                playerLobby.getGame(myPlayer).getBoardView1().setRemovedPiece(pieceRemoved);
+                                boardHandler.setBoardCond(jump.getStart(), jump.getEnd());
+                                done = true;
+                                jumped = true;
+                            }
                         }
                     }
                 }

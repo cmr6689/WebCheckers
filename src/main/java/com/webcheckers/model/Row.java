@@ -48,8 +48,21 @@ public class Row implements Iterable{
             Space space = new Space(null, i, this.boardColor);
             //add that space to the ArrayList
             if ((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index < 3  || index > 4)) {
+                //space.setPiece(new Piece(color, TYPE.SINGLE));
+            }
+
+            //custom board stuff!!
+            /*if((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index == 1 || index == 3 || index == 5 || index == 6)){
+                if(index == 5)
+                    color = COLOR.WHITE;
+                space.setPiece(new Piece(color, TYPE.SINGLE));
+            }*/
+            if((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index == 1 || index == 2 || index == 4 || index == 6)){
+                if(index == 2)
+                    color = COLOR.RED;
                 space.setPiece(new Piece(color, TYPE.SINGLE));
             }
+
             spaces.add(space);
 
         }
