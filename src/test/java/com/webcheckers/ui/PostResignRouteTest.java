@@ -85,7 +85,7 @@ public class PostResignRouteTest {
     @Test
     public void successful_resign_AI() {
         Player p1 = new Player("Player");
-        playerLobby.getGameCenter().newGame(p1, new Player("AI"));
+        playerLobby.getGameCenter().newGame(p1, new Player("AI Player"));
 
         Map<String, Object> vm = new HashMap<String, Object>();
         vm.put("isGameOver", true);
