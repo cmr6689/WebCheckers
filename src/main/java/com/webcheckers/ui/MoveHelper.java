@@ -27,14 +27,14 @@ public class MoveHelper {
                         Move jump = moveChecks.checkSinglePieceJumps(game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
                         //return first
-                        String temp = jump.getStart().helpString() + " -> ";
-                        if(!moveChecks.getDoubleJumps().isEmpty()){
-                            Move tempM = moveChecks.getDoubleJumps().get(jump).get(0);
-                            temp += tempM.getStart().helpString() + " -> " + tempM.getEnd().helpString();
-                            return temp;
-                        }
+                        String temp = jump.getStart().helpString() + " -> " + jump.getStart().helpString();
 
-                        return jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
+                        Piece piece = game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece();
+                        for(Move move  : moveChecks.getJumpChain(jump, piece)){
+                            temp += " -> " + move.getEnd().helpString();
+                        }
+                        return temp;
+
 
                         //if no jump is available check simple moves
                     }
@@ -81,13 +81,27 @@ public class MoveHelper {
                             new Position(i, j)).size() > 0) {
                         Move jump = moveChecks.checkSinglePieceJumps(game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                 new Position(i, j)).get(0);
-                        String temp = jump.getStart().helpString() + " -> ";
-                        if(!moveChecks.getDoubleJumps().isEmpty()){
-                            Move tempM = moveChecks.getDoubleJumps().get(jump).get(0);
-                            temp += tempM.getStart().helpString() + " -> " + tempM.getEnd().helpString();
+                         String temp = jump.getStart().helpString2() + " -> " + jump.getEnd().helpString2();
+
+                        Piece piece = game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece();
+                        for(Move move  : moveChecks.getJumpChain(jump, piece)){
+                            temp += " -> " + move.getEnd().helpString2();
+                        }
+
+
+                        return temp;
+                        /*if(!moveChecks.getDoubleJumps(jump, null).isEmpty()){
+
+                            jump = moveChecks.getDoubleJumps(jump , null).get(jump).get(0);
+                            temp += jump.getStart().helpString() + " -> " + jump.getEnd().helpString();
+
+                            while(moveChecks.getDoubleJumps(jump, null).get(jump) != null) {
+                                jump = moveChecks.getDoubleJumps(jump, null).get(jump).get(0);
+                                temp += " -> " + jump.getEnd().helpString();
+                            }
                             return temp;
                         }
-                        return jump.getStart().helpString2() + " -> " + jump.getEnd().helpString2();
+                        return jump.getStart().helpString2() + " -> " + jump.getEnd().helpString2();*/
                     }
                 }
             }

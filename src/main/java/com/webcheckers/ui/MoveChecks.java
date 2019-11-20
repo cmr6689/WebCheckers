@@ -2,8 +2,11 @@ package com.webcheckers.ui;
 
 import com.webcheckers.model.*;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MoveChecks {
 
@@ -15,14 +18,19 @@ public class MoveChecks {
     private ArrayList<Move> moves = new ArrayList<>();
     private ArrayList<Move> jumps = new ArrayList<>();
 
-    private HashMap<Move, ArrayList<Move>> doubleJumps = new HashMap<>();
-
     ValidateMove validateMove;
 
+    /*
+    constructor for MoveChecks, requires the Game to get the board
+     */
     public MoveChecks(Game game){
         this.game = game;
     }
 
+    /*
+    given a piece, and a position
+    returns an arrayList of moves (including jumps) that can be made from the piece and position
+     */
     public ArrayList<Move> checkSinglePieceMoves(Piece piece, Position position){
         ArrayList<Move> moves = new ArrayList<>();
         ArrayList<Position> positions = new ArrayList<>();
@@ -58,6 +66,11 @@ public class MoveChecks {
         return moves;
     }
 
+
+    /*
+    given a piece, and a position
+    returns an arrayList of jumps (only jumps)  that can be made from the piece and position
+     */
     public ArrayList<Move> checkSinglePieceJumps(Piece piece, Position position){
         ArrayList<Move> jumps = new ArrayList<>();
         ArrayList<Position> positions = new ArrayList<>();
@@ -89,11 +102,6 @@ public class MoveChecks {
             ) {
                 if(!temp.isEmpty()){
                     jumps.add(move);
-                    //checking for double jumps
-                    ArrayList<Move> tempMoves = checkSinglePieceJumps(piece, position2);
-                    if(!tempMoves.isEmpty()){
-                        doubleJumps.put(move, tempMoves);
-                    }
                 }
             }
         }
@@ -101,10 +109,42 @@ public class MoveChecks {
         return jumps;
     }
 
-    public HashMap<Move, ArrayList<Move>> getDoubleJumps() {
+    /*
+    creates hashmap of multiJumps can be made after a given a move
+     */
+
+    private HashMap<Move, ArrayList<Move>> doubleJumps = new HashMap<>();
+    public HashMap<Move, ArrayList<Move>> getDoubleJumps(Move move, Piece piece) {
+
+
+
         return doubleJumps;
     }
 
+    public ArrayList<Move> getJumpChain(Move move, Piece piece){
+        ArrayList<Move> jumpChain = new ArrayList<>();
+
+        ArrayList<Move> movesTemp = checkSinglePieceJumps(piece, move.getEnd());
+        HashSet<Move> exsistingMoves = new HashSet<>();
+
+        while(!movesTemp.isEmpty()) {
+
+            if(exsistingMoves.contains(movesTemp.get(0))){
+                break;
+            }
+            jumpChain.add(movesTemp.get(0));
+            exsistingMoves.add(movesTemp.get(0));
+            movesTemp = checkSinglePieceJumps(piece, movesTemp.get(0).getEnd());
+
+        }
+
+
+        return jumpChain;
+    }
+
+    /*
+    checks all of the possible moves that be made on the board, returns if any moves can be made
+     */
     public boolean checkMoves(){
         Piece piece;
 
@@ -148,18 +188,6 @@ public class MoveChecks {
                         jumps.add(move);
                         //have to check to see if another jump is possible
                         //while(true) {
-                            ArrayList<Move> doubleJumpsTemp = checkSinglePieceJumps(positionPieceHashMap.get(position), position2);
-                            if (!doubleJumpsTemp.isEmpty()) {
-                                //double jump(s) found
-                                ArrayList<Move> possibleDoubleJumps = new ArrayList<>();
-
-                                for (Move move1 : doubleJumpsTemp) {
-                                    possibleDoubleJumps.add(move1);
-                                }
-
-                                doubleJumps.put(move, possibleDoubleJumps);
-                            }else {}
-                                //break; //no more jumps can be made
                         //}
                     }
                 }
@@ -168,20 +196,21 @@ public class MoveChecks {
         return !moves.isEmpty();
     }
 
-    public boolean moveAvailable(){
-        return !moves.isEmpty();
-    }
-
-    public boolean jumpAvailable(){
-        return !jumps.isEmpty();
-    }
-
+    /*
+    returns the moves that can be made
+     */
     public ArrayList<Move> getMoves (){ return moves; }
 
+    /*
+    returns the jumps that can be moved
+     */
     public ArrayList<Move> getJumps() {
         return jumps;
     }
 
+    /*
+    returns if the red player can make a jump
+     */
     public boolean redCanJump() {
         for (Move jump : jumps) {
             if (game.getBoardView1().getRowAtIndex(jump.getStart().getRow()).getSpaceAtIndex(jump.getStart().getCell()).getPiece().getColor().equals(Piece.COLOR.RED)) {
@@ -191,6 +220,9 @@ public class MoveChecks {
         return false;
     }
 
+    /*
+    returns if a white player can make a jump
+     */
     public boolean whiteCanJump() {
         for (Move jump : jumps) {
             if (game.getBoardView1().getRowAtIndex(jump.getStart().getRow()).getSpaceAtIndex(jump.getStart().getCell()).getPiece().getColor().equals(Piece.COLOR.WHITE)) {
