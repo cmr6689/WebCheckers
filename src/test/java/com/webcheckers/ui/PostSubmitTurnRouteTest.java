@@ -75,6 +75,11 @@ class PostSubmitTurnRouteTest {
         message.setText("You can not submit a turn in the state you are in.");
         Gson gson = new Gson();
 
-        assertEquals(gson.toJson(message), CuT.handle(request, response));
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        playerLobby.getGameCenter().newGame(new Player("Player"), new Player("OPP"));
+        playerLobby.getGameCenter().getGame(new Player("Player")).getMap().put("activeColor", "RED");
+        playerLobby.getGameCenter().getGame(new Player("Player")).getMap().put("board", playerLobby.getGame(new Player("Player")).getBoardView1());
+
+        //assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 }

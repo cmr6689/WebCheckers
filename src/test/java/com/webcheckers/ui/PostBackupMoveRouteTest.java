@@ -3,6 +3,7 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -54,6 +55,8 @@ public class PostBackupMoveRouteTest {
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("Your move has been backed up");
 
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        playerLobby.getGameCenter().newGame(new Player("Player"), new Player("OPP"));
         CuT.handle(request, response);
 
         assertEquals(gson.toJson(message), CuT.handle(request, response));
