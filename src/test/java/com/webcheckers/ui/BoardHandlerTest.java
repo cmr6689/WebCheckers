@@ -1,10 +1,8 @@
 package com.webcheckers.ui;
 
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Piece;
-import com.webcheckers.model.Player;
-import com.webcheckers.model.Position;
-import com.webcheckers.model.Row;
+import com.webcheckers.application.GameCenter;
+import com.webcheckers.application.PlayerLobby;
+import com.webcheckers.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -21,6 +19,8 @@ import static org.mockito.Mockito.mock;
 public class BoardHandlerTest {
 
     private BoardHandler CuT;
+    private Game game;
+    private PlayerLobby playerLobby;
     private BoardView board;
 
     @BeforeEach
@@ -29,7 +29,9 @@ public class BoardHandlerTest {
         for(int i = 0; i < 8; i++){
             rows.add(new Row(i, Piece.COLOR.RED));
         }
-        board = new BoardView(rows, mock(Player.class));
+        playerLobby = new PlayerLobby(new GameCenter());
+        game = playerLobby.getGameCenter().newGame(new Player("Player"), new Player("Opp"));
+        board = game.getBoardView1();
         CuT = new BoardHandler(board);
     }
 
