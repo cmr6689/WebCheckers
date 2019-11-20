@@ -23,8 +23,6 @@ public class PostBackupMoveRoute implements Route {
     //new
     PlayerLobby playerLobby;
 
-
-
     /**
      * Constructor to set the gson
      */

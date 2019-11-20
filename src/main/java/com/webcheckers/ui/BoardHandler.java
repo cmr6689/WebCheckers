@@ -40,4 +40,30 @@ public class BoardHandler {
         board.clearRemovedPieces();
         board.resetMovs();
     }
+    public void setBoardCond(Position start, Position end){
+        board.setOriginalPos(start);
+        board.setFinalPos(end);
+        removedPs = board.getRemovedPieces();
+        Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
+        board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
+        if(((board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(0)) && thisPiece.getColor().equals(Piece.COLOR.RED)) ||
+                (board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.WHITE))) &&
+                !thisPiece.getType().equals(Piece.TYPE.KING)){
+            thisPiece.setType(Piece.TYPE.KING);
+            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
+        }else {
+            board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(thisPiece);
+        }
+        if(removedPs.size() != 0){
+            for(Position p: removedPs){
+                board.getRowAtIndex(p.getRow()).getSpaceAtIndex(p.getCell()).removePiece();
+            }
+        }
+        board.setLastWasJump(false);
+        board.resetPositions();
+        board.clearMovesThisTurn();
+        board.clearRemovedPieces();
+        board.resetMovs();
+    }
+
 }

@@ -75,8 +75,6 @@ public class PostValidateMoveRoute implements Route {
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
         moveCheck.checkMoves();
 
-        //TODO - DO NOT REMOVE COMMENTED CODE BELOW
-        //TODO - UNCOMMENT TO FORCE PLAYER TO JUMP
         if(isValid && board.getLastWasJump()) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your jump is valid");

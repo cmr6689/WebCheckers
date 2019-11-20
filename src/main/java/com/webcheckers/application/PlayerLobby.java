@@ -49,8 +49,10 @@ public class PlayerLobby {
             Matcher m = p.matcher(newPlayer.getName());
             // boolean b = m.matches();
             boolean specialFound = m.find();
-            if (specialFound)
+            if (specialFound) {
+                setInvalidName(true);
                 return false;
+            }
         }
 
         for (Player player : players) {
