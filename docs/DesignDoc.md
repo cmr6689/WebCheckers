@@ -34,21 +34,38 @@ play a game of checkers with each other online.
 
 This section describes the features of the application.
 
- Signign In
+ * Signign In - A user can log in with a valid user name and then 
+ be able to view all of the other players currently logged in as well.
+ A valid username is one that only contains alphanumeric characters.  
  
- Start Game
+ * Start Game - A game can be started between two players, player 1 
+ chooses player 2 from the home screen and then start a game
  
- Checker Board
+ * Checker Board - A game board can be made with alternating black and whites spaces 
+ and that is 8x8
  
- Checker Pieces
+ * Checker Pieces - Pieces can made and placed onto a game board. Pieces also have
+  a type, single and king 
+ with their own restrictions. 
  
- Resignation
+ * Resignation - Either player when a game is active can resign a game, this 
+ in turns makes the player that did not resign the winner of the game
  
- Game Play
+ * Game Play - 
+    * Simple Move - The active player has the ability to move their pieces
+    to a valid position 
+    * Single Jump - The active player has the ability to make a valid jump
+    * Multiple Jump - The active player can make valid multi-jumps
+    * King - Any piece that is moved to the opposite side of the board then 
+    a piece will be kinged and has the ability to move backwards as well as forwards
+    * Wining/Losing - The players have a way to lose and win, that is if all of pieces 
+    of the opponent have be captured, a player resigns or no more moves can be made. 
  
- Replay
- 
- Spectator Mode
+* Move Helper - During a game the active player can use the help button to show them
+a jump if there or a move that can be taken.
+
+* AI Player - After a player has signed in they may choose the AI player to player
+against the computer in a round of checkers.  
 
 
 
@@ -58,7 +75,11 @@ The MVP is the most basic form of the program. Having only the most basic of fea
 
 ### MVP Features
 
-The MVP features are the ability to sign in, select an opponent, start a game, perform basic checkers moves (Move, Single and multi-jump, kinging and winging/losing).  
+* Signing in
+* Start a game
+* Playing a game
+* Resigning from a game
+* Winning/Losing  
 
 
 ### Roadmap of Enhancements
@@ -200,15 +221,11 @@ those conditions itself.
 ### Acceptance Testing
 
 
-Number of stories that passed every acceptance criteria test: 0
+Number of stories that passed every acceptance criteria test: 16
 
-Number of stories with some failed acceptance test: 3
+Number of stories with some failed acceptance test: 0
 
-Number of stories with no testing: 5
-
-Some issues to note: The other player's board will revert to the first players board
-after the first player submits their turn.The moves made by a player do not stay on the board 
-after the move is submitted.
+Number of stories with no testing: 0
 
 
 ### Unit Testing and Code Coverage
