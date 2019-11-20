@@ -11,10 +11,17 @@ public class BoardHandler {
     private BoardView board;
     ArrayList<Position> removedPs = new ArrayList<>();
 
+    /**
+     * Handles the board for submitting turns and moving pieces
+     * @param board
+     */
     public BoardHandler(BoardView board){
         this.board = board;
     }
 
+    /**
+     * sets the board if no parameters are necessary for the piece position
+     */
     public void setBoard(){
         Position start = board.getOriginalPos();
         Position end = board.getFinalPos();
@@ -40,6 +47,10 @@ public class BoardHandler {
         board.clearRemovedPieces();
         board.resetMovs();
     }
+
+    /**
+     * sets the board if parameters are necessary for the piece position
+     */
     public void setBoardCond(Position start, Position end){
         board.setOriginalPos(start);
         board.setFinalPos(end);
