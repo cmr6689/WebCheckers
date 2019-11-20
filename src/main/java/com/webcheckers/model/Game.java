@@ -124,16 +124,12 @@ public class Game {
         }
     }
 
+    /**
+     * Get's the vm map for a game
+     * @return the vm map for a game
+     */
     public Map<String, Object> getMap() {
         return this.map;
-    }
-
-    public String getActivePlayer(){
-        if(this.map.get("activeColor").equals(Piece.COLOR.RED.name())){
-            return (String) this.map.get("redPlayer");
-        }else{
-            return (String) this.map.get("whitePlayer");
-        }
     }
 
     /**

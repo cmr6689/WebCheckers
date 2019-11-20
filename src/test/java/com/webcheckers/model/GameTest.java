@@ -3,6 +3,11 @@ package com.webcheckers.model;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 /**
  * Unit test for Game
@@ -20,6 +25,15 @@ class GameTest {
     void ctor_withArg(){
         final Game CuT = new Game(new Player("1"), new Player("2"));
         assertEquals("1 vs 2", CuT.toString());
+    }
+
+    /**
+     * check makeBoard to see if it's actually adding to rows
+     */
+    @Test
+    void makeBoardTest(){
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+        assertNotNull(CuT.getBoard(new Player("1")).getRows());
     }
 
     /**
@@ -137,6 +151,21 @@ class GameTest {
         final Game CuT2 = new Game(new Player("2"), new Player("1"));
         CuT2.setPlayer(new Player("4"));
         assertEquals(new Player("4"),CuT2.getPlayer2());
+    }
+
+    /**
+     * test getMap() method
+     */
+    @Test
+    void getMapTest(){
+        Map<String, Object> map1 = new HashMap<>();
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+        assertEquals(map1,CuT.getMap());
+        CuT.getMap().put("Player1", "1");
+        CuT.getMap().put("Player2", "2");
+        map1.put("Player1", "1");
+        map1.put("Player2", "2");
+        assertEquals(map1,CuT.getMap());
     }
 
     /**
