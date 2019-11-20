@@ -17,6 +17,7 @@ public class Row implements Iterable{
 
     //integer from 0 to 7 indicating the space in the row
     private int index;
+    //the color of the space
     private BOARD_COLOR boardColor;
 
     //creates an array list to hold all the spaces in this row

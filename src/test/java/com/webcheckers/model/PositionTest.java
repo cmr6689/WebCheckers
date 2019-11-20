@@ -54,6 +54,28 @@ class PositionTest {
     }
 
     /**
+     * test the helpString method
+     */
+    @Test
+    void helpStringTest() {
+        final Position CuT1 = new Position(1,2);
+        final Position CuT2 = new Position(7,5);
+        assertEquals("(2,6)", CuT1.helpString());
+        assertEquals("(5,0)", CuT2.helpString());
+    }
+
+    /**
+     * test the helpString2 method
+     */
+    @Test
+    void helpString2Test() {
+        final Position CuT1 = new Position(1,2);
+        final Position CuT2 = new Position(7,5);
+        assertEquals("(5,1)", CuT1.helpString2());
+        assertEquals("(2,7)", CuT2.helpString2());
+    }
+
+    /**
      * test the overridden toString() method
      */
     @Test

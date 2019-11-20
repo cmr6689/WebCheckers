@@ -55,14 +55,26 @@ public class Position {
         return ((this.cell == that.cell) && (this.row == that.row));
     }
 
+    /**
+     * String used for the help enhancement feature
+     * @return this cell and row
+     */
     public String helpString() {
         return "(" + cell + "," + (7-row) + ")";
     }
 
+    /**
+     * String used for the help enhancement feature
+     * @return this cell and row
+     */
     public String helpString2() {
         return "(" + (7-cell) + "," + row + ")";
     }
 
+    /**
+     * prints this positions cell and row
+     * @return
+     */
     @Override
     public String toString(){
         return "The position of this piece is row " + row + " and cell " + cell;

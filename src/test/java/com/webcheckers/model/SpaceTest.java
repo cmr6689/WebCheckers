@@ -22,6 +22,17 @@ class SpaceTest {
         assertEquals("The piece on this space is This piece is a SINGLE and has color RED, the index of this space is 1 and, the color of this space is BLACK", CuT.toString());
     }
 
+    /**
+     * Test the second constructor
+     */
+    @Test
+    void ctor2_withArg() {
+        Position pos = new Position(4,3);
+        final Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
+        final Space CuT = new Space(piece, 1, Space.BOARD_COLOR.BLACK, pos);
+        assertEquals("The piece on this space is This piece is a SINGLE and has color RED, the index of this space is 1 and, the color of this space is BLACK", CuT.toString());
+    }
+
     @Test
     void setGetPieceTest() {
         final Piece piece = new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE);
@@ -36,6 +47,17 @@ class SpaceTest {
         final Space CuT = new Space(null, 1, Space.BOARD_COLOR.WHITE);
         assertEquals(1, CuT.getCellIdx());
         assertEquals(Space.BOARD_COLOR.WHITE, CuT.getBoardColor());
+    }
+
+    /**
+     * Test the getter for Position
+     */
+    @Test
+    void getPositionTest() {
+        Position pos = new Position(4,3);
+        final Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
+        final Space CuT = new Space(piece, 1, Space.BOARD_COLOR.BLACK, pos);
+        assertEquals(pos, CuT.getPosition());
     }
 
     @Test

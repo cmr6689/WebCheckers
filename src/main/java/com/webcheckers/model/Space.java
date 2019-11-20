@@ -18,6 +18,7 @@ public class Space {
     //the cell index from 0 to 7
     private int cellIdx;
 
+    //the position this space is at
     private Position position;
 
     //the piece on this space
@@ -37,11 +38,22 @@ public class Space {
         this.color = color;
     }
 
+    /**
+     * Second Contstructor for...
+     * @param piece
+     * @param cellIDx
+     * @param color
+     * @param position
+     */
     public Space(Piece piece, int cellIDx, BOARD_COLOR color, Position position){
         this(piece, cellIDx, color);
         this.position = position;
     }
 
+    /**
+     * getter method
+     * @return returns this space's position
+     */
     public Position getPosition() {
         return position;
     }
@@ -95,7 +107,7 @@ public class Space {
     }
 
     /**
-     *
+     * prints out the piece, it's cellIdx, and it's color
      */
     @Override
     public String toString(){
