@@ -81,9 +81,24 @@ class GetHomeRouteTest {
         engineTester.assertViewModelAttribute("title", "Welcome!");
         engineTester.assertViewModelAttribute("message", CuT.WELCOME_MSG);
         engineTester.assertViewModelAttribute("playerList", playerNames);
+    }
 
+    @Test
+    public void testEmptyPlayerList() {
+        final TemplateEngineTester engineTester = new TemplateEngineTester();
+        when(session.attribute("message")).thenReturn("messageHere");
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(engineTester.makeAnswer());
+        playerLobby.getPlayers().remove(new Player("AI Player"));
+        CuT.handle(request, response);
 
+        //Check if UI received all necessary parameters
+        engineTester.assertViewModelExists();
+        engineTester.assertViewModelIsaMap();
+        //engineTester.assertViewModelExists();
 
+        engineTester.assertViewModelAttribute("title", "Welcome!");
+        engineTester.assertViewModelAttribute("message", "messageHere");
+        engineTester.assertViewModelAttribute("playerList", null);
     }
 
     /**
@@ -95,7 +110,6 @@ class GetHomeRouteTest {
         CuT.handle(request, response);
 
         assertNull(session.attribute("player"));
-
     }
 
     /**

@@ -163,4 +163,23 @@ public class PostSignInRouteTest {
         assertEquals(player,other);
     }
 
+    @Test
+    public void invalid_name() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        //Add a player to a new empty lobby
+        when(request.queryParams("id")).thenReturn("*");
+        Player player = new Player(request.queryParams("id"));
+        // To analyze what the Route created in the View-Model map you need
+        // to be able to extract the argument to the TemplateEngine.render method.
+        // Mock up the 'render' method by supplying a Mockito 'Answer' object
+        // that captures the ModelAndView data passed to the template engine
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        CuT.handle(request, response);
+
+        //Check if names are equal
+        assertTrue(playerLobby.getInvalidName());
+    }
+
 }
