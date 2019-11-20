@@ -1,12 +1,17 @@
 package com.webcheckers.ui;
 
+import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.Player;
+import com.webcheckers.util.Message;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
@@ -170,6 +175,95 @@ public class GetGameRouteTest {
 
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
+
+    }
+
+    @Test
+    public void opponentInGame() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player opp = new Player("Opp");
+        lobby.addPlayer(opp);
+        when(request.queryParams("opponent")).thenReturn("Opp");
+        lobby.getGameCenter().newGame(opp, new Player("fakePlayer"));
+
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        // Invoke the test
+        assertNull(Cut.handle(request, response));
+        assertTrue(opp.getInGame());
+        Cut.handle(request, response);
+        assertNull(session.attribute("message"));
+    }
+
+    @Test
+    public void testJustEnded() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player opp = new Player("Opp");
+        lobby.addPlayer(opp);
+        when(request.queryParams("opponent")).thenReturn("Opp");
+        lobby.getGameCenter().newGame(new Player("Player"), opp);
+        lobby.getGameCenter().setJustEnded(new Player("Player"), opp, true);
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("currentUser", "Player");
+        map.put("board", lobby.getGame(new Player("Player")).getBoardView1());
+
+        Cut.handle(request, response);
+        testHelper.assertViewModelAttribute("currentUser", map.get("currentUser"));
+        testHelper.assertViewModelAttribute("board", map.get("board"));
+        assertNull(lobby.getGame(new Player("Player")));
+        assertTrue(lobby.getGameCenter().justEnded(new Player("Player")));
+
+    }
+
+    @Test
+    public void testGameOver() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        Player opp = new Player("Opp");
+        lobby.addPlayer(opp);
+        when(request.queryParams("opponent")).thenReturn("Opp");
+        lobby.getGameCenter().newGame(new Player("Player"), opp);
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("isGameOver", true);
+        map.put("gameOverMessage", "message");
+        lobby.getGame(opp).getMap().put("modeOptionsAsJSON", new Gson().toJson(map));
+
+        Cut.handle(request, response);
+        testHelper.assertViewModelAttribute("currentUser", "Player");
+        testHelper.assertViewModelAttribute("board", lobby.getGame(opp).getBoardView1());
+        assertEquals(new Player("Player"), lobby.getGame(opp).getPlayer1());
+        assertNotNull(lobby.getGame(opp).getMap().get("modeOptionsAsJSON"));
+        assertTrue(lobby.getGameCenter().justEnded(new Player("Player")));
+
+    }
+
+    @Test
+    public void testGameOverP2() {
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        when(session.attribute("player")).thenReturn(new Player("Opp"));
+        Player opp = new Player("Opp");
+        lobby.addPlayer(opp);
+        when(request.queryParams("opponent")).thenReturn("Opp");
+        lobby.getGameCenter().newGame(opp, new Player("Player"));
+        when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("isGameOver", true);
+        map.put("gameOverMessage", "message");
+        lobby.getGame(opp).getMap().put("modeOptionsAsJSON", new Gson().toJson(map));
+
+        Cut.handle(request, response);
+        testHelper.assertViewModelAttribute("currentUser", "Opp");
+        testHelper.assertViewModelAttribute("board", lobby.getGame(opp).getBoardView1());
+        assertEquals(opp, lobby.getGame(opp).getPlayer1());
+        assertNotNull(lobby.getGame(opp).getMap().get("modeOptionsAsJSON"));
+        assertTrue(lobby.getGameCenter().justEnded(opp));
 
     }
 }
