@@ -72,8 +72,10 @@ public class Game {
     public void checkGameOver() {
         boolean redWins = true;
         boolean whiteWins = true;
-        boolean jumpsAvailable = false;
-        boolean movesAvailable = false;
+        boolean redJumpsAvailable = false;
+        boolean redMovesAvailable = false;
+        boolean whiteJumpsAvailable = false;
+        boolean whiteMovesAvailable = false;
         //loop through rows
         for (int i = 0; i < 8; i++) {
             //loop through spaces
@@ -84,18 +86,24 @@ public class Game {
                     if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE))
                             || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING))) {
                         whiteWins = false;
+                        if (new MoveChecks(this).checkSinglePieceJumps(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                                new Position(i, j)).size() > 0) {
+                            redJumpsAvailable = true;
+                        } else if (new MoveChecks(this).checkSinglePieceMoves(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                                new Position(i, j)).size() > 0) {
+                            redMovesAvailable = true;
+                        }
                     //check if white pieces on board
                     } else if (rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE))
                             || rows.get(i).getSpaceAtIndex(j).getPiece().equals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING))) {
                         redWins = false;
-                    }
-
-                    if (new MoveChecks(this).checkSinglePieceJumps(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
-                            new Position(i, j)).size() > 0) {
-                        jumpsAvailable = true;
-                    } else if (new MoveChecks(this).checkSinglePieceMoves(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
-                            new Position(i, j)).size() > 0) {
-                        movesAvailable = true;
+                        if (new MoveChecks(this).checkSinglePieceJumps(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                                new Position(i, j)).size() > 0) {
+                            whiteJumpsAvailable = true;
+                        } else if (new MoveChecks(this).checkSinglePieceMoves(this.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
+                                new Position(i, j)).size() > 0) {
+                            whiteMovesAvailable = true;
+                        }
                     }
                 }
             }
@@ -115,9 +123,15 @@ public class Game {
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "");
-        } else if (!jumpsAvailable && !movesAvailable) {
+        } else if (!redJumpsAvailable && !redMovesAvailable) {
             modeOptions.put("isGameOver", true);
-            modeOptions.put("gameOverMessage", "No more moves available! It's a tie!");
+            modeOptions.put("gameOverMessage", player1.getName() + " has no available moves. " + player2.getName() + " is the winner!");
+            //set mode option
+            this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
+            this.map.put("activeColor", "");
+        } else if (!whiteJumpsAvailable && !whiteMovesAvailable) {
+            modeOptions.put("isGameOver", true);
+            modeOptions.put("gameOverMessage", player2.getName() + " has no available moves. " + player1.getName() + " is the winner!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "");
