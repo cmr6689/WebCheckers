@@ -29,6 +29,7 @@ play a game of checkers with each other online.
 | VO | Value Object |
 | MVP | Minimum Viable Product | 
 | UI | User Interface |
+| AI | Artificial Intelligence | 
 
 ## Requirements
 
@@ -127,7 +128,7 @@ Details of the components within these tiers are supplied below.
 This section describes the web interface flow; this is how the user views and interacts
 with the WebCheckers application.
 
-![The WebCheckers Web Interface Statechart](statechart.jpg)
+![The WebCheckers Web Interface Statechart](statechartnew.jpg)
 
 The user when first navigating to the home page of WebCheckers will see a login button in the navbar and the number of players currently logged in. 
 After clicking on the sign in button the player will be brought to the sign in page where they may enter a valid username. 
