@@ -109,18 +109,6 @@ public class MoveChecks {
         return jumps;
     }
 
-    /*
-    creates hashmap of multiJumps can be made after a given a move
-     */
-
-    private HashMap<Move, ArrayList<Move>> doubleJumps = new HashMap<>();
-    public HashMap<Move, ArrayList<Move>> getDoubleJumps(Move move, Piece piece) {
-
-
-
-        return doubleJumps;
-    }
-
     public ArrayList<Move> getJumpChain(Move move, Piece piece){
         ArrayList<Move> jumpChain = new ArrayList<>();
 
@@ -132,6 +120,15 @@ public class MoveChecks {
             if(exsistingMoves.contains(movesTemp.get(0))){
                 break;
             }
+
+            //checking for flipped moves
+            for(Move move1 : jumpChain){
+                Move tempM = movesTemp.get(0);
+                if(move1.getStart().equals(tempM.getEnd()) && move1.getEnd().equals(tempM.getStart())){
+                    break;
+                }
+            }
+
             jumpChain.add(movesTemp.get(0));
             exsistingMoves.add(movesTemp.get(0));
             movesTemp = checkSinglePieceJumps(piece, movesTemp.get(0).getEnd());
@@ -184,11 +181,8 @@ public class MoveChecks {
                         temp)
                 ) {
                     moves.add(move);
-                    if(!temp.isEmpty()) { //if a jump happened
+                    if(!temp.isEmpty()) {
                         jumps.add(move);
-                        //have to check to see if another jump is possible
-                        //while(true) {
-                        //}
                     }
                 }
             }
