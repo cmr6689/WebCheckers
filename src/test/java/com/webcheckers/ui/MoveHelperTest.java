@@ -50,10 +50,44 @@ public class MoveHelperTest {
     }
 
     @Test
+    public void testNoMove() {
+        BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null) {
+                    game.getBoardView1().setOriginalPos(new Position(i, j));
+                    game.getBoardView1().setFinalPos(new Position(i, j));
+                    game.getBoardView1().setRemovedPiece(new Position(i, j));
+                    boardHandler.setBoard();
+                }
+            }
+        }
+
+        assertEquals("No moves available!", CuT.getRedMove());
+        assertEquals("No moves available!", CuT.getWhiteMove());
+    }
+
+    @Test
     public void testRedMove() {
         MoveChecks moveChecks = new MoveChecks(game);
         String start = moveChecks.checkSinglePieceMoves(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE), new Position(5, 0)).get(0).getStart().helpString();
         String end = moveChecks.checkSinglePieceMoves(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE), new Position(5, 0)).get(0).getEnd().helpString();
+        assertEquals(start + " -> " + end, CuT.getRedMove());
+        assertEquals("nope", CuT.getRedJump());
+
+        BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null
+                        && game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece().getColor().equals(Piece.COLOR.RED)) {
+                    game.getBoardView1().setOriginalPos(new Position(i, j));
+                    game.getBoardView1().setFinalPos(new Position(i, j));
+                    game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.KING));
+                    boardHandler.setBoard();
+                }
+            }
+        }
         assertEquals(start + " -> " + end, CuT.getRedMove());
         assertEquals("nope", CuT.getRedJump());
     }
@@ -63,6 +97,20 @@ public class MoveHelperTest {
         MoveChecks moveChecks = new MoveChecks(game);
         String start = moveChecks.checkSinglePieceMoves(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE), new Position(2, 1)).get(0).getStart().helpString2();
         String end = moveChecks.checkSinglePieceMoves(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE), new Position(2, 1)).get(0).getEnd().helpString2();
+        assertEquals(start + " -> " + end, CuT.getWhiteMove());
+        assertEquals("nope", CuT.getWhiteJump());
+
+        BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null) {
+                    game.getBoardView1().setOriginalPos(new Position(i, j));
+                    game.getBoardView1().setFinalPos(new Position(i, j));
+                    game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING));
+                    boardHandler.setBoard();
+                }
+            }
+        }
         assertEquals(start + " -> " + end, CuT.getWhiteMove());
         assertEquals("nope", CuT.getWhiteJump());
     }
@@ -84,6 +132,13 @@ public class MoveHelperTest {
         String start = moveChecks.checkSinglePieceJumps(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE), new Position(4, 3)).get(0).getStart().helpString();
         String end = moveChecks.checkSinglePieceJumps(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE), new Position(4, 3)).get(0).getEnd().helpString();
         assertEquals(start + " -> " + end, CuT.getRedJump());
+
+        game.getBoardView1().setOriginalPos(new Position(0, 7));
+        game.getBoardView1().setFinalPos(new Position(0, 7));
+        game.getBoardView1().setRemovedPiece(new Position(0, 7));
+        handler.setBoard();
+        assertEquals(start + " -> " + end + " -> (7,7)", CuT.getRedJump());
+
     }
 
     @Test
@@ -103,5 +158,11 @@ public class MoveHelperTest {
         String start = moveChecks.checkSinglePieceJumps(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE), new Position(3, 4)).get(0).getStart().helpString2();
         String end = moveChecks.checkSinglePieceJumps(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE), new Position(3, 4)).get(0).getEnd().helpString2();
         assertEquals(start + " -> " + end, CuT.getWhiteJump());
+
+        game.getBoardView1().setOriginalPos(new Position(7, 0));
+        game.getBoardView1().setFinalPos(new Position(7, 0));
+        game.getBoardView1().setRemovedPiece(new Position(7, 0));
+        handler.setBoard();
+        assertEquals("(4,4) -> (2,2) -> (0,0)", CuT.getWhiteJump());
     }
 }
