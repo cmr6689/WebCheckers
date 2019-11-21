@@ -15,6 +15,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Unit test for Game
  * @author Ronald Torrelli
  * @author Evan Price
+ * @author Cameron Riu
  */
 
 @Tag ("Model-tier")
@@ -45,7 +46,6 @@ class GameTest {
     public void getBoardView1Test() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         assertNotNull(CuT.getBoardView1());
-        //assertEquals(CuT.getBoardView1(),CuT.getBoardView2());
     }
 
     /**
@@ -55,7 +55,6 @@ class GameTest {
     public void getBoardView2Test() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         assertNotNull(CuT.getBoardView2());
-        //assertEquals(CuT.getBoardView1(),CuT.getBoardView2());
     }
 
     /**
@@ -151,6 +150,9 @@ class GameTest {
         assertNull(CuT.getPlayer2());
     }
 
+    /**
+     * remove a single player from the game
+     */
     @Test
     void removeSinglePlayerTest() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
@@ -211,22 +213,28 @@ class GameTest {
         assertEquals("1 vs 2", CuT.toString());
     }
 
+    /**
+     * test the game over conditions
+     */
     @Test
     public void testGameOver() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
 
+        //test red wins
         removePieces(CuT);
         CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(0).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
         CuT.checkGameOver();
         assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
         assertEquals("RED", CuT.getMap().get("activeColor"));
 
+        //test white wins
         removePieces(CuT);
         CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(0).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE));
         CuT.checkGameOver();
         assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
         assertEquals("WHITE", CuT.getMap().get("activeColor"));
 
+        //test no red moves left
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 if (i == 0) CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
@@ -238,6 +246,9 @@ class GameTest {
         assertEquals("WHITE", CuT.getMap().get("activeColor"));
     }
 
+    /**
+     * test no white moves left
+     */
     @Test
     void noWhiteMoves() {
         final Game CuT = new Game(new Player("3"), new Player("4"));
@@ -258,7 +269,11 @@ class GameTest {
         assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
         assertEquals("WHITE", CuT.getMap().get("activeColor"));
     }
-    
+
+    /**
+     * Method to remove pieces from the board
+     * @param game being tested
+     */
     public void removePieces(Game game) {
         BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
         for (int i = 0; i < 8; i++) {
@@ -273,6 +288,9 @@ class GameTest {
         }
     }
 
+    /**
+     * test the equals method
+     */
     @Test
     public void testEquals() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
@@ -284,6 +302,9 @@ class GameTest {
         assertFalse(CuT.equals(new Player("1")));
     }
 
+    /**
+     * test the hash code method
+     */
     @Test
     public void testHashCode() {
         Player p1 = new Player("1");
@@ -292,6 +313,9 @@ class GameTest {
         assertEquals(Objects.hash(p1, p2), CuT.hashCode());
     }
 
+    /**
+     * test the getter for player color
+     */
     @Test
     public void testGetPlayerColor() {
         Player p1 = new Player("1");
@@ -304,6 +328,9 @@ class GameTest {
         assertEquals(Player.Color.WHITE, CuT.getPlayerColor(p2));
     }
 
+    /**
+     * test if last row is null
+     */
     @Test
     public void testNullRows() {
         Player p1 = new Player("1");

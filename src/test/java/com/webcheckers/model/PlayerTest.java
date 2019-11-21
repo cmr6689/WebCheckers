@@ -110,7 +110,7 @@ class PlayerTest {
     }
 
     /**
-     *
+     * test the hash code method
      */
     @Test
     void hashCodeTest() {

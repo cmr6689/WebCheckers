@@ -33,6 +33,9 @@ class SpaceTest {
         assertEquals("The piece on this space is This piece is a SINGLE and has color RED, the index of this space is 1 and, the color of this space is BLACK", CuT.toString());
     }
 
+    /**
+     * test the set piece at space method
+     */
     @Test
     void setGetPieceTest() {
         final Piece piece = new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE);
@@ -42,6 +45,9 @@ class SpaceTest {
         assertEquals(piece, CuT.getPiece());
     }
 
+    /**
+     * test the board color of a space
+     */
     @Test
     void getIndexandBoardColorTest() {
         final Space CuT = new Space(null, 1, Space.BOARD_COLOR.WHITE);
@@ -60,6 +66,9 @@ class SpaceTest {
         assertEquals(pos, CuT.getPosition());
     }
 
+    /**
+     * test if a space is valid
+     */
     @Test
     void isValidTest() {
         final Piece piece = new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE);

@@ -14,13 +14,13 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @Tag("Model-tier")
 public class BoardViewTest {
+
     /**
      * Component under test (CuT)
      */
     private BoardView CuT;
     private Player player = new Player("1");
     private ArrayList<Row> rows = new ArrayList<>();
-    private ArrayList<Row> otherBoard = new ArrayList<>();
 
     /**
      * Test if the the Board can iterate over Spaces
