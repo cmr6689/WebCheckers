@@ -43,8 +43,8 @@ public class PostSignOutRoute implements Route {
         httpSession.removeAttribute("player");
         Player player = new Player(request.queryParams("signout"));
         if (playerlobby.getGame(player) != null) {
-            if (playerlobby.getGame(player).getPlayer2().getName().equals("AI")) {
-                playerlobby.getGameCenter().endGame(playerlobby.getGame(player).getPlayer1(), new Player("AI"));
+            if (playerlobby.getGame(player).getPlayer2().getName().equals("AI Player")) {
+                playerlobby.getGameCenter().endGame(playerlobby.getGame(player).getPlayer1(), new Player("AI Player"));
             } else {
                 final Map<String, Object> modeOptions = new HashMap<>(2);
                 Gson gson = new Gson();

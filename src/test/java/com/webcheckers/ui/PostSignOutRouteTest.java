@@ -71,4 +71,23 @@ public class PostSignOutRouteTest {
         assertFalse(playerLobby.getInvalidName());
 
     }
+
+    @Test
+    public void signOutInGame() {
+        Player player = new Player("Player");
+        when(request.queryParams("signout")).thenReturn("Player");
+        playerLobby.getGameCenter().newGame(player, new Player("Opp"));
+        CuT.handle(request, response);
+        assertNotNull(playerLobby.getGame(player).getMap().get("modeOptionsAsJSON"));
+        assertTrue(playerLobby.getGameCenter().justEnded(player));
+    }
+
+    @Test
+    public void signOutInGameAI() {
+        Player player = new Player("Player");
+        when(request.queryParams("signout")).thenReturn("Player");
+        playerLobby.getGameCenter().newGame(player, new Player("AI Player"));
+        CuT.handle(request, response);
+        assertNull(playerLobby.getGame(player));
+    }
 }
