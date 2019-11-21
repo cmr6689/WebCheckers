@@ -89,8 +89,6 @@ We plan to include two top-level enhancements to our program, Move Helper and AI
 
 ## Application Domain
 
-This section describes the application domain.
-
 ![The WebCheckers Domain Model](domainmodel.png)
 
 The application domain of WebCheckers is split up into an application, 
@@ -104,7 +102,8 @@ dependent on whether the user has signed in or not.
 
 ## Architecture and Design
 
-This section describes the application architecture.
+Our design consists of three architectural tiers: Application Tier, Model Tier, and UI
+tier.
 
 ### Summary
 
@@ -216,8 +215,9 @@ PostValidateMoveRoute to simply focus on performing after those conditions are m
 those conditions itself.
 
 ## Testing
- This section will provide information about the testing performed
- and the results of the testing.
+ We performed unit testing for all architectural tiers but had some trouble fully testing
+ some of the UI tier classes due to advanced game logic conditions that were very difficult to
+ recreate.
 
 ### Acceptance Testing
 
@@ -229,17 +229,15 @@ Number of stories with some failed acceptance test: 0
 Number of stories with no testing: 0
 
 
-### Unit Testing and Code Coverage
+## Unit Testing and Code Coverage
 
-####UI Tier Code Coverage
+### UI Tier Code Coverage
 ![The WebCheckers UI Tier Code Coverage](ui_tier.png)
-(Note that the WebServer's code coverage is 0% because although it is 
-part of the UI tier, testing it was not necessary)
 
-####Model Tier Code Coverage
+### Model Tier Code Coverage
 ![The WebCheckers Model Tier Code Coverage](model_tier.png)
 
-####Application Tier Code Coverage
+### Application Tier Code Coverage
 ![The WebCheckers Application Tier Code Coverage](application_tier.png)
 
 
