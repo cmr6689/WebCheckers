@@ -306,10 +306,12 @@ define(function(require){
   PlayController.prototype.popMove = function popMove() {
     if (!this.isTurnActive()) return false;
     //
-    var move = this._turn.pop();
-    this.undoMove(move);
-    // clear 'valid' styles
-    this._boardController.resetSpaceValidated(move.end);
+    for (var i = this._turn.length-1; i >= 0; i--) {
+        var move = this._turn.pop();
+        this.undoMove(move);
+        // clear 'valid' styles
+        this._boardController.resetSpaceValidated(move.end);
+    }
     if (!this.isTurnActive()) {
       this._boardController.resetSpaceValidated(move.start);
       this.$activePiece = null;
