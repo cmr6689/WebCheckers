@@ -8,28 +8,35 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class checks the game board for valid moves, jumps, and/or multiple jumps
+ *
+ * @author - Team E
+ */
 public class MoveChecks {
 
     private Game game;
-    private ArrayList<Piece> pieces = new ArrayList<>();
     private ArrayList<Position> positions = new ArrayList<>();
     private HashMap<Position, Piece> positionPieceHashMap = new HashMap<>();
 
     private ArrayList<Move> moves = new ArrayList<>();
     private ArrayList<Move> jumps = new ArrayList<>();
 
-    ValidateMove validateMove;
+   private ValidateMove validateMove;
 
-    /*
-    constructor for MoveChecks, requires the Game to get the board
+    /**
+     * Constructor for MoveChecks, requires the Game to get the board
+     * @param game - game being played
      */
     public MoveChecks(Game game){
         this.game = game;
     }
 
-    /*
-    given a piece, and a position
-    returns an arrayList of moves (including jumps) that can be made from the piece and position
+    /**
+     * Checks to see if any simple moves are available
+     * @param piece being moved
+     * @param position of the piece
+     * @return an array list of possible simple moves
      */
     public ArrayList<Move> checkSinglePieceMoves(Piece piece, Position position){
         ArrayList<Move> moves = new ArrayList<>();
@@ -42,7 +49,6 @@ public class MoveChecks {
         BoardView tempBoard = new BoardView(tempRows, game.getPlayer1());
 
         validateMove = new ValidateMove(tempBoard);
-
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
@@ -66,19 +72,18 @@ public class MoveChecks {
         return moves;
     }
 
-
-    /*
-    given a piece, and a position
-    returns an arrayList of jumps (only jumps)  that can be made from the piece and position
+    /**
+     * Checks to see if any jumps are available
+     * @param piece being moved
+     * @param position of that piece
+     * @return an array list of possible jumps
      */
     public ArrayList<Move> checkSinglePieceJumps(Piece piece, Position position){
         ArrayList<Move> jumps = new ArrayList<>();
         ArrayList<Position> positions = new ArrayList<>();
-
         ArrayList<Row> tempRows = new ArrayList<>();
 
         if(game == null){
-            //jumps.add(new Move(new Position(1, 3), new Position(2 , 4)));
             return jumps;
         }
 
@@ -88,7 +93,6 @@ public class MoveChecks {
         BoardView tempBoard = new BoardView(tempRows, game.getPlayer1());
 
         validateMove = new ValidateMove(tempBoard);
-
         for(int i = 0; i < 8; i++){
             for(int j = 0; j < 8; j++){
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
@@ -99,7 +103,6 @@ public class MoveChecks {
         for(Position position2 : positions){
             Move move = new Move(position, position2);
             ArrayList<Position> temp = new ArrayList<>();
-
             if(validateMove.Validator(piece,
                     move,
                     piece.getType(),
@@ -111,22 +114,24 @@ public class MoveChecks {
                 }
             }
         }
-
         return jumps;
     }
 
+    /**
+     * Check to see if there are any multi jumps available
+     * @param move initial jump being made
+     * @param piece being moved
+     * @return an array list of possible multi jumps
+     */
     public ArrayList<Move> getJumpChain(Move move, Piece piece){
         ArrayList<Move> jumpChain = new ArrayList<>();
-
         ArrayList<Move> movesTemp = checkSinglePieceJumps(piece, move.getEnd());
         HashSet<Move> exsistingMoves = new HashSet<>();
 
         while(!movesTemp.isEmpty()) {
-
             if(exsistingMoves.contains(movesTemp.get(0))){
                 break;
             }
-
             //checking for flipped moves
             for(Move move1 : jumpChain){
                 Move tempM = movesTemp.get(0);
@@ -134,26 +139,21 @@ public class MoveChecks {
                     break;
                 }
             }
-
             jumpChain.add(movesTemp.get(0));
             exsistingMoves.add(movesTemp.get(0));
             movesTemp = checkSinglePieceJumps(piece, movesTemp.get(0).getEnd());
-
         }
-
-
         return jumpChain;
     }
 
-    /*
-    checks all of the possible moves that be made on the board, returns if any moves can be made
+    /**
+     * Checks the board for all available moves, jumps, and/or multi jumps
+     * @return true if a move is available
      */
     public boolean checkMoves(){
         Piece piece;
-
         moves.clear();
         jumps.clear();
-        pieces.clear();
         positions.clear();
         positionPieceHashMap.clear();
 
@@ -168,7 +168,6 @@ public class MoveChecks {
             for(int j = 0; j < 8; j++){
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null) {
                     piece = this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece();
-                    pieces.add(piece); //adds all of the pieces to the arraylists
                     positionPieceHashMap.put(new Position(i, j), piece);
                 }
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))
@@ -196,20 +195,25 @@ public class MoveChecks {
         return !moves.isEmpty();
     }
 
-    /*
-    returns the moves that can be made
+    /**
+     * Getter for the move array list
+     * @return moves list
      */
-    public ArrayList<Move> getMoves (){ return moves; }
+    public ArrayList<Move> getMoves() {
+        return moves;
+    }
 
-    /*
-    returns the jumps that can be moved
+    /**
+     * Getter for the jump array list
+     * @return jumps list
      */
     public ArrayList<Move> getJumps() {
         return jumps;
     }
 
-    /*
-    returns if the red player can make a jump
+    /**
+     * Checks to see if the red player can jump
+     * @return true if jump available
      */
     public boolean redCanJump() {
         for (Move jump : jumps) {
@@ -220,8 +224,9 @@ public class MoveChecks {
         return false;
     }
 
-    /*
-    returns if a white player can make a jump
+    /**
+     * Checks to see if the white player can jump
+     * @return true if jump available
      */
     public boolean whiteCanJump() {
         for (Move jump : jumps) {

@@ -45,26 +45,14 @@ import spark.TemplateEngine;
  * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
  */
 public class WebServer {
-  private static final Logger LOG = Logger.getLogger(WebServer.class.getName());
 
-  private GameCenter gameCenter = new GameCenter();
-  private PlayerLobby playerLobby = new PlayerLobby(gameCenter);
-
-  /**
-   * Getter for the player lobby
-   * @return the player lobby
-   */
-  public PlayerLobby getPlayerLobby() {
-    return playerLobby;
-  }
+  //holder of all the players and the gamecenter
+  private PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
 
   //
   // Constants
   //
 
-  /**
-   * The URL pattern to request the Home page.
-   */
   private static final String HOME_URL = "/";
   private static final String SIGN_IN_URL = "/signin";
   private static final String GAME_URL = "/game";
@@ -81,7 +69,6 @@ public class WebServer {
   //
 
   private final TemplateEngine templateEngine;
-  private final Gson gson;
 
   //
   // Constructor
@@ -104,7 +91,6 @@ public class WebServer {
     Objects.requireNonNull(gson, "gson must not be null");
     //
     this.templateEngine = templateEngine;
-    this.gson = gson;
   }
 
   //
@@ -166,12 +152,12 @@ public class WebServer {
     get(GAME_URL, new GetGameRoute(templateEngine, playerLobby));
     // Returns the player back to the home page after they sign in
     post(HOME_URL, new PostSignInRoute(templateEngine, playerLobby));
-    // Returns the user to the home page if they resign from a game
-    post(RESIGN_URL, new PostResignRoute(templateEngine, playerLobby));
-    // Ajax call that checks to see if the player is allowed to make a move
-    post(CHECK_TURN_URL, new PostCheckTurnRoute(templateEngine, playerLobby));
     // Returns the user to the sign in page after they sign out
     post(SIGN_OUT_URL, new PostSignOutRoute(playerLobby));
+    // Returns the user to the home page if they resign from a game
+    post(RESIGN_URL, new PostResignRoute(playerLobby));
+    // Ajax call that checks to see if the player is allowed to make a move
+    post(CHECK_TURN_URL, new PostCheckTurnRoute(playerLobby));
     //Ajax call that checks to see if the move made is a valid move
     post(VALIDATE_MOVE_URL, new PostValidateMoveRoute(playerLobby));
     // Ajax call that submits a move a player has made

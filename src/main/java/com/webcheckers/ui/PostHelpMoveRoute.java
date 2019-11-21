@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 /**
- * This class handles the ajax call of /resign and responds with a json message
+ * This class handles the ajax call of /helpMove and responds with a json message
  *
  * @author Team-E
  */

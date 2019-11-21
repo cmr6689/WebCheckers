@@ -25,13 +25,9 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
-    boolean jumped;
+    private Piece.TYPE originalType;
 
-    boolean isValid;
-
-    Piece.TYPE originalType;
-
-    Piece.COLOR originalColor;
+    private Piece.COLOR originalColor;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
@@ -53,25 +49,24 @@ public class PostValidateMoveRoute implements Route {
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-
         LOG.config("PostValidateMoveRoute is invoked by " + myPlayer.getName() + ".");
 
         Move move = gson.fromJson(request.queryParams("actionData"), Move.class);
 
         ResponseMessage message = new ResponseMessage();
-        // to validate a move, replace message type of ERROR with INFO
+
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         int thisRow = move.getStart().getRow();
         int thisCell = move.getStart().getCell();
         Piece thisPiece = board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece();
         if(board.getNumMovs() == 0) {
-            originalType = thisPiece.getType();        //maybe
+            originalType = thisPiece.getType();
             originalColor = thisPiece.getColor();
         }
 
         ValidateMove MoveValidator = new ValidateMove(board);
-        isValid = MoveValidator.Validator(thisPiece,move,originalType,originalColor,board.getRemovedPieces());
-        jumped = MoveValidator.getJumped();
+        boolean isValid = MoveValidator.Validator(thisPiece, move, originalType, originalColor, board.getRemovedPieces());
+        boolean jumped = MoveValidator.getJumped();
 
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
         moveCheck.checkMoves();
@@ -110,7 +105,6 @@ public class PostValidateMoveRoute implements Route {
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("Your move is not valid");
         }
-
 
         // render the View
         return gson.toJson(message);

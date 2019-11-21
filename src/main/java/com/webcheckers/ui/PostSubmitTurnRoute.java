@@ -43,15 +43,12 @@ public class PostSubmitTurnRoute implements Route {
      */
     @Override
     public Object handle(Request request, Response response) {
-        //TODO check if jump is available
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-
         LOG.config("PostSubmitTurnRoute is invoked by " + myPlayer.getName() + ".");
 
         Move move = httpSession.attribute("move");
         Piece piece = httpSession.attribute("piece");
-
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGame(myPlayer));
 
         ArrayList<Move> moves = moveCheck.getJumpChain(move, piece);
@@ -76,8 +73,6 @@ public class PostSubmitTurnRoute implements Route {
             return gson.toJson(message2);
         }
 
-        //System.err.println("Im going to check what moves and jumps are available (postSubmitTurnRoute:68)");
-
         ResponseMessage message = new ResponseMessage();
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can submit a turn in the state you are in.");
@@ -95,6 +90,7 @@ public class PostSubmitTurnRoute implements Route {
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         BoardHandler boardHandler = new BoardHandler(board);
         boardHandler.setBoard();
+
         return gson.toJson(message);
     }
 }

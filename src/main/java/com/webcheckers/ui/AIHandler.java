@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * This class handles the AI Player's game play
  *
- * @author - Matthew Klein
+ * @author - Team E
  */
 public class AIHandler {
 

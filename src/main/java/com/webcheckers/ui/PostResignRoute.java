@@ -20,22 +20,16 @@ public class PostResignRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostResignRoute.class.getName());
 
-    static final Message RESIGN_MSG = Message.info("You have resigned from the game");
-
-    final TemplateEngine templateEngine;
-
     private PlayerLobby playerLobby;
 
     private final Gson gson;
 
     /**
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
-     * @param templateEngine the template engine
      * @param playerLobby the lobby of all the players
      */
-    public PostResignRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby){
+    public PostResignRoute(PlayerLobby playerLobby){
         this.playerLobby = playerLobby;
-        this.templateEngine = templateEngine;
         this.gson = new Gson();
     }
 
@@ -49,10 +43,9 @@ public class PostResignRoute implements Route {
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player p1 = httpSession.attribute("player");
-
         LOG.config("PostResignRoute is invoked by " + p1.getName() + ".");
 
-        //if player 2 resigns
+        //if non-active player resigns
         if (playerLobby.getGameCenter().justEnded(p1)) {
             ResponseMessage message2 = new ResponseMessage();
             message2.setType(ResponseMessage.MessageType.ERROR);
@@ -64,6 +57,7 @@ public class PostResignRoute implements Route {
         vm.put("isGameOver", true);
         vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
         playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+
         //if resigning against AI just end the game
         if (playerLobby.getGameCenter().getGame(p1).getPlayer2().getName().equals("AI Player")) {
             playerLobby.getGameCenter().endGame(p1, new Player("AI Player"));

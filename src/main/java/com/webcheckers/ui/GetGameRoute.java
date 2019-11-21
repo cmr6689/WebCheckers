@@ -33,6 +33,7 @@ public class GetGameRoute implements Route {
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
      * @param templateEngine the HTML template rendering engine
+     * @param playerLobby the class that holds the players and game center
      */
     public GetGameRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
         this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
@@ -44,7 +45,7 @@ public class GetGameRoute implements Route {
      *
      * @param request  the HTTP request
      * @param response the HTTP response
-     * @return the rendered HTML for the Home page
+     * @return the rendered HTML for the Game page
      */
     @Override
     public Object handle(Request request, Response response) {
@@ -68,7 +69,6 @@ public class GetGameRoute implements Route {
                     if (opp.getInGame() && !opp.getAI()) {
                         System.err.println("OH no the opp is already in a game");
                         final Message message = Message.error("This player is already in a game");
-
                         httpSession.attribute("message", message);
                         response.redirect("/");
                         return null;
@@ -79,6 +79,7 @@ public class GetGameRoute implements Route {
                     //prevent access to end game code
                     lobby.getGameCenter().setJustEnded(myPlayer, opponent, false);
 
+                    //set the initial map
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("currentUser", myPlayer.getName());
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("viewMode", "PLAY");
                     lobby.getGameCenter().getGame(myPlayer).getMap().put("modeOptionsAsJSON", null);
@@ -113,6 +114,7 @@ public class GetGameRoute implements Route {
             if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 //allow other player to remove the game
                 lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), true);
+                //if the opponent is the AI player
                 if(lobby.getGameCenter().getGame(myPlayer).getPlayer2().getAI()){
                     Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
                     lobby.getGameCenter().endGame(myPlayer, lobby.getGameCenter().getGame(myPlayer).getPlayer2());
@@ -122,7 +124,7 @@ public class GetGameRoute implements Route {
             }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
         }
-        //response.redirect("/");
+        //if player is not in a game
         System.err.println("Stop");
         return null;
 

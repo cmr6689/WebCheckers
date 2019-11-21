@@ -19,9 +19,12 @@ import static spark.route.HttpMethod.post;
  * @author Team-E
  */
 public class GetSignInRoute implements Route {
+
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
   static final Message WELCOME_MSG = Message.info("Please Sign-in with a valid user ID");
+
+  //message for the user if they input an invalid name
   static final Message INVALID_NAME = Message.error("The name you have chosen is already taken or contains non-alphanumeric or is above 100 characters");
 
   final TemplateEngine templateEngine;
@@ -36,7 +39,6 @@ public class GetSignInRoute implements Route {
    */
   public GetSignInRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-
     this.playerlobby = playerLobby;
     playerLobby.setInvalidName(false);
   }
@@ -50,12 +52,12 @@ public class GetSignInRoute implements Route {
    *   the HTTP response
    *
    * @return
-   *   the rendered HTML for the Home page
+   *   the rendered HTML for the Sign In page
    */
   @Override
   public Object handle(Request request, Response response) {
     LOG.config("GetSignInRoute is invoked.");
-    //
+
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Sign In");
 

@@ -44,15 +44,7 @@ public class PostCheckTurnRouteTest {
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
-        CuT = new PostCheckTurnRoute(templateEngine, playerLobby);
-    }
-
-    /**
-     * Ensure that the template engine isn't null
-     */
-    @Test
-    public void ctor(){
-        assertNotNull(CuT.templateEngine, "The Template Engine is Null and should not be");
+        CuT = new PostCheckTurnRoute(playerLobby);
     }
 
     /**

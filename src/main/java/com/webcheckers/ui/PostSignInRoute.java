@@ -18,6 +18,7 @@ import java.util.regex.Pattern;
  * @author Team-E
  */
 public class PostSignInRoute implements Route {
+
   private static final Logger LOG = Logger.getLogger(PostSignInRoute.class.getName());
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
@@ -26,13 +27,13 @@ public class PostSignInRoute implements Route {
 
   final TemplateEngine templateEngine;
 
-  PlayerLobby playerLobby;
+  private PlayerLobby playerLobby;
 
   /**
    * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
    *
-   * @param templateEngine
-   *   the HTML template rendering engine
+   * @param templateEngine the HTML template rendering engine
+   * @param playerLobby holder of game center and players
    */
   public PostSignInRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
@@ -40,22 +41,20 @@ public class PostSignInRoute implements Route {
   }
 
   /**
-   * Render the WebCheckers Sign In page.
+   * Render the WebCheckers Home page.
    *
    * @param request
    *   the HTTP request
    * @param response
    *   the HTTP response
    *
-   * @return
-   *   the rendered HTML for the Home page
+   * @return the rendered HTML for the Home page
    */
   @Override
   public Object handle(Request request, Response response) {
     //add a sign-in id to a player
     Player player = new Player(request.queryParams("id"));
     LOG.config("PostSignInRoute is invoked by " + player.getName() + ".");
-    Map<String, Object> vm = new HashMap<>();
 
     //Check to see if another player has the same name
     Session httpSession = request.session();
@@ -65,13 +64,13 @@ public class PostSignInRoute implements Route {
     } else {
       httpSession.attribute("player", player);
     }
-    //
-    vm.put("title", "Welcome!");
 
+    Map<String, Object> vm = new HashMap<>();
+    vm.put("title", "Welcome!");
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
-
     vm.put("currentUser", request.queryParams("id"));
+
     if (playerLobby.getPlayers().size() > 1) {
       playerNames = new ArrayList<>();
       for (Player player1 : playerLobby.getPlayers()) {
@@ -79,7 +78,6 @@ public class PostSignInRoute implements Route {
       }
       vm.put("playerList", playerNames);
     }
-    
 
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));

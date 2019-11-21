@@ -42,6 +42,7 @@ public class PostSignOutRoute implements Route {
         Session httpSession = request.session();
         httpSession.removeAttribute("player");
         Player player = new Player(request.queryParams("signout"));
+
         if (playerlobby.getGame(player) != null) {
             if (playerlobby.getGame(player).getPlayer2().getName().equals("AI Player")) {
                 playerlobby.getGameCenter().endGame(playerlobby.getGame(player).getPlayer1(), new Player("AI Player"));

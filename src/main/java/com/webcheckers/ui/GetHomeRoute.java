@@ -19,18 +19,15 @@ import static spark.route.HttpMethod.get;
 /**
  * The UI Controller to GET the Home page.
  *
- * @author <a href='mailto:bdbvse@rit.edu'>Bryan Basham</a>
+ * @author - Team E
  */
 public class GetHomeRoute implements Route {
+
   private static final Logger LOG = Logger.getLogger(GetHomeRoute.class.getName());
 
   static final Message WELCOME_MSG = Message.info("Welcome to the world of online Checkers.");
 
   private final TemplateEngine templateEngine;
-
-  public TemplateEngine getTemplateEngine() {
-    return templateEngine;
-  }
 
   private final PlayerLobby playerLobby;
 
@@ -42,9 +39,6 @@ public class GetHomeRoute implements Route {
    */
   public GetHomeRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
     this.templateEngine = Objects.requireNonNull(templateEngine, "templateEngine is required");
-    //
-    LOG.config("GetHomeRoute is initialized.");
-
     this.playerLobby = playerLobby;
   }
 
@@ -85,13 +79,10 @@ public class GetHomeRoute implements Route {
     else
       vm.put("message", httpSession.attribute("message"));
 
-
-      //Message message = Message.info(playerLobby.players.toString());
-      //vm.put("message",message);
-
     if(player != null)
       vm.put("currentUser", player.getName());
 
+    //update the player list to be displayed
     if (playerLobby.getPlayers().size() >= 1) {
       ArrayList<String> playerNames = new ArrayList<>();
       for (Player player1 : playerLobby.getPlayers()) {
@@ -101,11 +92,15 @@ public class GetHomeRoute implements Route {
     } else {
       vm.put("playerList", null);
     }
-
-
-    //vm.put("playerList", playerLobby.players);
-
     // render the View
     return templateEngine.render(new ModelAndView(vm , "home.ftl"));
+  }
+
+  /**
+   * Getter for the templateEngine
+   * @return templateEngine
+   */
+  public TemplateEngine getTemplateEngine() {
+    return templateEngine;
   }
 }

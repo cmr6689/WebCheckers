@@ -14,17 +14,20 @@ import java.util.logging.Logger;
 
 /**
  * The UI controller for the /backupMove ajax call during a game
+ *
+ * @author - Team E
  */
 public class PostBackupMoveRoute implements Route {
+
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostBackupMoveRoute.class.getName());
 
     private final Gson gson;
 
-    //new
-    PlayerLobby playerLobby;
+    private PlayerLobby playerLobby;
 
     /**
-     * Constructor to set the gson
+     * Constructor to set the Gson and the player lobby
+     * @param playerLobby - holder of game center and players
      */
     public PostBackupMoveRoute(PlayerLobby playerLobby){
         this.gson = new Gson();
@@ -32,7 +35,7 @@ public class PostBackupMoveRoute implements Route {
     }
 
     /**
-     * Respond to the ajax call with a gson to json message
+     * Respond to the ajax call with a Gson to Json message
      * @param request the HTTP request
      * @param response the HTTP response
      * @return the json message
@@ -41,22 +44,14 @@ public class PostBackupMoveRoute implements Route {
     public Object handle(Request request, Response response) {
         Session httpSession = request.session();
         Player myPlayer = httpSession.attribute("player");
-
         LOG.config("PostBackupMoveRoute is invoked by " + myPlayer.getName() + ".");
 
-        //added this to try something
-        Piece thisPiece = httpSession.attribute("piece");
-        //ValidateMove MoveValidator = httpSession.attribute("validator");
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
 
         if(board.getMovesThisTurn().size() >= 1) {
             board.resetMovs();
             board.resetPositions();
-            Position start = board.getOriginalPos();
-            Position end = board.getFinalPos();
-            //board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).removePiece();
             board.clearMovesThisTurn();
-            //board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).setPiece(thisPiece);
             board.setLastWasJump(false);
             board.clearRemovedPieces();
         }

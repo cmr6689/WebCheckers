@@ -6,22 +6,30 @@ import com.webcheckers.model.Position;
 
 import java.util.ArrayList;
 
+/**
+ * Class responsible for updating the board view after a move has been made
+ *
+ * @author - Team E
+ */
 public class BoardHandler {
 
+    //board to be updated
     private BoardView board;
+    //pieces that are being jumped
     ArrayList<Position> removedPs = new ArrayList<>();
+    //the piece being moved
     private Piece thisPiece;
 
     /**
      * Handles the board for submitting turns and moving pieces
-     * @param board
+     * @param board - board to be updated
      */
     public BoardHandler(BoardView board){
         this.board = board;
     }
 
     /**
-     * sets the board if no parameters are necessary for the piece position
+     * Sets the board if no parameters are necessary for the piece position
      */
     public void setBoard(){
         Position start = board.getOriginalPos();
@@ -50,7 +58,7 @@ public class BoardHandler {
     }
 
     /**
-     * sets the board if parameters are necessary for the piece position
+     * Sets the board if parameters are necessary for the piece position
      */
     public void setBoardCond(Position start, Position end){
         board.setOriginalPos(start);
@@ -77,9 +85,4 @@ public class BoardHandler {
         board.clearRemovedPieces();
         board.resetMovs();
     }
-
-    public void setThisPiece(Piece thisPiece){
-        this.thisPiece = thisPiece;
-    }
-
 }

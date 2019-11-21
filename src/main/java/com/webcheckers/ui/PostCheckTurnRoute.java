@@ -19,8 +19,6 @@ public class PostCheckTurnRoute implements Route {
 
     private static final Logger LOG = Logger.getLogger(com.webcheckers.ui.PostCheckTurnRoute.class.getName());
 
-    public final TemplateEngine templateEngine;
-
     private PlayerLobby playerLobby;
 
     private final Gson gson;
@@ -29,9 +27,8 @@ public class PostCheckTurnRoute implements Route {
      * Create the Spark Route (UI controller) to handle all {@code GET /} HTTP requests.
      *
      */
-    public PostCheckTurnRoute(final TemplateEngine templateEngine, PlayerLobby playerLobby) {
+    public PostCheckTurnRoute(PlayerLobby playerLobby) {
         this.playerLobby = playerLobby;
-        this.templateEngine = templateEngine;
         this.gson = new Gson();
     }
 
@@ -47,8 +44,6 @@ public class PostCheckTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
         LOG.config("PostCheckTurn is invoked by " + myPlayer.getName() + ".");
 
-
-
         if(playerLobby.getGameCenter().getGame(myPlayer) != null && playerLobby.getGameCenter().getGame(myPlayer).getPlayer2().getAI()){
             new AIHandler(playerLobby, myPlayer).AIMove();
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
@@ -59,8 +54,6 @@ public class PostCheckTurnRoute implements Route {
             message2.setType(ResponseMessage.MessageType.INFO);
             message2.setText("true");
             return gson.toJson(message2);
-
-            //put the map into a tempery map and make that the map to use as the map
 
             //game is no longer active
         }else if (playerLobby.getGameCenter().getGame(myPlayer) == null || !playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
