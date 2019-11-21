@@ -76,6 +76,12 @@ public class MoveChecks {
         ArrayList<Position> positions = new ArrayList<>();
 
         ArrayList<Row> tempRows = new ArrayList<>();
+
+        if(game == null){
+            System.err.println("raa game is bad");
+            return jumps;
+        }
+
         for(Row row : game.getBoardView1().getRows()){
             tempRows.add(row);
         }

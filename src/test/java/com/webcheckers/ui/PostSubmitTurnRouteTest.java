@@ -45,13 +45,6 @@ class PostSubmitTurnRouteTest {
 
         when(session.attribute("move")).thenReturn(new Move(new Position(1,1), new Position(2, 2)));
         when(session.attribute("piece")).thenReturn(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
-
-        /*
-        session.attribute("move", new Move(new Position(1,1), new Position(2, 2)));
-        session.attribute("piece", new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
-        request.session().attribute("move", new Move(new Position(1,1), new Position(2, 2)));
-        request.session().attribute("piece", new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));*/
-
     }
 
     /**
@@ -88,7 +81,7 @@ class PostSubmitTurnRouteTest {
      * Setup mock classes to fill dependencies through
      * the test seam
      */
-    /*@Test
+    @Test
     public void test2() {
         Gson gson = new Gson();
 
@@ -118,7 +111,7 @@ class PostSubmitTurnRouteTest {
         // Invoke the test
         CuT.handle(request, response);
         assertEquals(gson.toJson(message), CuT.handle(request, response));
-    }*/
+    }
 
     @Test
     public void ctor(){

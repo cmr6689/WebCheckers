@@ -82,6 +82,11 @@ public class PostSubmitTurnRoute implements Route {
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can submit a turn in the state you are in.");
 
+        if(playerLobby.getGameCenter().getGame(myPlayer) == null){
+            System.err.println("player is null");
+            return gson.toJson(message);
+        }
+
         if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE")) {
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
         } else {
