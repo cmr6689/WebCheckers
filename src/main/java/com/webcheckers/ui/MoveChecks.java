@@ -101,6 +101,7 @@ public class MoveChecks {
             }
         }
 
+
         for(Position position2 : positions){
             Move move = new Move(position, position2);
             ArrayList<Position> temp = new ArrayList<>();
