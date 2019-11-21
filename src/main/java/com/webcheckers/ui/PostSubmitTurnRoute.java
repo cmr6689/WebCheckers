@@ -47,24 +47,6 @@ public class PostSubmitTurnRoute implements Route {
         Player myPlayer = httpSession.attribute("player");
         LOG.config("PostSubmitTurnRoute is invoked by " + myPlayer.getName() + ".");
 
-        Move move = httpSession.attribute("move");
-        Piece piece = httpSession.attribute("piece");
-        MoveChecks moveCheck = new MoveChecks(playerLobby.getGame(myPlayer));
-
-        /*ArrayList<Move> moves = moveCheck.getJumpChain(move, piece);
-        if(!moves.isEmpty()) {
-            if (!moves.get(moves.size() - 1).equals(move)) {
-                ResponseMessage message = new ResponseMessage();
-                message.setType(ResponseMessage.MessageType.ERROR);
-                message.setText("You must make all possible jumps");
-
-                BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
-                BoardHandler boardHandler = new BoardHandler(board);
-                boardHandler.setBoard();
-                return gson.toJson(message);
-            }
-        }*/
-
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {
             ResponseMessage message2 = new ResponseMessage();
