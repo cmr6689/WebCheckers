@@ -6,6 +6,8 @@ import com.webcheckers.ui.MoveChecks;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
+
 /**
  * The game class responsible for controlling the board views and the players
  * that are playing the game.
@@ -116,26 +118,46 @@ public class Game {
             modeOptions.put("gameOverMessage", player1.getName() + " has captured all the pieces.");
             //set mode options
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            this.map.put("activeColor", "");
+            this.map.put("activeColor", "RED");
         } else if (whiteWins) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            this.map.put("activeColor", "");
+            this.map.put("activeColor", "WHITE");
         } else if (!redJumpsAvailable && !redMovesAvailable) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player1.getName() + " has no available moves. " + player2.getName() + " is the winner!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            this.map.put("activeColor", "");
+            this.map.put("activeColor", "WHITE");
         } else if (!whiteJumpsAvailable && !whiteMovesAvailable) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has no available moves. " + player1.getName() + " is the winner!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
-            this.map.put("activeColor", "");
+            this.map.put("activeColor", "RED");
         }
+    }
+
+    public Player.Color getPlayerColor(Player player) {
+        if (player == player1) {
+            return player1.getColor();
+        } else {
+            return player2.getColor();
+        }
+    }
+
+    public Object checkNonNullRows() {
+        if (getBoardView1().getRows().size() == 8 && getBoardView1().getRows().get(7) != null) return getBoardView1().getRows().get(7);
+        else if (getBoardView1().getRows().size() == 7 && getBoardView1().getRows().get(6) != null) return getBoardView1().getRows().get(6);
+        else if (getBoardView1().getRows().size() == 6 && getBoardView1().getRows().get(5) != null) return getBoardView1().getRows().get(5);
+        else if (getBoardView1().getRows().size() == 5 && getBoardView1().getRows().get(4) != null) return getBoardView1().getRows().get(4);
+        else if (getBoardView1().getRows().size() == 4 && getBoardView1().getRows().get(3) != null) return getBoardView1().getRows().get(3);
+        else if (getBoardView1().getRows().size() == 3 && getBoardView1().getRows().get(2) != null) return getBoardView1().getRows().get(2);
+        else if (getBoardView1().getRows().size() == 2 && getBoardView1().getRows().get(1) != null) return getBoardView1().getRows().get(1);
+        else if (getBoardView1().getRows().size() == 1 && getBoardView1().getRows().get(0) != null) return getBoardView1().getRows().get(0);
+        else return null;
     }
 
     /**
@@ -246,6 +268,16 @@ public class Game {
         player2 = null;
     }
 
+    public void removePlayer1() {
+        if (player1 != null)
+            player1 = null;
+    }
+
+    public void removePlayer2() {
+        if (player2 != null)
+            player2 = null;
+    }
+
     /**
      * Get the board view based on the player
      * @param player player one or player two
@@ -265,5 +297,19 @@ public class Game {
     @Override
     public String toString() {
         return player1.getName() + " vs " + player2.getName();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return Objects.equals(player1, game.player1) &&
+                Objects.equals(player2, game.player2);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(player1, player2);
     }
 }

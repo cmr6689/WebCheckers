@@ -1,12 +1,14 @@
 package com.webcheckers.model;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.internal.$Gson$Types;
+import com.webcheckers.ui.BoardHandler;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 /**
@@ -149,6 +151,17 @@ class GameTest {
         assertNull(CuT.getPlayer2());
     }
 
+    @Test
+    void removeSinglePlayerTest() {
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+        assertNotNull(CuT.getPlayer1());
+        assertNotNull(CuT.getPlayer2());
+        CuT.removePlayer1();
+        assertNull(CuT.getPlayer1());
+        CuT.removePlayer2();
+        assertNull(CuT.getPlayer2());
+    }
+
     /**
      * test setting the player
      */
@@ -196,5 +209,124 @@ class GameTest {
     void toStringTest() {
         final Game CuT = new Game(new Player("1"), new Player("2"));
         assertEquals("1 vs 2", CuT.toString());
+    }
+
+    @Test
+    public void testGameOver() {
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+
+        removePieces(CuT);
+        CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(0).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+        CuT.checkGameOver();
+        assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
+        assertEquals("RED", CuT.getMap().get("activeColor"));
+
+        removePieces(CuT);
+        CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(0).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE));
+        CuT.checkGameOver();
+        assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
+        assertEquals("WHITE", CuT.getMap().get("activeColor"));
+
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (i == 0) CuT.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+                else CuT.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE));
+            }
+        }
+        CuT.checkGameOver();
+        assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
+        assertEquals("WHITE", CuT.getMap().get("activeColor"));
+    }
+
+    @Test
+    void noWhiteMoves() {
+        final Game CuT = new Game(new Player("3"), new Player("4"));
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (i == 1 && j == 2) {
+                    CuT.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE));
+                    System.out.println("White Piece: " + new Position(1, 2).helpString());
+                }
+                else if (i == 6 && j == 1) {
+                    System.out.println("Empty: " + new Position(6, 1).helpString());
+                }
+                else CuT.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+            }
+        }
+        CuT.getMap().put("activeColor", "WHITE");
+        CuT.checkGameOver();
+        assertNotNull(CuT.getMap().get("modeOptionsAsJSON"));
+        assertEquals("WHITE", CuT.getMap().get("activeColor"));
+    }
+    
+    public void removePieces(Game game) {
+        BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                if (game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null ) {
+                    game.getBoardView1().setOriginalPos(new Position(i, j));
+                    game.getBoardView1().setFinalPos(new Position(i, j));
+                    game.getBoardView1().setRemovedPiece(new Position(i, j));
+                    boardHandler.setBoard();
+                }
+            }
+        }
+    }
+
+    @Test
+    public void testEquals() {
+        final Game CuT = new Game(new Player("1"), new Player("2"));
+        final Game CuT2 = new Game(new Player("1"), new Player("2"));
+        final Game CuT3 = new Game(new Player("3"), new Player("3"));
+        assertTrue(CuT.equals(CuT2));
+        assertFalse(CuT.equals(CuT3));
+        assertFalse(CuT.equals(null));
+        assertFalse(CuT.equals(new Player("1")));
+    }
+
+    @Test
+    public void testHashCode() {
+        Player p1 = new Player("1");
+        Player p2 = new Player("2");
+        final Game CuT = new Game(p1, p2);
+        assertEquals(Objects.hash(p1, p2), CuT.hashCode());
+    }
+
+    @Test
+    public void testGetPlayerColor() {
+        Player p1 = new Player("1");
+        p1.setColor(Player.Color.RED);
+        Player p2 = new Player("2");
+        p2.setColor(Player.Color.WHITE);
+        final Game CuT = new Game(p1, p2);
+
+        assertEquals(Player.Color.RED, CuT.getPlayerColor(p1));
+        assertEquals(Player.Color.WHITE, CuT.getPlayerColor(p2));
+    }
+
+    @Test
+    public void testNullRows() {
+        Player p1 = new Player("1");
+        p1.setColor(Player.Color.RED);
+        Player p2 = new Player("2");
+        p2.setColor(Player.Color.WHITE);
+        final Game CuT = new Game(p1, p2);
+        assertEquals(CuT.getBoardView1().getRows().get(7), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(6), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(5), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(4), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(3), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(2), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(1), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertEquals(CuT.getBoardView1().getRows().get(0), CuT.checkNonNullRows());
+        CuT.getBoardView1().getRows().remove(CuT.getBoardView1().getRows().size()-1);
+        assertNull(CuT.checkNonNullRows());
     }
 }
