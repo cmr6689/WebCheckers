@@ -43,7 +43,6 @@ class GetHomeRouteTest {
         when(request.session()).thenReturn(session);
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
-
         CuT = new GetHomeRoute(templateEngine, playerLobby);
     }
 
@@ -76,13 +75,14 @@ class GetHomeRouteTest {
         //Check if UI received all necessary parameters
         engineTester.assertViewModelExists();
         engineTester.assertViewModelIsaMap();
-        //engineTester.assertViewModelExists();
-
         engineTester.assertViewModelAttribute("title", "Welcome!");
         engineTester.assertViewModelAttribute("message", CuT.WELCOME_MSG);
         engineTester.assertViewModelAttribute("playerList", playerNames);
     }
 
+    /**
+     * test the player list with no other players online
+     */
     @Test
     public void testEmptyPlayerList() {
         final TemplateEngineTester engineTester = new TemplateEngineTester();
@@ -94,8 +94,6 @@ class GetHomeRouteTest {
         //Check if UI received all necessary parameters
         engineTester.assertViewModelExists();
         engineTester.assertViewModelIsaMap();
-        //engineTester.assertViewModelExists();
-
         engineTester.assertViewModelAttribute("title", "Welcome!");
         engineTester.assertViewModelAttribute("message", "messageHere");
         engineTester.assertViewModelAttribute("playerList", null);
@@ -108,7 +106,6 @@ class GetHomeRouteTest {
     public void playerDoesNotExist(){
         final TemplateEngineTester engineTester = new TemplateEngineTester();
         CuT.handle(request, response);
-
         assertNull(session.attribute("player"));
     }
 

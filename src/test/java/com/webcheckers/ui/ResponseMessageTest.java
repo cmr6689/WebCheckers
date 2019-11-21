@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author - Cameron Riu
  */
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class ResponseMessageTest {
 
     /**

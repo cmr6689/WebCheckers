@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
  * Unit test for PostValidateMoveRoute
  * @author Cameron Riu
  */
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostValidateMoveRouteTest {
 
     /**
@@ -62,7 +62,6 @@ public class PostValidateMoveRouteTest {
         Position start = new Position(6,1);
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
 
         Gson gson = new Gson();
         ResponseMessage message = new ResponseMessage();
@@ -87,7 +86,6 @@ public class PostValidateMoveRouteTest {
         Position start = new Position(6,1);
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
-        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
 
         Gson gson = new Gson();
 

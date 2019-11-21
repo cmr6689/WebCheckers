@@ -5,6 +5,7 @@ import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.*;
 
@@ -15,6 +16,10 @@ import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for PostSubmitTurnRoute
+ */
+@Tag("UI-tier")
 class PostSubmitTurnRouteTest {
 
     /**
@@ -113,12 +118,18 @@ class PostSubmitTurnRouteTest {
         assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 
+    /**
+     * test the constructor
+     */
     @Test
     public void ctor(){
         assertNotNull(CuT.playerLobby);
         assertNotNull(CuT);
     }
 
+    /**
+     * test if successful submit of a move
+     */
     @Test
     public void messageIsInfo(){
 
@@ -131,7 +142,5 @@ class PostSubmitTurnRouteTest {
         playerLobby.getGameCenter().newGame(new Player("Player"), new Player("OPP"));
         playerLobby.getGameCenter().getGame(new Player("Player")).getMap().put("activeColor", "RED");
         playerLobby.getGameCenter().getGame(new Player("Player")).getMap().put("board", playerLobby.getGame(new Player("Player")).getBoardView1());
-
-        //assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 }

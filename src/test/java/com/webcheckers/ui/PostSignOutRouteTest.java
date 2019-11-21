@@ -18,12 +18,12 @@ import static org.mockito.Mockito.when;
  * @author Matthew Klein
  */
 
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostSignOutRouteTest {
+
     /**
      * Component under test (CuT)
      */
-
     private PostSignOutRoute CuT;
     private PlayerLobby playerLobby;
     private Session session;
@@ -72,6 +72,9 @@ public class PostSignOutRouteTest {
 
     }
 
+    /**
+     * test signing out while in a game
+     */
     @Test
     public void signOutInGame() {
         Player player = new Player("Player");
@@ -82,6 +85,9 @@ public class PostSignOutRouteTest {
         assertTrue(playerLobby.getGameCenter().justEnded(player));
     }
 
+    /**
+     * test signing out while in a game against AI
+     */
     @Test
     public void signOutInGameAI() {
         Player player = new Player("Player");

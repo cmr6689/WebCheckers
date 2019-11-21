@@ -17,14 +17,12 @@ import spark.*;
  * Unit test for PostSignInRoute
  * @author Matthew Klein
  */
-
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostSignInRouteTest {
 
-/**
- * Component under test (CuT)
- */
-
+    /**
+    * Component under test (CuT)
+    */
     private PostSignInRoute CuT;
     private TemplateEngine templateEngine;
     private PlayerLobby playerLobby;
@@ -163,6 +161,9 @@ public class PostSignInRouteTest {
         assertEquals(player,other);
     }
 
+    /**
+     * test if the player enters an invalid name
+     */
     @Test
     public void invalid_name() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();

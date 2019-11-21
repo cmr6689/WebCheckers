@@ -22,11 +22,11 @@ import static org.mockito.Mockito.when;
  */
 @Tag("UI-tier")
 public class GetSignInRouteTest {
+
     /**
      * The component-under-test (CuT).
      */
     private GetSignInRoute CuT;
-
     private Request request;
     private Session session;
     private Response response;
@@ -44,7 +44,6 @@ public class GetSignInRouteTest {
         response = mock(Response.class);
         engine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
-
         // create a unique CuT for each test
         CuT = new GetSignInRoute(engine,playerLobby);
     }

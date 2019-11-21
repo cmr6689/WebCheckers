@@ -5,6 +5,7 @@ import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
 import com.webcheckers.model.*;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import spark.Request;
 import spark.Response;
@@ -15,7 +16,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+/**
+ * Unit tests for the MoveHelper class
+ */
+@Tag("UI-tier")
 public class MoveHelperTest {
+
     /**
      * Component under test (CuT)
      */
@@ -49,6 +55,9 @@ public class MoveHelperTest {
         assertNotNull(game, "Game should be initialized.");
     }
 
+    /**
+     * test no moves available
+     */
     @Test
     public void testNoMove() {
         BoardHandler boardHandler = new BoardHandler(game.getBoardView1());
@@ -68,6 +77,9 @@ public class MoveHelperTest {
         assertEquals("No moves available!", CuT.getWhiteMove());
     }
 
+    /**
+     * test red player can move help message
+     */
     @Test
     public void testRedMove() {
         MoveChecks moveChecks = new MoveChecks(game);
@@ -92,6 +104,9 @@ public class MoveHelperTest {
         assertEquals("nope", CuT.getRedJump());
     }
 
+    /**
+     * test white player can move help method
+     */
     @Test
     public void testWhiteMove() {
         MoveChecks moveChecks = new MoveChecks(game);
@@ -115,6 +130,9 @@ public class MoveHelperTest {
         assertEquals("nope", CuT.getWhiteJump());
     }
 
+    /**
+     * test red player can jump help message
+     */
     @Test
     public void testRedJump() {
         BoardHandler handler = new BoardHandler(game.getBoardView1());
@@ -141,6 +159,9 @@ public class MoveHelperTest {
 
     }
 
+    /**
+     * test white player can jump help message
+     */
     @Test
     public void testWhiteJump() {
         BoardHandler handler = new BoardHandler(game.getBoardView1());

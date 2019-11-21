@@ -14,6 +14,9 @@ import java.util.Map;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
+/**
+ * Unit tests for AIHandler
+ */
 @Tag("UI-tier")
 class AIHandlerTest {
 
@@ -24,6 +27,9 @@ class AIHandlerTest {
     private BoardView board;
     private MoveChecks moveChecks;
 
+    /**
+     * Setup each test before running
+     */
     @BeforeEach
     public void testSetup(){
         rows = new ArrayList<>();
@@ -38,27 +44,33 @@ class AIHandlerTest {
         CuT = new AIHandler(playerLobby, player);
     }
 
+    /**
+     * test the constructor
+     */
     @Test
     public void ctor () {
         assertNotNull(CuT);
     }
 
-
+    /**
+     * test if the game is over
+     */
     @Test
     public void game_over(){
         Player player = new Player ("Player");
         Map<String, Object> modeOptions = new HashMap<>(2);
         modeOptions.put("isGameOver", true);
         playerLobby.getGame(player).getMap().put("modeOptionsAsJSON", modeOptions);
-
         assertTrue(playerLobby.getGameCenter().gameIsActive(game));
     }
 
+    /**
+     * test if no multi jumps available
+     */
     @Test
     public void no_jump_chains(){
         ArrayList<Move> jumpChain = new ArrayList<>();
         CuT.setJumpChain(jumpChain);
-
         assertFalse(CuT.getJumps());
         assertFalse(CuT.getDone());
     }

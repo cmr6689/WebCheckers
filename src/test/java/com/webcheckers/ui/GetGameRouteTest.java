@@ -78,26 +78,13 @@ public class GetGameRouteTest {
         when(request.queryParams("opponent")).thenReturn("Opp");
         lobby.getGameCenter().newGame(myPlayer, opponent);
         lobby.getGameCenter().getGame(myPlayer).setIsActive(true);
-
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
         // Invoke the test
         when(session.attribute("player")).thenReturn(new Player("Player"));
         Cut.handle(request, response);
-
         //Check if UI received all necessary parameters
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
-
-        //testHelper.assertViewModelAttribute("currentUser", request.queryParams("Player"));
-        //testHelper.assertViewModelAttribute("title", "Webcheckers");
-        //testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
-        //Can't see own name
-        //testHelper.assertViewModelAttributeIsAbsent("playerList");
     }
 
     /**
@@ -110,22 +97,13 @@ public class GetGameRouteTest {
         when(session.attribute("player")).thenReturn(new Player("Player"));
         Player fakeOpp = new Player("Opp");
         lobby.addPlayer(fakeOpp);
-
         when(request.queryParams("opponent")).thenReturn("Opp");
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
         // Invoke the test
         Cut.handle(request, response);
-
         //Check if UI received all necessary parameters
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
-
-        //testHelper.assertViewModelAttribute("redPlayer", request.queryParams("Player"));
         testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
         testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
         //Can't see own name
@@ -138,46 +116,35 @@ public class GetGameRouteTest {
 
     @Test void exsist(){
         when(session.attribute("player")).thenReturn(new Player("Player"));
-        //assertNotNull(Cut.handle(request, response));
     }
 
+    /**
+     * test the game mode
+     */
     @Test
     public void testModes() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
         assertNull(Cut.handle(request, response));
-
         final TemplateEngineTester testHelper = new TemplateEngineTester();
         //Add a player to a new empty lobby
         when(session.attribute("player")).thenReturn(new Player("Player"));
         Player fakeOpp = new Player("Opp");
         lobby.addPlayer(fakeOpp);
         when(request.queryParams("opponent")).thenReturn("Opp");
-        // To analyze what the Route created in the View-Model map you need
-        // to be able to extract the argument to the TemplateEngine.render method.
-        // Mock up the 'render' method by supplying a Mockito 'Answer' object
-        // that captures the ModelAndView data passed to the template engine
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
         // Invoke the test
         Cut.handle(request, response);
-
         //Check if UI received all necessary parameters
         testHelper.assertViewModelExists();
         testHelper.assertViewModelIsaMap();
-
-        //testHelper.assertViewModelAttribute("currentUser", request.queryParams("Player"));
-        //testHelper.assertViewModelAttribute("title", "Webcheckers");
-        //testHelper.assertViewModelAttribute("viewMode", "PLAY");
-        //testHelper.assertViewModelAttribute("modeOptionsAsJSON", null);
-        //testHelper.assertViewModelAttribute("redPlayer", request.queryParams("Player"));
-        //testHelper.assertViewModelAttribute("whitePlayer", fakeOpp.getName());
-        //testHelper.assertViewModelAttribute("message", GetGameRoute.GAME_MSG);
-
         //Can't see own name
         testHelper.assertViewModelAttributeIsAbsent("playerList");
 
     }
 
+    /**
+     * test if clicked on opponent is already in a game
+     */
     @Test
     public void opponentInGame() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
@@ -186,9 +153,7 @@ public class GetGameRouteTest {
         lobby.addPlayer(opp);
         when(request.queryParams("opponent")).thenReturn("Opp");
         lobby.getGameCenter().newGame(opp, new Player("fakePlayer"));
-
         when(engine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
-
         // Invoke the test
         assertNull(Cut.handle(request, response));
         assertTrue(opp.getInGame());
@@ -196,6 +161,9 @@ public class GetGameRouteTest {
         assertNull(session.attribute("message"));
     }
 
+    /**
+     * test if the game has been ended due to win conditions
+     */
     @Test
     public void testJustEnded() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
@@ -219,6 +187,9 @@ public class GetGameRouteTest {
 
     }
 
+    /**
+     * test if the game is properly over
+     */
     @Test
     public void testGameOver() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
@@ -243,6 +214,9 @@ public class GetGameRouteTest {
 
     }
 
+    /**
+     * test if the game ends for the non-active player
+     */
     @Test
     public void testGameOverP2() {
         final TemplateEngineTester testHelper = new TemplateEngineTester();
@@ -264,6 +238,5 @@ public class GetGameRouteTest {
         assertEquals(opp, lobby.getGame(opp).getPlayer1());
         assertNotNull(lobby.getGame(opp).getMap().get("modeOptionsAsJSON"));
         assertTrue(lobby.getGameCenter().justEnded(opp));
-
     }
 }

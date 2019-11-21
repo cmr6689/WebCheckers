@@ -13,7 +13,9 @@ import java.util.ArrayList;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
-
+/**
+ * Unit tests for BoardHandler
+ */
 @Tag("UI-tier")
 public class BoardHandlerTest {
 
@@ -22,6 +24,9 @@ public class BoardHandlerTest {
     private PlayerLobby playerLobby;
     private BoardView board;
 
+    /**
+     * setup before running each test
+     */
     @BeforeEach
     public void testSetup() {
         ArrayList<Row> rows = new ArrayList<>();
@@ -34,22 +39,27 @@ public class BoardHandlerTest {
         CuT = new BoardHandler(board);
     }
 
+    /**
+     * test the constructor
+     */
     @Test
     public void ctor(){
         assertNotNull(CuT, "The Constructor is Null and should not be");
     }
 
-
+    /**
+     * test updating the board
+     */
     @Test
     public void set_board(){
         board.setFinalPos(new Position(0, 0));
         Position end = board.getFinalPos();
         board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
-        Piece thisPiece = board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).getPiece();
-
-        //assertEquals(thisPiece.getType(), Piece.TYPE.KING);
     }
 
+    /**
+     * test updating the board with pre-conditions
+     */
     @Test
     public void testSetBoardCond() {
         Position start = new Position(1,0);

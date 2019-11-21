@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * Unit test for PostCheckTurnRoute
  * @author Cameron Riu
  */
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostCheckTurnRouteTest {
 
     /**

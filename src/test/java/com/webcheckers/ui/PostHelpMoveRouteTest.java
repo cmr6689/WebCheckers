@@ -18,10 +18,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 /**
- * Unit test for PostValidateMoveRoute
+ * Unit test for PostHelpMoveRoute
  * @author Cameron Riu
  */
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostHelpMoveRouteTest {
 
     /**
@@ -55,6 +55,9 @@ public class PostHelpMoveRouteTest {
         assertNotNull(playerLobby, "PlayerLobby should be initialized.");
     }
 
+    /**
+     * test red player help with move
+     */
     @Test
     public void testRedMoveHelp() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
@@ -70,6 +73,9 @@ public class PostHelpMoveRouteTest {
         assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 
+    /**
+     * test white player help with move
+     */
     @Test
     public void testWhiteMoveHelp() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
@@ -85,6 +91,9 @@ public class PostHelpMoveRouteTest {
         assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 
+    /**
+     * test red player help with jump
+     */
     @Test
     public void testRedJumpHelp() {
         when(session.attribute("player")).thenReturn(new Player("Player"));
@@ -113,6 +122,9 @@ public class PostHelpMoveRouteTest {
         assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 
+    /**
+     * test white player help with jump
+     */
     @Test
     public void testWhiteJumpHelp() {
         when(session.attribute("player")).thenReturn(new Player("Player"));

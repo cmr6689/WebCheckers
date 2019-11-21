@@ -22,12 +22,12 @@ import static org.mockito.Mockito.when;
  * @author Matthew Klein
  */
 
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostResignRouteTest {
+
     /**
      * Component under test (CuT)
      */
-
     private PostResignRoute CuT;
     private TemplateEngine templateEngine;
     private PlayerLobby playerLobby;
@@ -71,9 +71,11 @@ public class PostResignRouteTest {
         ResponseMessage message = new ResponseMessage();
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can not resign in the state you are in.");
-        //assertEquals(new Gson().toJson(message), CuT.handle(request, response));
     }
 
+    /**
+     * test resigning against the AI
+     */
     @Test
     public void successful_resign_AI() {
         Player p1 = new Player("Player");
@@ -89,6 +91,9 @@ public class PostResignRouteTest {
         assertNull(playerLobby.getGame(p1));
     }
 
+    /**
+     * test trying to resign when the other player already has
+     */
     @Test
     public void game_already_ended() {
         Player p1 = new Player("Player");

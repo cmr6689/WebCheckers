@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
  * Unit test for PostBackupMoveRoute
  * @author Cameron Riu
  */
-@Tag("Ui-tier")
+@Tag("UI-tier")
 public class PostBackupMoveRouteTest {
 
     /**
