@@ -83,7 +83,7 @@ public class PostValidateMoveRouteTest {
     /**
      * Test the handle method by giving a valid move
      */
-    /*@Test
+    @Test
     public void testValidMove1() {
         Position start = new Position(6,1);
         Position end = new Position(5, 2);
@@ -102,5 +102,5 @@ public class PostValidateMoveRouteTest {
 
         assertEquals(gson.toJson(message), CuT.handle(request, response));
 
-    }*/
+    }
 }

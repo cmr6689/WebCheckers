@@ -42,6 +42,16 @@ class PostSubmitTurnRouteTest {
         templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
         CuT = new PostSubmitTurnRoute(playerLobby);
+
+        when(session.attribute("move")).thenReturn(new Move(new Position(1,1), new Position(2, 2)));
+        when(session.attribute("piece")).thenReturn(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+
+        /*
+        session.attribute("move", new Move(new Position(1,1), new Position(2, 2)));
+        session.attribute("piece", new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+        request.session().attribute("move", new Move(new Position(1,1), new Position(2, 2)));
+        request.session().attribute("piece", new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));*/
+
     }
 
     /**
