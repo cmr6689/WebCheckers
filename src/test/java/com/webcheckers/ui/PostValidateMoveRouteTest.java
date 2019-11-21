@@ -75,7 +75,6 @@ public class PostValidateMoveRouteTest {
         playerLobby.addPlayer(new Player("Player"));
         playerLobby.addPlayer(new Player("Opp"));
         playerLobby.getGameCenter().newGame(new Player("Player"), new Player("Opp"));
-        //playerLobby.setGame(new Game(new Player("Player"), new Player("Opp")));
         assertEquals(gson.toJson(message), CuT.handle(request, response));
 
     }
@@ -84,7 +83,7 @@ public class PostValidateMoveRouteTest {
      * Test the handle method by giving a valid move
      */
     @Test
-    public void testValidMove1() {
+    public void testInvalidMove() {
         Position start = new Position(6,1);
         Position end = new Position(5, 2);
         Move move = new Move(start, end);
@@ -93,14 +92,15 @@ public class PostValidateMoveRouteTest {
         Gson gson = new Gson();
 
         ResponseMessage message = new ResponseMessage();
-        message.setType(ResponseMessage.MessageType.INFO);
+        message.setType(ResponseMessage.MessageType.ERROR);
+        message.setText("Your move is not valid");
 
         when(session.attribute("player")).thenReturn(new Player("Player"));
+        when(request.queryParams("actionData")).thenReturn(new Gson().toJson(move));
         playerLobby.getGameCenter().newGame(new Player("Player"), new Player("OPP"));
         playerLobby.getGame(new Player("Player")).getBoardView1().setMoveThisTurn(move);
         CuT.handle(request, response);
 
         assertEquals(gson.toJson(message), CuT.handle(request, response));
-
     }
 }
