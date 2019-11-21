@@ -10,8 +10,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.mock;
 
 
@@ -49,6 +48,29 @@ public class BoardHandlerTest {
         Piece thisPiece = board.getRowAtIndex(end.getRow()).getSpaceAtIndex(end.getCell()).getPiece();
 
         //assertEquals(thisPiece.getType(), Piece.TYPE.KING);
+    }
+
+    @Test
+    public void testSetBoardCond() {
+        Position start = new Position(1,0);
+        Position end = new Position(0, 1);
+        game.getBoardView1().getRowAtIndex(1).getSpaceAtIndex(0).setPiece(new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE));
+        game.getBoardView1().setOriginalPos(start);
+        game.getBoardView1().setOriginalPos(end);
+        CuT.setBoardCond(start, end);
+        assertEquals(new Piece(Piece.COLOR.RED, Piece.TYPE.KING), game.getBoardView1().getRowAtIndex(0).getSpaceAtIndex(1).getPiece());
+
+        Position start2 = new Position(6,7);
+        Position end2 = new Position(7, 6);
+        game.getBoardView1().getRowAtIndex(6).getSpaceAtIndex(7).setPiece(new Piece(Piece.COLOR.WHITE, Piece.TYPE.SINGLE));
+        game.getBoardView1().setOriginalPos(start);
+        game.getBoardView1().setOriginalPos(end);
+        CuT.setBoardCond(start2, end2);
+        assertEquals(new Piece(Piece.COLOR.WHITE, Piece.TYPE.KING), game.getBoardView1().getRowAtIndex(7).getSpaceAtIndex(6).getPiece());
+
+        game.getBoardView1().setRemovedPiece(new Position(7, 6));
+        CuT.setBoardCond(end2, end2);
+        assertNull(game.getBoardView1().getRowAtIndex(7).getSpaceAtIndex(6).getPiece());
     }
 
 }
