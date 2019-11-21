@@ -76,16 +76,17 @@ public class PostSubmitTurnRoute implements Route {
             return gson.toJson(message2);
         }
 
-        System.err.println("Im going to check what moves and jumps are available (postSubmitTurnRoute:68)");
+        //System.err.println("Im going to check what moves and jumps are available (postSubmitTurnRoute:68)");
 
         ResponseMessage message = new ResponseMessage();
         message.setType(ResponseMessage.MessageType.INFO);
         message.setText("You can submit a turn in the state you are in.");
 
-        if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE"))
+        if (playerLobby.getGameCenter().getGame(myPlayer).getMap().get("activeColor").equals("WHITE")) {
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
-        else
+        } else {
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "WHITE");
+        }
 
         BoardView board = playerLobby.getGame(myPlayer).getBoardView1();
         BoardHandler boardHandler = new BoardHandler(board);

@@ -3,69 +3,118 @@ package com.webcheckers.ui;
 import com.google.gson.Gson;
 import com.webcheckers.application.GameCenter;
 import com.webcheckers.application.PlayerLobby;
-import com.webcheckers.model.BoardView;
-import com.webcheckers.model.Player;
+import com.webcheckers.model.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import spark.Request;
-import spark.Response;
-import spark.Session;
-import spark.TemplateEngine;
+import spark.*;
+
+import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 class PostSubmitTurnRouteTest {
 
-    private Gson gson;
-    PlayerLobby playerLobby;
-
+    /**
+     * Component under test (CuT)
+     */
+    private PostSubmitTurnRoute CuT;
+    private TemplateEngine templateEngine;
+    private PlayerLobby playerLobby;
     private Session session;
     private Request request;
     private Response response;
+    private ArrayList<Row> rows = new ArrayList<>();
+    private ArrayList<Space> spaces = new ArrayList<>();
 
-    Player pl1 = new Player("1");
-    Player pl2 = new Player("2");
-
-    private PostSubmitTurnRoute CuT;
-
+    /**
+     * Setup mock classes to fill dependencies through
+     * the test seam
+     */
     @BeforeEach
-    public void testSetup(){
+    public void testSetup() {
         request = mock(Request.class);
         response = mock(Response.class);
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
+        templateEngine = mock(TemplateEngine.class);
         playerLobby = new PlayerLobby(new GameCenter());
         CuT = new PostSubmitTurnRoute(playerLobby);
-
-        playerLobby.addPlayer(pl1);
-        playerLobby.addPlayer(pl2);
-        playerLobby.getGameCenter().newGame(pl1, pl2);
-
-        final Session httpSession = request.session();
-        when(session.attribute("player")).thenReturn(pl1);
-        httpSession.attribute("player", pl1);
-
     }
+
+    /**
+     * Setup mock classes to fill dependencies through
+     * the test seam
+     */
+    @Test
+    public void test1() {
+        Gson gson = new Gson();
+
+        ResponseMessage message = new ResponseMessage();
+        // to back up a move, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("");
+
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        Player p1 = new Player("1");
+        p1.setColor(Player.Color.WHITE);
+        Player p2 = new Player("2");
+        p2.setColor(Player.Color.RED);
+        playerLobby.getGameCenter().newGame(p1,p2);
+        assertNotNull(playerLobby.getGameCenter().getGame(p1));
+        when(request.queryParams("activeColor")).thenReturn("RED");
+        when(session.attribute("player")).thenReturn(p1);
+        playerLobby.getGameCenter().setJustEnded(p1,p2,true);
+
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        // Invoke the test
+        CuT.handle(request, response);
+        assertEquals(gson.toJson(message), CuT.handle(request, response));
+    }
+
+    /**
+     * Setup mock classes to fill dependencies through
+     * the test seam
+     */
+    /*@Test
+    public void test2() {
+        Gson gson = new Gson();
+
+        ResponseMessage message = new ResponseMessage();
+        // to back up a move, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("You can submit a turn in the state you are in.");
+
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        Player p1 = new Player("1");
+        p1.setColor(Player.Color.WHITE);
+        Player p2 = new Player("2");
+        p2.setColor(Player.Color.RED);
+        rows = new ArrayList<>();
+        for(int i = 0; i < 8; i++){
+            rows.add(new Row(i, Piece.COLOR.RED));
+        }
+        playerLobby = new PlayerLobby(new GameCenter());
+        Game game = playerLobby.getGameCenter().newGame(p1, p2);
+        assertNotNull(playerLobby.getGameCenter().getGame(p1));
+        //BoardHandler bh = new BoardHandler(playerLobby.getGameCenter().getGame(p1).getBoard(p1));
+        when(session.attribute("player")).thenReturn(p1);
+        playerLobby.getGameCenter().getGame(p1).getMap().put("activeColor","WHITE");
+        System.out.println(game.getMap());
+
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        // Invoke the test
+        CuT.handle(request, response);
+        assertEquals(gson.toJson(message), CuT.handle(request, response));
+    }*/
 
     @Test
     public void ctor(){
         assertNotNull(CuT.playerLobby);
         assertNotNull(CuT);
     }
-
-//    @Test
-//    public void changeActiveToRed(){
-//        CuT.handle(request, response);
-//        assertEquals("RED", null);
-//    }
-//
-//    @Test
-//    public void changeActiveToWhite(){
-//        CuT.handle(request, response);
-//        assertEquals("WHITE", null);
-//    }
 
     @Test
     public void messageIsInfo(){
