@@ -47,9 +47,7 @@ public class Row implements Iterable{
             if ((this.boardColor.equals(BOARD_COLOR.BLACK)) && (index < 3  || index > 4)) {
                 space.setPiece(new Piece(color, TYPE.SINGLE));
             }
-
             spaces.add(space);
-
         }
     }
     //for p2
