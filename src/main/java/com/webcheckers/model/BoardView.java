@@ -179,22 +179,33 @@ public class BoardView implements Iterable {
     }
 
     /**
-     *
-     * @return
+     * gets the final position of the piece
+     * @return the final position of the piece
      */
     public Position getFinalPos(){
         return this.finalPos;
     }
 
+    /**
+     * resets the original and final positions to null after each turn is submitted
+     */
     public void resetPositions(){
         this.originalPos = null;
         this.finalPos = null;
     }
 
+    /**
+     * changes the boolean for if the last move was a jump or not
+     * @param b true of the last move was a jump, false otherwise
+     */
     public void setLastWasJump(Boolean b){
         this.lastWasJump = b;
     }
 
+    /**
+     * get if the last move was a jump
+     * @return true if the last was a jump and false if it wasn't
+     */
     public Boolean getLastWasJump() {
         return lastWasJump;
     }

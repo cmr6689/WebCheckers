@@ -40,6 +40,8 @@ public class PlayerLobbyTest {
         final PlayerLobby playerLobby = new PlayerLobby(new GameCenter());
         Player player = new Player("name");
         assertTrue(playerLobby.addPlayer(player));
+        Player p2 = new Player(null);
+        assertFalse(playerLobby.addPlayer(p2));
     }
 
     /**
@@ -103,22 +105,25 @@ public class PlayerLobbyTest {
         Player test2 = new Player("Test2");
         Player test3 = new Player("Test3");
         Player test4 = new Player("Test4");
+        Player ai = new Player("AI Player");
         playerLobby.addPlayer(test1);
         playerLobby.addPlayer(test2);
         playerLobby.addPlayer(test3);
         playerLobby.addPlayer(test4);
         gameCenter.newGame(test1,test2);
         ArrayList<Player> arrayList = new ArrayList<>();
+        arrayList.add(ai);
         arrayList.add(test3);
         arrayList.add(test4);
-        //assertEquals(arrayList, playerLobby.getAvaPlayers());
+        assertEquals(arrayList, playerLobby.getAvaPlayers());
         ArrayList<Player> arrayList2 = new ArrayList<>();
         gameCenter.endGame(test1, test2);
+        arrayList2.add(ai);
         arrayList2.add(test1);
         arrayList2.add(test2);
         arrayList2.add(test3);
         arrayList2.add(test4);
-        //assertEquals(arrayList2, playerLobby.getAvaPlayers());
+        assertEquals(arrayList2, playerLobby.getAvaPlayers());
     }
 
     /**
@@ -152,59 +157,5 @@ public class PlayerLobbyTest {
         assertEquals(gameCenter.toString(),playerLobby.getGameCenter().toString());
     }
 
-    /**
-     * Test the setMap method
-     */
-    /*
-    @Test
-    /*
-    public void setMapTest(){
-        GameCenter gameCenter = new GameCenter();
-        final PlayerLobby playerLobby = new PlayerLobby(gameCenter);
-        Map<String, Object> vm = new HashMap<>();
-        playerLobby.setMap(vm);
-        assertEquals(vm, playerLobby.getMap());
-    }
 
-    /**
-     * Test the getMap method
-     */
-    /*
-    @Test
-    public void getMapTest(){
-        GameCenter gameCenter = new GameCenter();
-        final PlayerLobby playerLobby = new PlayerLobby(gameCenter);
-        Map<String, Object> vm = new HashMap<>();
-        playerLobby.setMap(vm);
-        assertEquals(vm, playerLobby.getMap());
-    }
-
-    /**
-     * Test the setTurn method
-     */
-    /*
-    @Test
-    public void setTurnTest(){
-        GameCenter gameCenter = new GameCenter();
-        final PlayerLobby playerLobby = new PlayerLobby(gameCenter);
-        playerLobby.setTurn(true);
-        assertEquals(true, playerLobby.getTurn());
-        playerLobby.setTurn(false);
-        assertEquals(false, playerLobby.getTurn());
-    }
-
-    /**
-     * Test the getTurn method
-     */
-    /*
-    @Test
-    public void getTurnTest(){
-        GameCenter gameCenter = new GameCenter();
-        final PlayerLobby playerLobby = new PlayerLobby(gameCenter);
-        playerLobby.setTurn(true);
-        assertEquals(true, playerLobby.getTurn());
-        playerLobby.setTurn(false);
-        assertEquals(false, playerLobby.getTurn());
-    }
-   */
 }

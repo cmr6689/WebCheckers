@@ -71,15 +71,16 @@ public class GameCenter {
             activeGames.remove(p1);
             setJustEnded(p1, p2, true);
             return true;
-        } else if (activeGames.containsKey(p2)) {
+            /*
+        }else if (activeGames.containsKey(p2)) {
             activeGames.get(p2).setIsActive(false);
             activeGames.get(p2).getPlayer2().setInGame(false);
             activeGames.get(p2).getPlayer1().setInGame(false);
             activeGames.remove(p2);
             setJustEnded(p1, p2, true);
             return true;
-        }
-        else
+        }*/
+        }else
             return false;
     }
 
@@ -114,9 +115,5 @@ public class GameCenter {
      */
     public Boolean gameIsActive(Game name){
         return activeGames.containsValue(name);
-    }
-
-    public void removePlayer(Player player){
-        this.activeGames.remove(player);
     }
 }

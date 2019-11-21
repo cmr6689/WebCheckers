@@ -53,19 +53,14 @@ public class GameCenterTest {
     @Test
     public void test_end_game() {
         final GameCenter CuT = new GameCenter();
-        // Invoke test
         game = CuT.getGame(null);
-        //create players to add to game
         Player test1 = new Player("Test1");
         Player test2 = new Player("Test2");
-        //start game
+        Player test3 = new Player("Test3");
+        Player test4 = new Player("Test4");
         CuT.newGame(test1,test2);
-        //end game
         CuT.endGame(test1, test2);
-
-        // Analyze the results
-        // 2) the game is not Active
-        //assertFalse(CuT.getGame(test1).isActive());
+        assertFalse(CuT.endGame(test3,test4));
     }
 
     /**
