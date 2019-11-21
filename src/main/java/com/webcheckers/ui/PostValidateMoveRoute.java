@@ -25,7 +25,11 @@ public class PostValidateMoveRoute implements Route {
 
     private PlayerLobby playerLobby;
 
+    boolean jumped;
+
     private Piece.TYPE originalType;
+
+    boolean isValid;
 
     private Piece.COLOR originalColor;
 
@@ -65,8 +69,8 @@ public class PostValidateMoveRoute implements Route {
         }
 
         ValidateMove MoveValidator = new ValidateMove(board);
-        boolean isValid = MoveValidator.Validator(thisPiece, move, originalType, originalColor, board.getRemovedPieces());
-        boolean jumped = MoveValidator.getJumped();
+        isValid = MoveValidator.Validator(thisPiece, move, originalType, originalColor, board.getRemovedPieces());
+        jumped = MoveValidator.getJumped();
 
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGameCenter().getGame(myPlayer));
         moveCheck.checkMoves();
@@ -94,7 +98,7 @@ public class PostValidateMoveRoute implements Route {
                 message.setType(ResponseMessage.MessageType.ERROR);
                 message.setText("You must make available jump moves!");
             }
-        } else if (isValid && (!moveCheck.whiteCanJump() || !moveCheck.redCanJump())) {
+        } else if (isValid /*&& (!moveCheck.whiteCanJump() || !moveCheck.redCanJump())*/) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");
             httpSession.attribute("move", move);

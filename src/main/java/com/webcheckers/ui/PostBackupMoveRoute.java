@@ -51,6 +51,8 @@ public class PostBackupMoveRoute implements Route {
         if(board.getMovesThisTurn().size() >= 1) {
             board.resetMovs();
             board.resetPositions();
+            Position start = board.getOriginalPos();
+            Position end = board.getFinalPos();
             board.clearMovesThisTurn();
             board.setLastWasJump(false);
             board.clearRemovedPieces();

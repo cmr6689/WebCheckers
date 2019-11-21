@@ -17,12 +17,13 @@ public class MoveChecks {
 
     private Game game;
     private ArrayList<Position> positions = new ArrayList<>();
+    private ArrayList<Piece> pieces = new ArrayList<>();
     private HashMap<Position, Piece> positionPieceHashMap = new HashMap<>();
 
     private ArrayList<Move> moves = new ArrayList<>();
     private ArrayList<Move> jumps = new ArrayList<>();
 
-   private ValidateMove validateMove;
+    ValidateMove validateMove;
 
     /**
      * Constructor for MoveChecks, requires the Game to get the board
@@ -154,6 +155,7 @@ public class MoveChecks {
         Piece piece;
         moves.clear();
         jumps.clear();
+        pieces.clear();
         positions.clear();
         positionPieceHashMap.clear();
 
@@ -168,6 +170,7 @@ public class MoveChecks {
             for(int j = 0; j < 8; j++){
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece() != null) {
                     piece = this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece();
+                    pieces.add(piece);
                     positionPieceHashMap.put(new Position(i, j), piece);
                 }
                 if(this.game.getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getBoardColor().equals(Space.BOARD_COLOR.BLACK))

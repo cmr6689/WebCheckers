@@ -51,7 +51,7 @@ public class PostSubmitTurnRoute implements Route {
         Piece piece = httpSession.attribute("piece");
         MoveChecks moveCheck = new MoveChecks(playerLobby.getGame(myPlayer));
 
-        ArrayList<Move> moves = moveCheck.getJumpChain(move, piece);
+        /*ArrayList<Move> moves = moveCheck.getJumpChain(move, piece);
         if(!moves.isEmpty()) {
             if (!moves.get(moves.size() - 1).equals(move)) {
                 ResponseMessage message = new ResponseMessage();
@@ -63,7 +63,7 @@ public class PostSubmitTurnRoute implements Route {
                 boardHandler.setBoard();
                 return gson.toJson(message);
             }
-        }
+        }*/
 
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {
