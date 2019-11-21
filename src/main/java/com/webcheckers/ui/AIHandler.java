@@ -11,6 +11,7 @@ public class AIHandler {
     private Player myPlayer;
     private boolean done = false;
     private boolean jumped = false;
+    private ArrayList<Move> jumpChain;
 
     /**
      * Handler for the AI enhancement
@@ -45,7 +46,7 @@ public class AIHandler {
                                     position).size() > 0) {
                                 Move jump = moveCheck.checkSinglePieceJumps(playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece(),
                                         position).get(0);
-                                ArrayList<Move> jumpChain = moveCheck.getJumpChain(jump, playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece());
+                                jumpChain = moveCheck.getJumpChain(jump, playerLobby.getGame(myPlayer).getBoardView1().getRowAtIndex(i).getSpaceAtIndex(j).getPiece());
                                 if (!jumpChain.isEmpty()) {
 
                                     Position pieceRemoved = new Position((jump.getStart().getRow() + jump.getEnd().getRow()) / 2,
@@ -98,8 +99,21 @@ public class AIHandler {
                     }
                 }
             }
-        }else{
-            System.out.println("No endy");
         }
+    }
+    public boolean getDone(){
+        return this.done;
+    }
+
+    public boolean getJumps(){
+        return this.jumped;
+    }
+
+    public void setJumpChain(ArrayList<Move> jumpChain){
+        this.jumpChain = jumpChain;
+    }
+
+    public ArrayList<Move> getJumpChain(){
+        return this.jumpChain;
     }
 }

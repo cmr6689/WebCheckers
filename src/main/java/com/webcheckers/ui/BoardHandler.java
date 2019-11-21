@@ -10,6 +10,7 @@ public class BoardHandler {
 
     private BoardView board;
     ArrayList<Position> removedPs = new ArrayList<>();
+    private Piece thisPiece;
 
     /**
      * Handles the board for submitting turns and moving pieces
@@ -55,7 +56,7 @@ public class BoardHandler {
         board.setOriginalPos(start);
         board.setFinalPos(end);
         removedPs = board.getRemovedPieces();
-        Piece thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
+        thisPiece = board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).getPiece();
         board.getRowAtIndex(start.getRow()).getSpaceAtIndex(start.getCell()).removePiece();
         if(((board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(0)) && thisPiece.getColor().equals(Piece.COLOR.RED)) ||
                 (board.getRowAtIndex(end.getRow()).equals(board.getRowAtIndex(7)) && thisPiece.getColor().equals(Piece.COLOR.WHITE))) &&
@@ -75,6 +76,10 @@ public class BoardHandler {
         board.clearMovesThisTurn();
         board.clearRemovedPieces();
         board.resetMovs();
+    }
+
+    public void setThisPiece(Piece thisPiece){
+        this.thisPiece = thisPiece;
     }
 
 }
