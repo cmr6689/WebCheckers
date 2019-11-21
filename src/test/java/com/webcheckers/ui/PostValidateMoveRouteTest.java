@@ -27,10 +27,10 @@ public class PostValidateMoveRouteTest {
      * Component under test (CuT)
      */
     private PostValidateMoveRoute CuT;
-    private PlayerLobby playerLobby;
     private Session session;
     private Request request;
     private Response response;
+    private PlayerLobby playerLobby;
 
     /**
      * Setup mock classes to fill dependencies through
@@ -42,7 +42,7 @@ public class PostValidateMoveRouteTest {
         response = mock(Response.class);
         session = mock(Session.class);
         when(request.session()).thenReturn(session);
-        playerLobby = new PlayerLobby(new GameCenter());
+        this.playerLobby = new PlayerLobby(new GameCenter());
         CuT = new PostValidateMoveRoute(playerLobby);
     }
 
@@ -79,4 +79,28 @@ public class PostValidateMoveRouteTest {
         assertEquals(gson.toJson(message), CuT.handle(request, response));
 
     }
+
+    /**
+     * Test the handle method by giving a valid move
+     */
+    /*@Test
+    public void testValidMove1() {
+        Position start = new Position(6,1);
+        Position end = new Position(5, 2);
+        Move move = new Move(start, end);
+        Piece piece = new Piece(Piece.COLOR.RED, Piece.TYPE.SINGLE);
+
+        Gson gson = new Gson();
+
+        ResponseMessage message = new ResponseMessage();
+        message.setType(ResponseMessage.MessageType.INFO);
+
+        when(session.attribute("player")).thenReturn(new Player("Player"));
+        playerLobby.getGameCenter().newGame(new Player("Player"), new Player("OPP"));
+        playerLobby.getGame(new Player("Player")).getBoardView1().setMoveThisTurn(move);
+        CuT.handle(request, response);
+
+        assertEquals(gson.toJson(message), CuT.handle(request, response));
+
+    }*/
 }

@@ -83,21 +83,62 @@ public class PostCheckTurnRouteTest {
      */
     @Test
     public void isNotMyTurn() {
-        //Arrange scenario
+        Gson gson = new Gson();
+
+        ResponseMessage message = new ResponseMessage();
+        // to back up a move, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("true");
+
         final TemplateEngineTester testHelper = new TemplateEngineTester();
-        //Add a player to a new empty lobby
-        when(request.queryParams("gameID")).thenReturn("Game");
-        when(session.attribute("player")).thenReturn(new Player("Player"));
-        Player fakeOpp = new Player("Opp");
-        when(request.queryParams("opponent")).thenReturn("Opp");
+        Player p1 = new Player("1");
+        Player AI = new Player("AI");
+        AI.setAI();
+        playerLobby.getGameCenter().newGame(p1,AI);
+        assertNotNull(playerLobby.getGameCenter().getGame(p1));
+        //when(request.queryParams("gameID")).thenReturn("Game");
+        when(session.attribute("player")).thenReturn(p1);
+        //playerLobby.getGameCenter().setJustEnded(p1,AI,true);
 
         ResponseMessage message1 = new ResponseMessage();
         message1.setType(ResponseMessage.MessageType.INFO);
         message1.setText("false");
-        Gson gson = new Gson();
 
         when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
         // Invoke the test
-        assertEquals(gson.toJson(message1), CuT.handle(request, response));
+        CuT.handle(request, response);
+        assertEquals(gson.toJson(message), CuT.handle(request, response));
+    }
+
+    /**
+     * Check if it is not the players turn
+     */
+    @Test
+    public void lastTest() {
+        Gson gson = new Gson();
+
+        ResponseMessage message = new ResponseMessage();
+        // to back up a move, replace message type of ERROR with INFO
+        message.setType(ResponseMessage.MessageType.INFO);
+        message.setText("true");
+
+        final TemplateEngineTester testHelper = new TemplateEngineTester();
+        Player p1 = new Player("1");
+        Player AI = new Player("AI");
+        AI.setAI();
+        playerLobby.getGameCenter().newGame(p1,AI);
+        assertNotNull(playerLobby.getGameCenter().getGame(p1));
+        //when(request.queryParams("gameID")).thenReturn("Game");
+        when(session.attribute("player")).thenReturn(p1);
+        playerLobby.getGameCenter().setJustEnded(p1,AI,true);
+
+        ResponseMessage message1 = new ResponseMessage();
+        message1.setType(ResponseMessage.MessageType.INFO);
+        message1.setText("false");
+
+        when(templateEngine.render(any(ModelAndView.class))).thenAnswer(testHelper.makeAnswer());
+        // Invoke the test
+        CuT.handle(request, response);
+        assertEquals(gson.toJson(message), CuT.handle(request, response));
     }
 }
