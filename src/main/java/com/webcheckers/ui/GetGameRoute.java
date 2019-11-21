@@ -113,6 +113,11 @@ public class GetGameRoute implements Route {
             if (lobby.getGameCenter().getGame(myPlayer).getMap().get("modeOptionsAsJSON") != null) {
                 //allow other player to remove the game
                 lobby.getGameCenter().setJustEnded(lobby.getGame(myPlayer).getPlayer1(), lobby.getGame(myPlayer).getPlayer2(), true);
+                if(lobby.getGameCenter().getGame(myPlayer).getPlayer2().getAI()){
+                    Map<String, Object> map = lobby.getGameCenter().getGame(myPlayer).getMap();
+                    lobby.getGameCenter().endGame(myPlayer, lobby.getGameCenter().getGame(myPlayer).getPlayer2());
+                    return templateEngine.render(new ModelAndView(map, "game.ftl"));
+                }
                 return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
             }
             return templateEngine.render(new ModelAndView(lobby.getGameCenter().getGame(myPlayer).getMap(), "game.ftl"));
