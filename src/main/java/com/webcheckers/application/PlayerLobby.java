@@ -4,8 +4,6 @@ import com.webcheckers.model.Game;
 import com.webcheckers.model.Player;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -58,7 +56,6 @@ public class PlayerLobby {
                 return false;
             }
         }
-
         for (Player player : players) {
             if (player.getName().toLowerCase().equals(newPlayer.getName().toLowerCase())) {
                 setInvalidName(true);
@@ -104,7 +101,6 @@ public class PlayerLobby {
             if(!player.getInGame())
                 tmp.add(player);
         }
-
         return tmp;
     }
 

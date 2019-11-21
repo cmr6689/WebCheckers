@@ -30,11 +30,22 @@ public class GameCenter {
         justEnded = new HashMap<>();
     }
 
+    /**
+     * look to see if a game has ended or not
+     * @param p1 the player that was in the game
+     * @return true if it had just ended, else otherwise
+     */
     public boolean justEnded(Player p1) {
         if (justEnded.containsKey(p1)) return justEnded.get(p1);
         else return false;
     }
 
+    /**
+     * adds players to the map when a game ends
+     * @param p1 player 1
+     * @param p2 player 2
+     * @param ended if the game had ended or not
+     */
     public void setJustEnded(Player p1, Player p2, boolean ended) {
         justEnded.put(p1, ended);
         justEnded.put(p2, ended);
@@ -71,15 +82,6 @@ public class GameCenter {
             activeGames.remove(p1);
             setJustEnded(p1, p2, true);
             return true;
-            /*
-        }else if (activeGames.containsKey(p2)) {
-            activeGames.get(p2).setIsActive(false);
-            activeGames.get(p2).getPlayer2().setInGame(false);
-            activeGames.get(p2).getPlayer1().setInGame(false);
-            activeGames.remove(p2);
-            setJustEnded(p1, p2, true);
-            return true;
-        }*/
         }else
             return false;
     }
