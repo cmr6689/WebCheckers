@@ -1,6 +1,4 @@
 package com.webcheckers.model;
-import com.webcheckers.model.Piece.TYPE;
-import com.webcheckers.model.Piece.COLOR;
 
 /**
  * A row will be made of 8 objects of this class
@@ -9,7 +7,6 @@ import com.webcheckers.model.Piece.COLOR;
  * @author Team-E
  */
 public class Space {
-
     //enum to represent the color of the space
     public enum BOARD_COLOR{
         BLACK,WHITE;
@@ -17,10 +14,8 @@ public class Space {
 
     //the cell index from 0 to 7
     private int cellIdx;
-
     //the position this space is at
     private Position position;
-
     //the piece on this space
     private Piece piece;
     //the color of the space
@@ -39,11 +34,11 @@ public class Space {
     }
 
     /**
-     * Second Contstructor for...
-     * @param piece
-     * @param cellIDx
-     * @param color
-     * @param position
+     * Second Constructor for Space
+     * @param piece the piece on the space
+     * @param cellIDx the index of the space
+     * @param color the color of the space
+     * @param position the position of the space
      */
     public Space(Piece piece, int cellIDx, BOARD_COLOR color, Position position){
         this(piece, cellIDx, color);
@@ -108,6 +103,7 @@ public class Space {
 
     /**
      * prints out the piece, it's cellIdx, and it's color
+     * @return the piece on the space, the space's index, and the color of the space
      */
     @Override
     public String toString(){

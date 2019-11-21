@@ -15,24 +15,20 @@ import java.util.Objects;
  * @author Team-E
  */
 public class Game {
-
     //Player 1 of the game
     private Player player1;
-
     //Player 2 of the game
     private Player player2;
-
     //Respective boards view for each player
     private BoardView boardView1;
     private BoardView boardView2;
-
     //if the game is active
     private Boolean active = true;
-
+    //the vm for this game
     private Map<String, Object> map;
-
+    //the list of rows need to make a board
     private ArrayList<Row> rows = new ArrayList<>(7);
-
+    //the current color of the pieces
     Piece.COLOR currentColor;
 
     /**
@@ -54,6 +50,9 @@ public class Game {
         this.map = new HashMap<>();
     }
 
+    /**
+     * makes a board
+     */
     public void makeBoard(){
         for (int i = 0; i < 8; i++) {
             //create a new space
@@ -71,6 +70,9 @@ public class Game {
         }
     }
 
+    /**
+     * check to see if the game is over
+     */
     public void checkGameOver() {
         boolean redWins = true;
         boolean whiteWins = true;
@@ -140,6 +142,11 @@ public class Game {
         }
     }
 
+    /**
+     * gets the player color
+     * @param player the player who's color is being found
+     * @return the color of the player
+     */
     public Player.Color getPlayerColor(Player player) {
         if (player == player1) {
             return player1.getColor();
@@ -148,6 +155,10 @@ public class Game {
         }
     }
 
+    /**
+     * check that no rows are null
+     * @return null if they are
+     */
     public Object checkNonNullRows() {
         if (getBoardView1().getRows().size() == 8 && getBoardView1().getRows().get(7) != null) return getBoardView1().getRows().get(7);
         else if (getBoardView1().getRows().size() == 7 && getBoardView1().getRows().get(6) != null) return getBoardView1().getRows().get(6);
@@ -268,11 +279,17 @@ public class Game {
         player2 = null;
     }
 
+    /**
+     * resets player 1
+     */
     public void removePlayer1() {
         if (player1 != null)
             player1 = null;
     }
 
+    /**
+     * resets player 2
+     */
     public void removePlayer2() {
         if (player2 != null)
             player2 = null;
@@ -299,6 +316,11 @@ public class Game {
         return player1.getName() + " vs " + player2.getName();
     }
 
+    /**
+     * check to see if two games are equak
+     * @param o the other object being compared
+     * @return true if they are the same, false otherwise
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -308,6 +330,10 @@ public class Game {
                 Objects.equals(player2, game.player2);
     }
 
+    /**
+     * hashcode for this object
+     * @return hashcode for this game
+     */
     @Override
     public int hashCode() {
         return Objects.hash(player1, player2);

@@ -1,7 +1,5 @@
 package com.webcheckers.model;
 
-import com.webcheckers.model.Piece.COLOR;
-
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -14,19 +12,22 @@ import java.util.Iterator;
 public class BoardView implements Iterable {
     //create a new ArrayList of Rows
     private ArrayList<Row> rows;
-    //the current color
-    int i;
+    //the number of moves a turn
     int numMovs;
+    //A list of pieces jumped to be removed
     ArrayList<Position> removedPieces = new ArrayList<>();
+    //a list of all moves made this turn
     ArrayList<Move> movesThisTurn = new ArrayList<>();
+    //the original starting position this turn
     Position originalPos;
+    //the final ending position this turn
     Position finalPos;
+    //if the last move was a jump
     Boolean lastWasJump = false;
 
     /**
      * Constructor for the board view that creates the orientation
      * of the board based on the color that the player is
-     *
      */
     public BoardView(ArrayList<Row> rows, Player player) {
         if(player.getColor().equals(Player.Color.RED)) {
@@ -50,10 +51,8 @@ public class BoardView implements Iterable {
         }
     }
 
-
     /**
      * Class needed in order for the iterator to work
-     *
      * @return the iterator of the spaces
      */
     public Iterator<Row> iterator() {
@@ -62,7 +61,6 @@ public class BoardView implements Iterable {
 
     /**
      * getter for the array list of rows created
-     *
      * @return the list of rows
      */
     public ArrayList<Row> getRows() {
@@ -77,22 +75,21 @@ public class BoardView implements Iterable {
 
     /**
      * get the number of movs this turn
-     * @return
+     * @return the number of moves this turn
      */
     public int getNumMovs(){
         return this.numMovs;
     }
 
     /**
-     * increase the number of movs
-     * @return
+     * increment the number of moves this turn
      */
     public void increaseNumMovs(){
         this.numMovs++;
     }
 
     /**
-     * set the number of movs this turn to 0
+     * set the number of moves this turn to 0
      */
     public void resetMovs(){
         this.numMovs = 0;
@@ -100,7 +97,6 @@ public class BoardView implements Iterable {
 
     /**
      * Method to retrieve a specific row from the list of rows
-     *
      * @param index the row number
      * @return the row
      */
@@ -116,7 +112,7 @@ public class BoardView implements Iterable {
     }
 
     /**
-     * Get's the arrayList of pieces to be removed
+     * Gets the arrayList of pieces to be removed
      * @return the arrayList of positions of the pieces to be removed
      */
     public ArrayList<Position> getRemovedPieces(){
@@ -125,7 +121,7 @@ public class BoardView implements Iterable {
 
     /**
      * add a piece to be removed
-     * @param p : the position of the piece being removed
+     * @param p the position of the piece being removed
      */
     public void setRemovedPiece(Position p){
         removedPieces.add(p);
@@ -139,7 +135,7 @@ public class BoardView implements Iterable {
     }
 
     /**
-     * Get's the list of moves this turn
+     * Gets the list of moves this turn
      * @return an array list of moves this turn
      */
     public ArrayList<Move> getMovesThisTurn(){
