@@ -13,12 +13,13 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author <a href='mailto:bdbvse@rit.edu'>Evan Price</a>
  */
-@Tag("Aplication-tier")
+@Tag("Application-tier")
 public class GameCenterTest {
 
     private Player test1;
     private Player test2;
     private Game game;
+
     /**
      * Test the ability to make a new Game.
      */
@@ -30,13 +31,11 @@ public class GameCenterTest {
         // Analyze the results
         // 1) the returned game is not real
         assertNull(game);
-
         //create players to add to the game
         Player test1 = new Player("Test1");
         Player test2 = new Player("Test2");
         //create a new game
         CuT.newGame(test1,test2);
-
         // Analyze the results
         // 1) the returned game is real
         assertNotNull(CuT.getGame(test1));
@@ -44,8 +43,6 @@ public class GameCenterTest {
         assertTrue(CuT.getGame(test1).isActive());
 
     }
-
-
 
     /**
      * Test the ability to end a Game.
@@ -70,13 +67,11 @@ public class GameCenterTest {
     public void test_active_games_list() {
         final GameCenter CuT = new GameCenter();
         // Invoke test
-
         //create players to add to the game
         test1 = new Player("Test1");
         test2 = new Player("Test2");
         //create the game
         CuT.newGame(test1,test2);
-
         // Analyze the results
         // 1) the returned game is real
         assertNotNull(CuT.getGame(test1));
@@ -84,7 +79,6 @@ public class GameCenterTest {
         assertTrue(CuT.getGame(test1).isActive());
         //3) the game is in the arrayList for active games
         assertTrue(CuT.gameIsActive(CuT.getGame(test1)));
-
         assertEquals(CuT.getGame(test1), CuT.getGame(test2));
         assertEquals(CuT.getActiveGame(test1), CuT.getActiveGame(test2));
     }
@@ -105,7 +99,7 @@ public class GameCenterTest {
         //check that the game has started
         assertTrue(CuT.getGame(test1).isActive());
         //end the game
-        assertNotNull(CuT.endGame(test1,test2));
+        assertTrue(CuT.endGame(test1,test2));
         // Analyze the results
         // 1) the returned game is not real
         assertNull(CuT.getActiveGame(test1));

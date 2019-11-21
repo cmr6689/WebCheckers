@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 @Tag("Application-tier")
 public class PlayerLobbyTest {
+
     /**
      * Test the constructor
      */
@@ -91,7 +92,6 @@ public class PlayerLobbyTest {
         ArrayList<Player> arrayList = new ArrayList<>();
         arrayList.add(new Player("name1"));
         arrayList.add(new Player("name2"));
-        //assertEquals(playerLobby.getPlayers(), arrayList);
     }
 
     /**
@@ -156,6 +156,4 @@ public class PlayerLobbyTest {
         gameCenter.newGame(test1,test2);
         assertEquals(gameCenter.toString(),playerLobby.getGameCenter().toString());
     }
-
-
 }
