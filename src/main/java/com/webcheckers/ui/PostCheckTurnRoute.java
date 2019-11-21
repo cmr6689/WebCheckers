@@ -60,6 +60,8 @@ public class PostCheckTurnRoute implements Route {
             message2.setText("true");
             return gson.toJson(message2);
 
+            //put the map into a tempery map and make that the map to use as the map
+
             //game is no longer active
         }else if (playerLobby.getGameCenter().getGame(myPlayer) == null || !playerLobby.getGameCenter().getGame(myPlayer).isActive()) {
             ResponseMessage message1 = new ResponseMessage();

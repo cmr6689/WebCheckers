@@ -6,6 +6,7 @@ import com.webcheckers.model.*;
 import com.webcheckers.util.Message;
 import spark.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -91,6 +92,13 @@ public class PostValidateMoveRoute implements Route {
             message = new ResponseMessage();
             message.setType(ResponseMessage.MessageType.ERROR);
             message.setText("You must make available jump moves!");
+        } else if (moveCheck.getJumpChain(move, board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece()).contains(move)){
+            ArrayList<Move> moves = moveCheck.getJumpChain(move, board.getRowAtIndex(thisRow).getSpaceAtIndex(thisCell).getPiece());
+            if(!moves.get(moves.size() - 1).equals(move)){
+                message = new ResponseMessage();
+                message.setType(ResponseMessage.MessageType.ERROR);
+                message.setText("You must make available jump moves!");
+            }
         } else if (isValid && (!moveCheck.whiteCanJump() || !moveCheck.redCanJump())) {
             message.setType(ResponseMessage.MessageType.INFO);
             message.setText("Your move is valid");

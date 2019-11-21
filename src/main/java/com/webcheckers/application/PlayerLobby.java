@@ -53,6 +53,10 @@ public class PlayerLobby {
                 setInvalidName(true);
                 return false;
             }
+            if(newPlayer.getName().length() > 100) {
+                setInvalidName(true);
+                return false;
+            }
         }
 
         for (Player player : players) {

@@ -22,7 +22,7 @@ public class GetSignInRoute implements Route {
   private static final Logger LOG = Logger.getLogger(GetSignInRoute.class.getName());
 
   static final Message WELCOME_MSG = Message.info("Please Sign-in with a valid user ID");
-  static final Message INVALID_NAME = Message.error("The name you have chosen is already taken or contains non-alphanumeric");
+  static final Message INVALID_NAME = Message.error("The name you have chosen is already taken or contains non-alphanumeric or is above 100 characters");
 
   final TemplateEngine templateEngine;
 
