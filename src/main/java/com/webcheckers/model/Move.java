@@ -7,8 +7,6 @@ package com.webcheckers.model;
  * @author Team-E
  */
 public class Move {
-
-    //attributes for a move
     //the starting position of the move
     private Position start;
     //the position of the destination

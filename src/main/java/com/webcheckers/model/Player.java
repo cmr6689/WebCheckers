@@ -1,9 +1,3 @@
-/**
- * Player entity that can hold a unique player name
- *
- * @author Matthew Klein
- */
-
 package com.webcheckers.model;
 
 /**
@@ -13,13 +7,13 @@ package com.webcheckers.model;
  * @author Team-E
  */
 public class Player {
-
     /**
      * The players color can either be red or white
      */
     public enum Color{
         RED,WHITE;
     }
+
     //the name of the player
     private String name;
     //whether they are in a game or not
@@ -126,6 +120,7 @@ public class Player {
     }
 
     /**
+     * Prints the name and color of the player
      * @return the name and color of the player
      */
     @Override

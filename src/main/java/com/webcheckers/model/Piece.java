@@ -1,5 +1,4 @@
 package com.webcheckers.model;
-import com.webcheckers.model.Space.BOARD_COLOR;
 
 /**
  * The Piece class handles each piece on the board's color, and type
@@ -88,6 +87,10 @@ public class Piece {
         return ((this.type.equals(that.type)) && (this.color.equals(that.color)));
     }
 
+    /**
+     * toString method to define the piece
+     * @return the piece's type and color
+     */
     @Override
     public String toString(){
         return "This piece is a " + getType() + " and has color " + getColor();

@@ -7,10 +7,6 @@ package com.webcheckers.model;
  * @author Team-E
  */
 public class Position {
-
-    //attributes need for a position
-    //the BoardView
-    private BoardView board;
     //the int representation of the row
     private int row;
     //the int representation of the cell(space)
@@ -73,7 +69,7 @@ public class Position {
 
     /**
      * prints this positions cell and row
-     * @return
+     * @return the positions row and cell
      */
     @Override
     public String toString(){

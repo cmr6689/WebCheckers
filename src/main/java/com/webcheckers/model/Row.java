@@ -1,25 +1,22 @@
 package com.webcheckers.model;
+
 import com.webcheckers.model.Piece.TYPE;
 import com.webcheckers.model.Piece.COLOR;
 import com.webcheckers.model.Space.BOARD_COLOR;
-
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.List;
 
 /**
  * The Row class handles the rows of the game board by keeping track
  * of the spaces in each spot and the color of each space
+ *
+ * @author Team E
  */
 public class Row implements Iterable{
-
     //integer from 0 to 7 indicating the space in the row
     private int index;
     //the color of the space
     private BOARD_COLOR boardColor;
-
     //creates an array list to hold all the spaces in this row
     private ArrayList<Space> spaces = new ArrayList<Space>();
 
