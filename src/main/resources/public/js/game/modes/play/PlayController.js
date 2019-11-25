@@ -215,7 +215,7 @@ define(function(require){
     if (LangUtils.exists(gameID)) {
       gameViewURL = `/game?gameID=${gameID}`;
     }
-    window.location = gameViewURL;
+    window.location.reload(false);
   };
 
   PlayController.prototype.isTurnActive = function isTurnActive() {
