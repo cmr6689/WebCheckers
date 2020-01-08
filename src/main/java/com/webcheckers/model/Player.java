@@ -24,7 +24,7 @@ public class Player {
     private Color playerColor;
     //AI Player
     private boolean AI = false;
-
+    //Players game stats
     private GameStats gameStats;
 
     /**
@@ -38,6 +38,10 @@ public class Player {
         this.gameStats = new GameStats(this.name);
     }
 
+    /**
+     * A getter for the players game stats
+     * @return - the game stats
+     */
     public GameStats getGameStats() {
         return this.gameStats;
     }
