@@ -70,6 +70,10 @@ public class PostSignInRoute implements Route {
     // display a user message in the Home page
     vm.put("message", WELCOME_MSG);
     vm.put("currentUser", request.queryParams("id"));
+    vm.put("gamesPlayed", player.getGameStats().getGamesPlayed());
+    vm.put("gamesWon", player.getGameStats().getGamesWon());
+    vm.put("gamesLost", player.getGameStats().getGamesLost());
+    vm.put("winPct", player.getGameStats().getWinPct());
 
     if (playerLobby.getPlayers().size() > 1) {
       playerNames = new ArrayList<>();

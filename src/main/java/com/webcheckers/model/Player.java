@@ -38,7 +38,7 @@ public class Player {
         this.gameStats = new GameStats(this.name);
     }
 
-    public GameStats getGameStates() {
+    public GameStats getGameStats() {
         return this.gameStats;
     }
 

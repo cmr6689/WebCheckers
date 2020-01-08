@@ -24,32 +24,36 @@ public class GameStats {
         this.player = player;
     }
 
-    public int getGamesPlayed() {
-        return gamesPlayed;
+    public String getGamesPlayed() {
+        return String.valueOf(gamesPlayed);
     }
 
     public void addGamesPlayed(int gamesPlayed) {
         this.gamesPlayed++;
     }
 
-    public int getGamesWon() {
-        return gamesWon;
+    public String getGamesWon() {
+        return String.valueOf(gamesWon);
     }
 
     public void addGamesWon(int gamesWon) {
         this.gamesWon++;
     }
 
-    public int getGamesLost() {
-        return gamesLost;
+    public String getGamesLost() {
+        return String.valueOf(gamesLost);
     }
 
     public void addGamesLost(int gamesLost) {
         this.gamesLost++;
     }
 
-    public double getWinPct() {
-        winPct = (gamesWon/gamesLost)*100;
-        return winPct;
+    public String getWinPct() {
+        if (gamesPlayed >= 1) {
+            winPct = (gamesWon / gamesPlayed) * 100;
+            return winPct + "%";
+        } else {
+            return "0%";
+        }
     }
 }

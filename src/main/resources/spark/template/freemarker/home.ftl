@@ -32,6 +32,12 @@
                         <#elseif currentUser.name != player>
                             <li><form method="get" action="/game" target="_self">
                                 <input type="submit" name="opponent" value=${player}></form>
+                            <ul>
+                                <li>Games Played: ${gamesPlayed}</li>
+                                <li>Games Won: ${gamesWon}</li>
+                                <li>Games Lost: ${gamesLost}</li>
+                                <li>Win Percentage: ${winPct}</li>
+                            </ul>
                         </#if>
                     </#list>
                 </ul>
