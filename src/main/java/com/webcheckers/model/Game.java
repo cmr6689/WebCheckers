@@ -121,24 +121,40 @@ public class Game {
             //set mode options
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "RED");
+            player1.getGameStats().addGamesPlayed(1);
+            player2.getGameStats().addGamesPlayed(1);
+            player1.getGameStats().addGamesWon(1);
+            player2.getGameStats().addGamesLost(1);
         } else if (whiteWins) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has captured all the pieces.");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "WHITE");
+            player2.getGameStats().addGamesPlayed(1);
+            player1.getGameStats().addGamesPlayed(1);
+            player2.getGameStats().addGamesWon(1);
+            player1.getGameStats().addGamesLost(1);
         } else if (!redJumpsAvailable && !redMovesAvailable) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player1.getName() + " has no available moves. " + player2.getName() + " is the winner!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "WHITE");
+            player2.getGameStats().addGamesPlayed(1);
+            player1.getGameStats().addGamesPlayed(1);
+            player2.getGameStats().addGamesWon(1);
+            player1.getGameStats().addGamesLost(1);
         } else if (!whiteJumpsAvailable && !whiteMovesAvailable) {
             modeOptions.put("isGameOver", true);
             modeOptions.put("gameOverMessage", player2.getName() + " has no available moves. " + player1.getName() + " is the winner!");
             //set mode option
             this.map.put("modeOptionsAsJSON", gson.toJson(modeOptions));
             this.map.put("activeColor", "RED");
+            player1.getGameStats().addGamesPlayed(1);
+            player2.getGameStats().addGamesPlayed(1);
+            player1.getGameStats().addGamesWon(1);
+            player2.getGameStats().addGamesLost(1);
         }
     }
 

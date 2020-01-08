@@ -32,7 +32,7 @@ public class PlayerLobby {
         AI.setAI();
         addPlayer(AI);
     }
-
+   
     /**
      * Method to add a player to the lobby that has signed into the server
      * @param newPlayer a player who has just signed in

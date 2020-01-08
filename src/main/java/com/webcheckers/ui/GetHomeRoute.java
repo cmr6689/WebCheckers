@@ -73,14 +73,20 @@ public class GetHomeRoute implements Route {
     Map<String, Object> vm = new HashMap<>();
     vm.put("title", "Welcome!");
 
+
     // display a user message in the Home page
     if(httpSession.attribute("message") == null)
       vm.put("message", WELCOME_MSG);
     else
       vm.put("message", httpSession.attribute("message"));
 
-    if(player != null)
+    if(player != null) {
       vm.put("currentUser", player.getName());
+      vm.put("gamesPlayed", player.getGameStats().getGamesPlayed());
+      vm.put("gamesWon", player.getGameStats().getGamesWon());
+      vm.put("gamesLost", player.getGameStats().getGamesLost());
+      vm.put("winPct", player.getGameStats().getWinPct());
+    }
 
     //update the player list to be displayed
     if (playerLobby.getPlayers().size() >= 1) {

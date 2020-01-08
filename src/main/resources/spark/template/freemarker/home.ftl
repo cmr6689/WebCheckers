@@ -23,6 +23,13 @@
 
 
     <#if currentUser??>
+        <h2>Game Stats</h2>
+            <ul>
+                <li>Games Played: ${gamesPlayed}</li>
+                <li>Games Won: ${gamesWon}</li>
+                <li>Games Lost: ${gamesLost}</li>
+                <li>Win Percentage: ${winPct}</li>
+            </ul>
         <h2>Players Online</h2>
         <#if playerList??>
             <#if (playerList?size > 2)>
