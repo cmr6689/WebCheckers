@@ -1,5 +1,7 @@
 package com.webcheckers.model;
 
+import com.webcheckers.application.GameStats;
+
 /**
  * The player class handles the color of the player, the name, and
  * whether they are in a game or not.
@@ -23,6 +25,8 @@ public class Player {
     //AI Player
     private boolean AI = false;
 
+    private GameStats gameStats;
+
     /**
      * The constructor for the player class that sets the name and the color to null since they are
      * not in a game yet when they sign in
@@ -31,6 +35,11 @@ public class Player {
     public Player(String name){
         this.name = name;
         this.playerColor = null;
+        this.gameStats = new GameStats(this.name);
+    }
+
+    public GameStats getGameStates() {
+        return this.gameStats;
     }
 
     /**
