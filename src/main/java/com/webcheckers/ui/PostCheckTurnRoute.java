@@ -47,6 +47,10 @@ public class PostCheckTurnRoute implements Route {
         if(playerLobby.getGameCenter().getGame(myPlayer) != null && playerLobby.getGameCenter().getGame(myPlayer).getPlayer2().getAI()){
             new AIHandler(playerLobby, myPlayer).AIMove();
             playerLobby.getGameCenter().getGame(myPlayer).getMap().put("activeColor", "RED");
+            if (playerLobby.getGameCenter().justEnded(myPlayer)) {
+                myPlayer.getGameStats().addGamesLost(1);
+                myPlayer.getGameStats().addGamesPlayed(1);
+            }
         }
         //for the player that needs to refresh when the game has ended
         if (playerLobby.getGameCenter().justEnded(myPlayer)) {

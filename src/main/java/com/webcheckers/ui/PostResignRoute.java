@@ -57,6 +57,15 @@ public class PostResignRoute implements Route {
         vm.put("isGameOver", true);
         vm.put("gameOverMessage", p1.getName() + " has resigned from the game. You are the winner!");
         playerLobby.getGameCenter().getGame(p1).getMap().put("modeOptionsAsJSON", new Gson().toJson(vm));
+        playerLobby.getGameCenter().getGame(p1).getPlayer1().getGameStats().addGamesPlayed(1);
+        playerLobby.getGameCenter().getGame(p1).getPlayer2().getGameStats().addGamesPlayed(1);
+        if (playerLobby.getGameCenter().getGame(p1).getPlayer1().equals(p1)) {
+            p1.getGameStats().addGamesLost(1);
+            playerLobby.getGameCenter().getGame(p1).getPlayer2().getGameStats().addGamesWon(1);
+        } else {
+            p1.getGameStats().addGamesWon(1);
+            playerLobby.getGameCenter().getGame(p1).getPlayer2().getGameStats().addGamesLost(1);
+        }
 
         //if resigning against AI just end the game
         if (playerLobby.getGameCenter().getGame(p1).getPlayer2().getName().equals("AI Player")) {

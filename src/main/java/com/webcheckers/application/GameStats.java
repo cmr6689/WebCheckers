@@ -50,7 +50,7 @@ public class GameStats {
 
     public String getWinPct() {
         if (gamesPlayed >= 1) {
-            winPct = (gamesWon / gamesPlayed) * 100;
+            winPct = (gamesWon * 100) / gamesPlayed;
             return winPct + "%";
         } else {
             return "0%";
